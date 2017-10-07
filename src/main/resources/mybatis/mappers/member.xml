@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<select id="countMember" parameterType="string" resultType="int">
+		SELECT COUNT(uid)
+			FROM cc_member
+		   WHERE email = #{email}			   	
+	</select>
+	
+	<select id="countNick" parameterType="string" resultType="int">
+		SELECT COUNT(uid)
+			FROM cc_member
+		   WHERE nick = #{nick}			   	
+	</select>
+	
+	<insert id="insertMember" parameterType="memberVO">
+		INSERT INTO cc_member
+			(uid, email, nick, password, create_dt, created_by)
+		VALUES
+			(#{uid}, #{email}, #{nick}, #{password}, NOW(), #{createdBy})
+	</insert>
+	
+	<select id="selectMember" parameterType="string" resultMap="memberDetail">
+		SELECT m.uid, nick, email, password, d.avatar
+			FROM cc_member m LEFT JOIN cc_member_detail d
+				ON m.uid = d.uid
+			WHERE email = #{email}
+	</select>
+	
+	<resultMap id="memberDetail" type="memberVO">
+		<result property="uid" column="uid"/>
+		<result property="password" column="password"/>
+		<result property="email" column="email"/>
+		<association property="detail" javaType="memberDetailVO">
+			<result property="name" column="name"/>
+			<result property="phone" column="phone"/>
+			<result property="info" column="info"/>
+			<result property="avatar" column="avatar"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectMemberDetail" parameterType="String" resultMap="memberDetail">
+		SELECT email, nick, phone, IFNULL (info, 'N') info , avatar
+			FROM cc_member m LEFT JOIN cc_member_detail d
+ 				ON m.uid = d.uid
+			WHERE m.uid = #{uid}
+	</select>
+	
+	<insert id="insertMemberDetail" parameterType="memberVO">
+		INSERT INTO cc_member_detail
+			(uid, nick, phone, info, avatar)
+		VALUES  <!-- memberVO 안에 없는거 detail. 으로 해줬음. -->
+			(#{uid}, #{nick}, #{detail.phone}, #{detail.info}, #{detail.avatar})
+		ON DUPLICATE KEY  <!-- replace 비슷한? -->
+		UPDATE  nick = #{nick},
+			   	phone = #{detail.phone},
+				info = #{detail.info},
+				avatar = IFNULL(#{detail.avatar}, avatar) <!-- 앞에있는 녀석이 null이면 뒤에있는거 사용 -->
+	</insert>
+	
+	<select id="selectPassword" parameterType="String" resultType="String">
+		SELECT password
+			FROM cc_member
+		WHERE uid = #{uid}
+	</select>
+	
+	<update id="updatePassword" parameterType="memberVO">
+		UPDATE cc_member
+			SET password = #{password}
+		WHERE uid = #{uid}
+	</update>
+
+</mapper>
