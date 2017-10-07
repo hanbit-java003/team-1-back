@@ -56,7 +56,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/signin")
-	public Map signUp(@RequestParam("email") String email,
+	public Map signIn(@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			@RequestParam("remember") boolean remember,
 			HttpSession session,
