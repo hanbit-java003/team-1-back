@@ -34,8 +34,8 @@
 		<result property="uid" column="uid"/>
 		<result property="password" column="password"/>
 		<result property="email" column="email"/>
+		<result property="nick" column="nick"/>
 		<association property="detail" javaType="memberDetailVO">
-			<result property="name" column="name"/>
 			<result property="phone" column="phone"/>
 			<result property="info" column="info"/>
 			<result property="avatar" column="avatar"/>
@@ -51,15 +51,20 @@
 	
 	<insert id="insertMemberDetail" parameterType="memberVO">
 		INSERT INTO cc_member_detail
-			(uid, nick, phone, info, avatar)
+			(uid, phone, info, avatar)
 		VALUES  <!-- memberVO 안에 없는거 detail. 으로 해줬음. -->
-			(#{uid}, #{nick}, #{detail.phone}, #{detail.info}, #{detail.avatar})
+			(#{uid}, #{detail.phone}, #{detail.info}, #{detail.avatar})
 		ON DUPLICATE KEY  <!-- replace 비슷한? -->
-		UPDATE  nick = #{nick},
-			   	phone = #{detail.phone},
+		UPDATE 	phone = #{detail.phone},
 				info = #{detail.info},
 				avatar = IFNULL(#{detail.avatar}, avatar) <!-- 앞에있는 녀석이 null이면 뒤에있는거 사용 -->
 	</insert>
+	
+	<update id="updateNick" parameterType="memberVO">
+		UPDATE cc_member
+			SET nick = #{nick}
+		WHERE uid = #{uid}	
+	</update>
 	
 	<select id="selectPassword" parameterType="String" resultType="String">
 		SELECT password

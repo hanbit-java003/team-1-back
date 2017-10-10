@@ -1,6 +1,8 @@
 package com.hanbit.cock.api.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +10,8 @@ import com.hanbit.cock.api.vo.MemberVO;
 
 @Repository
 public class MemberDAO {
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberDAO.class);
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -41,8 +45,12 @@ public class MemberDAO {
 	
 	// detail(회원수정) 페이지 수정단.
 	public int insertMemberDetail(MemberVO memberVO) {
-		
 		return sqlSession.insert("member.insertMemberDetail",memberVO);
+	}
+	
+	// detail(회원수정) nick 수정.
+	public int updatetNick(MemberVO memberVO) {
+		return sqlSession.update("member.updateNick",memberVO);
 	}
 	
 	// 비밀번호 찾아오기.

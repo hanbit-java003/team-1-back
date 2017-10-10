@@ -19,22 +19,22 @@ import com.hanbit.cock.api.vo.FileVO;
 
 @Service
 public class MemberService {
-	
+
 	// 중복확인을 위한 일련번호라고 생각하면 된다. uid 유니크아이디.
 	private static final char[] CHARS
-		= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
-	
+	= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+
 	@Autowired
 	private MemberDAO memberDAO;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private FileService fileService;
-	
+
 	public void signUp(MemberVO memberVO){
-		
+
 		// countMember가 0보다 크면 있는거다. 중복확인..
 		if(memberDAO.countMember(memberVO.getEmail()) > 0) {
 			// exception을 발생 시켜준다.
@@ -45,19 +45,19 @@ public class MemberService {
 			// exception을 발생 시켜준다.
 			throw new CockException("이미 중복된 별명 입니다.");
 		}
-		
+
 		// 중복확인을 위해서 .
 		memberVO.setUid(generateUid());
-		
+
 		//패스워드 암호화
 		String encodedPassword = passwordEncoder.encode(memberVO.getPassword());
 		memberVO.setPassword(encodedPassword);
-		
+
 		memberDAO.insertMember(memberVO);
-		
+
 	}
-	
-	
+
+
 	private String generateUid() {
 		//62^12 거의 안겹친다고 보면된다. 
 		int length = 12;
@@ -65,33 +65,33 @@ public class MemberService {
 		char[] uid = new char[length];
 		// Random 이란 함수는.. 숫자형을 최대치까지 랜덤으로? 돌리는 녀석?
 		Random random = new Random();
-			
+
 		for (int i=0; i<length; i++) {
 			// 1.배열을 만들고
 			// 최대값 int를 해서 0부터 시작하는 랜덤 숫자가 나온다.random.nextInt(CHARS.length)
 			uid[i] = CHARS[random.nextInt(CHARS.length)];
 		}
-		
+
 		// 2.배열만든것을 리턴하면되는데..
 		return new String(uid);
 	}
-	
+
 	public MemberVO signIn(String email, String password) {
 		MemberVO memberVO = memberDAO.selectMember(email);
-		
+
 		if (memberVO == null) {
 			throw new CockException("가입되지 않은 이메일입니다.");
 		}
-		
+
 		if(!passwordEncoder.matches(password, memberVO.getPassword())){
 			throw new CockException("잘못된 비밀번호 입니다.");
 		}
-		
+
 		return memberVO;
 	}
-	
+
 	public MemberVO getMemberDetail(String uid) {
-		
+
 		return memberDAO.selectMemberDetail(uid); 
 	}
 	@Transactional // 여러개의 DAO를 실행해야되기 때문에
@@ -107,40 +107,42 @@ public class MemberService {
 			String fileName = memberVO.getUid() + "." + fileExt;
 			fileVO.setFileName(fileName);
 			fileVO.setFilePath("/hanbit/webpack/hanbit-there/src/img/avatars/" + fileName);
-			
+
 			fileVO.setContentType(image.getContentType());
 			fileVO.setContentLength(image.getSize());
 			// 사진저장
 			fileService.modifyFile(fileVO, image.getInputStream(), 200); // 폭을 200으로 줄여주겠다.
 			memberVO.getDetail().setAvatar("/api/file/" + fileId);
 		}
-		
+
 		memberDAO.insertMemberDetail(memberVO);
-		
+		memberDAO.updatetNick(memberVO);
+
+
 		// 패스워드.
 		if(StringUtils.isNotBlank(memberVO.getCurrentPw())) {
 			changePassword(memberVO.getUid(), 
 					memberVO.getCurrentPw(), memberVO.getPassword());
 		}
-		
+
 	}
-	
+
 	private void changePassword(String uid, String currentPw, String newPw){
 		String encodedPw = memberDAO.selectPassword(uid);// 암호화된 패스워드
-		
+
 		if (!passwordEncoder.matches(currentPw, encodedPw)) {
 			throw new CockException("현재 패스워드가 일치하지 않습니다.");
 		}
-		
+
 		// 패스워드를 암호화 하기 위해서 만들어줌.		
 		String password = passwordEncoder.encode(newPw);
-	
+
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUid(uid);
 		memberVO.setPassword(password); // 이녀석은 암호화 해줘야한다.
-		
+
 		memberDAO.updatePassword(memberVO);
-		
+
 	}
-	
+
 }
