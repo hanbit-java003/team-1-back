@@ -6,19 +6,19 @@
 
 	<select id="selectFile" parameterType="string" resultType="fileVO">
 		SELECT file_id, file_path, content_type, content_length, file_name
-			FROM tbl_file
+			FROM cc_file
 		WHERE file_id = #{fileId}
 	</select>
 	
 	<insert id="replaceFile" parameterType="fileVO">
-		REPLACE INTO tbl_file
+		REPLACE INTO cc_file
 			(file_id, file_path, content_type, content_length, file_name)
 		VALUES
 			(#{fileId},#{filePath}, #{contentType}, #{contentLength}, #{fileName})
 	</insert>
 	
 	<insert id="insertFile" parameterType="fileVO">
-		INSERT INTO tbl_file
+		INSERT INTO cc_file
 			(file_id, file_path, content_type, content_length, file_name)
 		VALUES
 			(#{fileId},#{filePath}, #{contentType}, #{contentLength}, #{fileName})
@@ -26,7 +26,7 @@
 	
 	<delete id="deleteFile" parameterType="string">
 		DELETE
-			FROM tbl_file
+			FROM cc_file
 		WHERE file_id = #{fileId}
 	</delete>
 
