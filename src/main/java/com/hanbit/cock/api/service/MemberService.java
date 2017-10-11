@@ -106,7 +106,7 @@ public class MemberService {
 			String fileExt = FilenameUtils.getExtension(image.getOriginalFilename());
 			String fileName = memberVO.getUid() + "." + fileExt;
 			fileVO.setFileName(fileName);
-			fileVO.setFilePath("/hanbit/webpack/hanbit-there/src/img/avatars/" + fileName);
+			fileVO.setFilePath("/hanbit/webpack/cock-front/src/img/avatars/" + fileName);
 
 			fileVO.setContentType(image.getContentType());
 			fileVO.setContentLength(image.getSize());
