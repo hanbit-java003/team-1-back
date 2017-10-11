@@ -18,11 +18,6 @@ public class CockInsertController {
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	@RequestMapping("/")
-	public RestVO getRest() {
-		return null;
-	}
-	
 	@RequestMapping("/{rid}")
 	public RestVO getRest(@PathVariable(value="rid") int rid) {
 		return cockInsertService.getRest(rid);
