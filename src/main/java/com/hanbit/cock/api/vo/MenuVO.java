@@ -4,7 +4,7 @@ public class MenuVO {
 	private int id;
 	private int rid;
 	private int articleId;
-	private String imgId;
+	private int imgId;
 	private int x;
 	private int y;
 	private String menu;
@@ -27,10 +27,10 @@ public class MenuVO {
 	public void setArticleId(int articleId) {
 		this.articleId = articleId;
 	}
-	public String getImgId() {
+	public int getImgId() {
 		return imgId;
 	}
-	public void setImgId(String imgId) {
+	public void setImgId(int imgId) {
 		this.imgId = imgId;
 	}
 	public int getX() {
