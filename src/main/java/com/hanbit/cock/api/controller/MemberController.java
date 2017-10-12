@@ -102,6 +102,7 @@ public class MemberController {
 		else {
 			member.put(CockConstants.SIGNIN_KEY, true);
 			member.put("email", session.getAttribute("email"));
+			member.put("nick", session.getAttribute("nick"));
 			member.put("avatar", session.getAttribute("avatar"));
 		}
 
