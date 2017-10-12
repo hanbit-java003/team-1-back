@@ -3,10 +3,12 @@ insert into cc_rest
 values
 	(1, 'title', 37.552320, 126.937588, '');
     
+-- %중요% member table에 uid가 존재해야합니다. - uid는 바귈 수 있으니 먼저 회원가입 후 시도하세요.
+
 insert into cc_article
-	(article_id, rid, comment, status, likes, hate, write_dt)
+	(article_id, rid, comment, status, likes, hate, write_dt, uid)
 values
-	(0, 1, 'comment', '', 0, 0, '171009');
+	(0, 1, 'comment', '', 0, 0, '171009', '3HgHeOlylIZR');
     
 insert into cc_img
 	(img_id, rid, article_id, path)
@@ -26,5 +28,7 @@ insert into cc_tag
 values
 (0, 1, 0, 'tag1'),
 (1, 1, 0, 'tag1');
-    
+
+
+
 
