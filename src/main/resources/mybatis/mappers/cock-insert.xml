@@ -44,4 +44,29 @@
 	  ORDER BY img_id
 	</select>
 	
+	<select id="generateMaxRid" resultType="int">
+		SELECT MAX(rid) + 1
+		  FROM cc_rest
+	</select>
+	
+	<select id="generateMaxAid" parameterType="int" resultType="int">
+		SELECT MAX(article_id) + 1
+		  FROM cc_article
+		 WHERE rid=#{rid}
+	</select>
+	
+	<insert id="insertRest" parameterType="restVO">
+		INSERT INTO cc_rest
+			(rid, name, lat, lng, status)
+		VALUES
+			(#{rid}, #{name}, #{lat}, #{lng}, #{status});
+	</insert>
+	
+	<insert id="replaceArticle" parameterType="articleVO">
+		REPLACE INTO cc_article
+			(article_id, rid, comment, status, likes, hate, write_dt, uid)
+		 VALUES
+			(#{articleId}, #{rid}, #{comment}, #{status}, #{likes}, #{hate}, NOW(), #{uid})
+	</insert>
+	
 </mapper>

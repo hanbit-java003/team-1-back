@@ -8,6 +8,7 @@ public class MenuVO {
 	private int x;
 	private int y;
 	private String menu;
+	private int price;
 	
 	public int getId() {
 		return id;
@@ -50,5 +51,11 @@ public class MenuVO {
 	}
 	public void setMenu(String menu) {
 		this.menu = menu;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }

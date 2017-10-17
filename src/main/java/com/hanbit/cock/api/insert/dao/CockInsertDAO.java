@@ -42,4 +42,24 @@ public class CockInsertDAO {
 		return sqlSession.selectList("cockInsert.selectImgs", article);
 	}
 
+	public int ridGenerate() {
+		return sqlSession.selectOne("cockInsert.generateMaxRid");
+	}
+
+	public int articleIdGenerate(int rid) {
+		return sqlSession.selectOne("cockInsert.generateMaxAid", rid);
+	}
+
+	public int insertRest(RestVO rest) {
+		return sqlSession.insert("cockInsert.insertRest", rest);
+	}
+
+	public int saveArticle(ArticleVO art) {
+		return sqlSession.insert("cockInsert.replaceArticle", art);
+	}
+
+	public int saveImgs(ArticleVO art) {
+		return sqlSession.insert("cockInsert.insertImgs", art);
+	}
+	
 }

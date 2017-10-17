@@ -11,6 +11,7 @@ public class ArticleVO {
 	private int likes;
 	private int hate;
 	private String writeDt;
+	private String uid;
 	private List<ImgVO> imgs;
 	
 	public List<ImgVO> getImgs() {
@@ -60,5 +61,11 @@ public class ArticleVO {
 	}
 	public void setWriteDt(String writeDt) {
 		this.writeDt = writeDt;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 }
