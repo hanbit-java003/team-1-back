@@ -6,5 +6,9 @@ import javax.mail.Authenticator;
 
 public interface Session extends javax.websocket.Session{
 	
-	javax.mail.Session getInstance(Properties props, Authenticator authenticator);
+
+	static javax.mail.Session getDefaultInstance(Properties props, Authenticator auth) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

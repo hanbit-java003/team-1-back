@@ -1,16 +1,18 @@
 package com.hanbit.cock.api.email;
 
-import java.net.PasswordAuthentication;
 import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.mail.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/api")
 public class EmailController {
 
-/*	@Autowired
-	private Session session;
 
 	// Email 인증 추가.
 	@RequestMapping("/email")
@@ -46,7 +46,7 @@ public class EmailController {
 		String host = "smtp.gmail.com"; // smtp 서버
 		String subject = "CockCock 인증번호 전달";
 		String fromName= "CockCock 관리자";
-		String from = "jmkjmk7410@naver.com"; // 보내는 메일
+		String from = "김콕콕@cockcock.com"; // 보내는 메일
 		String to1 = email;
 
 		String content = "인증번호[" + authNum + "]";
@@ -61,14 +61,23 @@ public class EmailController {
 			props.put("mail.smtp.user", from);
 			props.put("mail.smtp.auth", "true");
 
-			javax.mail.Session  mailSession = (javax.mail.Session) session.getInstance(props,
+			/*javax.mail.Session  mailSession = (javax.mail.Session) session.getInstance(props,
 					new javax.mail.Authenticator() {
 				protected javax.mail.PasswordAuthentication getpasswordAutentication(){
-					return new javax.mail.PasswordAuthentication("문기", "1234");
+					return new javax.mail.PasswordAuthentication("jmkjmk7410@gmail.com", "ansrl1042");
 				}
-			});
+			});*/
+			
+			Authenticator auth = new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication("jmkjmk7410@gmail.com", "ansrl1042");
+				}
+			};
+			
+			Session session = Session.getDefaultInstance(props,auth);
+			
 
-			Message msg = new MimeMessage(mailSession);
+			Message msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(fromName, "UTF-8", "B")));// 보내는 사람 설정
 			InternetAddress[] address1 = {new InternetAddress(to1)};
 			msg.setRecipients(Message.RecipientType.TO, address1); // 받는 사람 설정1
@@ -96,5 +105,5 @@ public class EmailController {
 			buffer.append(n);
 		}
 		return buffer.toString();
-	}*/
+	}
 }
