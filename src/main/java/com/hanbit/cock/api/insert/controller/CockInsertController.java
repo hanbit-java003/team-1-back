@@ -39,9 +39,9 @@ public class CockInsertController {
 	public Map setSave(@RequestParam("model") String model, @RequestParam("imgs") List<MultipartFile> images) throws Exception {
 		RestVO rest = mapper.readValue(model, RestVO.class);
 		
-		cockInsertService.setRestAndArticleSave(rest, images);
+		Map result = cockInsertService.setRestAndArticleSave(rest, images);
 		
-		Map result = new HashMap();
+		System.out.println(result.get("result"));
 		result.put("rid", 1);
 		result.put("articleId", 0);
 		
