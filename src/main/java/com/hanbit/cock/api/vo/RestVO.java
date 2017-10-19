@@ -4,7 +4,7 @@ import java.util.List;
 
 public class RestVO {
 
-	private int rid;
+	private Integer rid;
 	private String name;
 	private double lat;
 	private double lng;
@@ -13,28 +13,10 @@ public class RestVO {
 	private List<MenuVO> menus;
 	private List<TagVO> tags;
 	
-	public List<ArticleVO> getArticles() {
-		return articles;
-	}
-	public void setArticles(List<ArticleVO> articles) {
-		this.articles = articles;
-	}
-	public List<MenuVO> getMenus() {
-		return menus;
-	}
-	public void setMenus(List<MenuVO> menus) {
-		this.menus = menus;
-	}
-	public List<TagVO> getTags() {
-		return tags;
-	}
-	public void setTags(List<TagVO> tags) {
-		this.tags = tags;
-	}
-	public int getRid() {
+	public Integer getRid() {
 		return rid;
 	}
-	public void setRid(int rid) {
+	public void setRid(Integer rid) {
 		this.rid = rid;
 	}
 	public String getName() {
@@ -61,4 +43,23 @@ public class RestVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public List<ArticleVO> getArticles() {
+		return articles;
+	}
+	public void setArticles(List<ArticleVO> articles) {
+		this.articles = articles;
+	}
+	public List<MenuVO> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<MenuVO> menus) {
+		this.menus = menus;
+	}
+	public List<TagVO> getTags() {
+		return tags;
+	}
+	public void setTags(List<TagVO> tags) {
+		this.tags = tags;
+	}
+	
 }

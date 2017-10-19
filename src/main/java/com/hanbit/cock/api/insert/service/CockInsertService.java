@@ -3,8 +3,11 @@ package com.hanbit.cock.api.insert.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,9 +32,6 @@ public class CockInsertService {
 
 	@Autowired
 	private CockInsertDAO cockInsertDAO;
-	
-	@Autowired
-	private FileDAO FileDAO;
 	
 	@Autowired
 	private FileService fileService;
@@ -71,9 +71,10 @@ public class CockInsertService {
 		ArticleVO newArt = rest.getArticles().get(0);
 		
 		newArt.setRid(rest.getRid());
-		if (Integer.valueOf(newArt.getArticleId()) == null) {
+		if (newArt.getArticleId() == null) {
 			newArt.setArticleId(cockInsertDAO.articleIdGenerate(newArt.getRid()));
 		}
+		
 		cockInsertDAO.modifyArticle(newArt);
 	}
 	
@@ -151,16 +152,15 @@ public class CockInsertService {
 		//            3. menu
 		//            4. tag
 		//			  5. img
-		if (String.valueOf(rest.getArticles().get(0).getUid()) == null) {
+		if (rest.getArticles().get(0).getUid() == null) {
 			result.put("result", "must login");
 			return result;
 		}
 		
-		if (Integer.valueOf(rest.getRid()) == null) {
+		if (rest.getRid() == null) {
 			setRestSave(rest);
 			result.put("result", "save Rest");
 		}
-	
 		modifyArticle(rest);
 		result.put("result", "modify Article");
 		
@@ -175,21 +175,91 @@ public class CockInsertService {
 		}
 
 		if (rest.getArticles().get(0).getImgs().size() > 0 || images.size() > 0) {
-			//saveImgs(rest, images);
+			saveImgs(rest, images);
+			result.put("result", "save img");
 		}
 		
-		return result;
+		result.put("rid", rest.getRid());
+		result.put("articleId", rest.getArticles().get(0).getArticleId());
 		
+		return result;
+	}
+
+	private void saveImgs(RestVO rest, List<MultipartFile> images) throws Exception {
+		ArticleVO article = rest.getArticles().get(0);
+
+		int lastIndex = 0;
+		if (article.getImgs().size() > 0) {
+			String lastFileUrl = article.getImgs().get(article.getImgs().size() - 1).getPath();
+			lastIndex = Integer.valueOf(StringUtils.substringAfterLast(lastFileUrl, "_")) + 1;
+		}
+		
+		List<ImgVO> list = new ArrayList<>();
+		
+		int index = 0;
+		for (ImgVO oldImg : article.getImgs()) {
+			if ("_removed_".equals(oldImg.getPath())) {
+				String oldUrl = oldImg.getPath();
+				String oldFileId = StringUtils.substringAfterLast(oldUrl, "/");
+				fileService.removeFile(oldFileId);
+				continue;
+			}
+			
+			ImgVO newImg = new ImgVO();
+			newImg.setRid(article.getRid());
+			newImg.setArticleId(article.getArticleId());
+			newImg.setImgId(index);
+			newImg.setPath(oldImg.getPath());
+			
+			list.add(newImg);
+			index++;
+		}
+		
+		for (int i=0; i<images.size(); i++) {
+			MultipartFile imgFile = images.get(i);
+			
+			String fileIndex = article.getRid() + "_" + article.getArticleId() + "_" + (lastIndex + i);
+			String fileName = FilenameUtils.removeExtension(imgFile.getOriginalFilename());
+			String fileExt = FilenameUtils.getExtension(imgFile.getOriginalFilename());
+			String fileId = "art-" + fileName + "-" + fileIndex;
+			String filePath = "/hanbit/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
+			
+			FileVO fileVO = new FileVO();
+			fileVO.setFileId(fileId);
+			fileVO.setFilePath(filePath);
+			fileVO.setFileName(fileId + "." + fileExt);
+			fileVO.setContentType(imgFile.getContentType());
+			fileVO.setContentLength(imgFile.getSize());
+			
+			fileService.addFile(fileVO, imgFile.getInputStream());
+			
+			String fileUrl = "/api/file/" + fileId;
+			
+			ImgVO newImg = new ImgVO();
+			newImg.setRid(article.getRid());
+			newImg.setArticleId(article.getArticleId());
+			newImg.setImgId(index);
+			newImg.setPath(fileUrl);
+			
+			list.add(newImg);
+			index++;
+		}
+		
+		article.setImgs(list);
+		cockInsertDAO.removeImgs(article);
+		cockInsertDAO.saveImgs(article);
 	}
 
 	private void setTagsSave(RestVO rest) {
 		ArticleVO article = rest.getArticles().get(0);
 		List<TagVO> tags = rest.getTags();
+		int index = 0;
 		for (TagVO tag : tags) {
 			tag.setRid(article.getRid());
-			tag.setRid(article.getArticleId());
+			tag.setArticleId(article.getArticleId());
+			tag.setTagId(index);
+			index++;
 		}
-		rest.setTags(tags);
 		
 		cockInsertDAO.removeTags(article);
 		cockInsertDAO.insertTags(rest);
@@ -200,9 +270,8 @@ public class CockInsertService {
 		List<MenuVO> menus = rest.getMenus();
 		for (MenuVO menu : menus) {
 			menu.setRid(article.getRid());
-			menu.setRid(article.getArticleId());
+			menu.setArticleId(article.getArticleId());
 		}
-		rest.setMenus(menus);
 		
 		cockInsertDAO.removeMenus(article);
 		cockInsertDAO.insertMenus(rest);
