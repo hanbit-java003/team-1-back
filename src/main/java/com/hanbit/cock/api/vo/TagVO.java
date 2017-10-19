@@ -29,5 +29,5 @@ public class TagVO {
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
-	}	
+	}
 }

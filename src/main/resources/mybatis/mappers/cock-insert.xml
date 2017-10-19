@@ -44,4 +44,80 @@
 	  ORDER BY img_id
 	</select>
 	
+	
+	<select id="generateMaxRid" resultType="int">
+	<!--SAVE 에서 필요한 SQL-->
+		SELECT MAX(rid) + 1
+		  FROM cc_rest
+	</select>
+	
+	<select id="generateMaxAid" parameterType="int" resultType="int">
+		SELECT MAX(article_id) + 1
+		  FROM cc_article
+		 WHERE rid=#{rid}
+	</select>
+	
+	<insert id="insertRest" parameterType="restVO">
+		INSERT INTO cc_rest
+			(rid, name, lat, lng, status)
+		VALUES
+			(#{rid}, #{name}, #{lat}, #{lng}, #{status});
+	</insert>
+	
+	<insert id="replaceArticle" parameterType="articleVO">
+		REPLACE INTO cc_article
+			(article_id, rid, comment, status, likes, hate, write_dt, uid)
+		 VALUES
+			(#{articleId}, #{rid}, #{comment}, #{status}, #{likes}, #{hate}, NOW(), #{uid})
+	</insert>
+	
+	<delete id="deleteMenus" parameterType="menuVO">
+		DELETE
+		  FROM cc_menu
+		 WHERE rid = #{rid} AND article_id = #{articleId}
+	</delete>
+	
+	<insert id="insertMenus" parameterType="restVO">
+		REPLACE INTO cc_menu
+			(id, rid, article_id, img_id, x, y, menu, price)
+		 VALUES
+		 <foreach collection="menus" item="menu" index="index" separator=",">
+			(#{menu.id}, #{menu.rid}, #{menu.articleId}, #{menu.img_id}, #{menu.x}, #{menu.y}, #{menu.menu}, #{menu.price})
+		</foreach>
+	</insert>
+	
+	<delete id="deleteTags" parameterType="articleVO">
+		DELETE
+		  FROM cc_tag
+		 WHERE rid = #{rid} AND article_id = #{articleId}
+	</delete>
+	
+	<insert id="insertTags" parameterType="restVO">
+		REPLACE INTO cc_tag
+			(tag_id, rid, article_id, tag)
+		 VALUES
+		 <foreach collection="tags" item="tag" index="index" separator=",">
+			(#{tags.tagId}, #{tags.rid}, #{tags.articleId}, #{tags.tag})
+		</foreach>
+	</insert>
+	
+	
+	
+	
+	
+	<delete id="deleteImg" parameterType="imgVO">
+		DELETE
+		  FROM cc_img
+		 WHERE rid = #{rid} AND article_id = #{articleId}
+	</delete>
+	
+	<insert id="insertImgs" parameterType="articleVO">
+		REPLACE INTO cc_img
+			(img_id, rid, article_id, path)
+		 VALUES
+		 <foreach collection="imgs" item="img" index="index" separator=",">
+			(#{img.imgId}, #{img.rid}, #{img.articleId}, #{img.path})
+		</foreach>
+	</insert>
+	
 </mapper>

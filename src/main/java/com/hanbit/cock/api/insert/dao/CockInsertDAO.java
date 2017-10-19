@@ -42,4 +42,44 @@ public class CockInsertDAO {
 		return sqlSession.selectList("cockInsert.selectImgs", article);
 	}
 
+	public int ridGenerate() {
+		return sqlSession.selectOne("cockInsert.generateMaxRid");
+	}
+
+	public int articleIdGenerate(int rid) {
+		return sqlSession.selectOne("cockInsert.generateMaxAid", rid);
+	}
+
+	public int insertRest(RestVO rest) {
+		return sqlSession.insert("cockInsert.insertRest", rest);
+	}
+	
+	public int modifyArticle(ArticleVO art) {
+		return sqlSession.insert("cockInsert.replaceArticle", art);
+	}
+
+	public int removeMenus(ArticleVO article) {
+		return sqlSession.delete("cockInsert.deleteMenus", article);
+	}
+
+	public int insertMenus(RestVO rest) {
+		return sqlSession.insert("cockInsert.insertMenus", rest);
+	}
+
+	public int removeTags(ArticleVO article) {
+		return sqlSession.delete("cockInsert.deleteTags", article);
+	}
+
+	public int insertTags(RestVO rest) {
+		return sqlSession.insert("cockInsert.insertTags", rest);
+	}
+	
+	public int saveImgs(ArticleVO art) {
+		return sqlSession.insert("cockInsert.insertImgs", art);
+	}
+
+	public int removeImg(ImgVO imgVO) {
+		return sqlSession.delete("cockInsert.deleteImg", imgVO);
+	}
+
 }

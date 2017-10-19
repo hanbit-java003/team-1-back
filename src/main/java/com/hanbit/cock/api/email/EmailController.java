@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.mail.Session;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,16 +26,19 @@ public class EmailController {
 
 	// Email 인증 추가.
 	@RequestMapping("/email")
-	public ModelAndView emailAuth(HttpServletResponse response, HttpServletRequest request)throws Exception {
+	public ModelAndView emailAuth(@RequestParam ("authNum") String authNum,
+			@RequestParam("email") String email,
+			HttpServletResponse response, HttpServletRequest request)throws Exception {
 
-		String email = request.getParameter("email");
-		String authNum = "";
+		email = request.getParameter("email");
 
 		authNum  = RandomNum();
 
 		sendEmail(email.toString(), authNum);
 
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("email",email);
+		mv.addObject("authNum",authNum);
 
 		return mv;
 	}
