@@ -65,10 +65,12 @@
 	</insert>
 	
 	<insert id="replaceArticle" parameterType="articleVO">
-		REPLACE INTO cc_article
+		INSERT INTO cc_article
 			(article_id, rid, comment, status, likes, hate, write_dt, uid)
 		 VALUES
 			(#{articleId}, #{rid}, #{comment}, #{status}, #{likes}, #{hate}, NOW(), #{uid})
+		    ON DUPLICATE KEY UPDATE
+			comment=#{comment}, status=#{status}, likes=#{likes}, hate=#{hate}, write_dt=NOW(), uid=#{uid}
 	</insert>
 	
 	<delete id="deleteMenus" parameterType="menuVO">
@@ -101,18 +103,14 @@
 		</foreach>
 	</insert>
 	
-	
-	
-	
-	
-	<delete id="deleteImg" parameterType="imgVO">
+	<delete id="deleteImgs" parameterType="articleVO">
 		DELETE
 		  FROM cc_img
 		 WHERE rid = #{rid} AND article_id = #{articleId}
 	</delete>
 	
 	<insert id="insertImgs" parameterType="articleVO">
-		REPLACE INTO cc_img
+		INSERT INTO cc_img
 			(img_id, rid, article_id, path)
 		 VALUES
 		 <foreach collection="imgs" item="img" index="index" separator=",">

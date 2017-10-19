@@ -73,13 +73,13 @@ public class CockInsertDAO {
 	public int insertTags(RestVO rest) {
 		return sqlSession.insert("cockInsert.insertTags", rest);
 	}
+
+	public int removeImgs(ArticleVO art) {
+		return sqlSession.delete("cockInsert.deleteImgs", art);
+	}
 	
 	public int saveImgs(ArticleVO art) {
 		return sqlSession.insert("cockInsert.insertImgs", art);
-	}
-
-	public int removeImg(ImgVO imgVO) {
-		return sqlSession.delete("cockInsert.deleteImg", imgVO);
 	}
 
 }
