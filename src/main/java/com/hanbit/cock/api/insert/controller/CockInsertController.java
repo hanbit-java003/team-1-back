@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +43,6 @@ public class CockInsertController {
 		Map result = cockInsertService.setRestAndArticleSave(rest, images);
 		
 		System.out.println(result.get("result"));
-		result.put("rid", 1);
-		result.put("articleId", 0);
 		
 		return result;
 	}

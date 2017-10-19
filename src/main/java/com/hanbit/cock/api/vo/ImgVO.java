@@ -2,27 +2,27 @@ package com.hanbit.cock.api.vo;
 
 //img_id, rid, article_id, path
 public class ImgVO {
-	private int imgId;
-	private int rid;
-	private int articleId;
+	private Integer imgId;
+	private Integer rid;
+	private Integer articleId;
 	private String path;
 	
-	public int getImgId() {
+	public Integer getImgId() {
 		return imgId;
 	}
-	public void setImgId(int imgId) {
+	public void setImgId(Integer imgId) {
 		this.imgId = imgId;
 	}
-	public int getRid() {
+	public Integer getRid() {
 		return rid;
 	}
-	public void setRid(int rid) {
+	public void setRid(Integer rid) {
 		this.rid = rid;
 	}
-	public int getArticleId() {
+	public Integer getArticleId() {
 		return articleId;
 	}
-	public void setArticleId(int articleId) {
+	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
 	public String getPath() {
@@ -31,4 +31,5 @@ public class ImgVO {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
 }

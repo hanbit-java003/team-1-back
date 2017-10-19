@@ -18,11 +18,11 @@ public class CockInsertDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public RestVO selectRest(int rid) {
+	public RestVO selectRest(Integer rid) {
 		return sqlSession.selectOne("cockInsert.selectRest", rid);
 	}
 
-	public List<ArticleVO> selectArticles(int rid) {
+	public List<ArticleVO> selectArticles(Integer rid) {
 		return sqlSession.selectOne("cockInsert.selectArticles", rid);
 	}
 	
@@ -46,7 +46,7 @@ public class CockInsertDAO {
 		return sqlSession.selectOne("cockInsert.generateMaxRid");
 	}
 
-	public int articleIdGenerate(int rid) {
+	public int articleIdGenerate(Integer rid) {
 		return sqlSession.selectOne("cockInsert.generateMaxAid", rid);
 	}
 

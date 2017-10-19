@@ -44,7 +44,7 @@
 	  ORDER BY img_id
 	</select>
 	
-	<!-- ----------------------SAVE 에서 필요한 SQL------------------------ -->
+	<!-- *********************SAVE 에서 필요한 SQL******************** -->
 	
 	<select id="generateMaxRid" resultType="int">
 		SELECT MAX(rid) + 1
@@ -52,7 +52,7 @@
 	</select>
 	
 	<select id="generateMaxAid" parameterType="int" resultType="int">
-		SELECT MAX(article_id) + 1
+		SELECT IFNULL(MAX(article_id) + 1, 0)
 		  FROM cc_article
 		 WHERE rid=#{rid}
 	</select>
@@ -78,11 +78,11 @@
 	</delete>
 	
 	<insert id="insertMenus" parameterType="restVO">
-		REPLACE INTO cc_menu
+		INSERT INTO cc_menu
 			(id, rid, article_id, img_id, x, y, menu, price)
 		 VALUES
 		 <foreach collection="menus" item="menu" index="index" separator=",">
-			(#{menu.id}, #{menu.rid}, #{menu.articleId}, #{menu.img_id}, #{menu.x}, #{menu.y}, #{menu.menu}, #{menu.price})
+			(#{menu.id}, #{menu.rid}, #{menu.articleId}, #{menu.imgId}, #{menu.x}, #{menu.y}, #{menu.menu}, #{menu.price})
 		</foreach>
 	</insert>
 	
@@ -93,11 +93,11 @@
 	</delete>
 	
 	<insert id="insertTags" parameterType="restVO">
-		REPLACE INTO cc_tag
+		INSERT INTO cc_tag
 			(tag_id, rid, article_id, tag)
 		 VALUES
 		 <foreach collection="tags" item="tag" index="index" separator=",">
-			(#{tags.tagId}, #{tags.rid}, #{tags.articleId}, #{tags.tag})
+			(#{tag.tagId}, #{tag.rid}, #{tag.articleId}, #{tag.tag})
 		</foreach>
 	</insert>
 	

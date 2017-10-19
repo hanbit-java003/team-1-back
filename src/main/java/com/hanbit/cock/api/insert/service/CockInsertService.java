@@ -31,9 +31,6 @@ public class CockInsertService {
 	private CockInsertDAO cockInsertDAO;
 	
 	@Autowired
-	private FileDAO FileDAO;
-	
-	@Autowired
 	private FileService fileService;
 	
 	public RestVO getRest(int rid) {
@@ -71,9 +68,10 @@ public class CockInsertService {
 		ArticleVO newArt = rest.getArticles().get(0);
 		
 		newArt.setRid(rest.getRid());
-		if (Integer.valueOf(newArt.getArticleId()) == null) {
+		if (newArt.getArticleId() == null) {
 			newArt.setArticleId(cockInsertDAO.articleIdGenerate(newArt.getRid()));
 		}
+		
 		cockInsertDAO.modifyArticle(newArt);
 	}
 	
@@ -151,18 +149,18 @@ public class CockInsertService {
 		//            3. menu
 		//            4. tag
 		//			  5. img
-		if (String.valueOf(rest.getArticles().get(0).getUid()) == null) {
+		if (rest.getArticles().get(0).getUid() == null) {
 			result.put("result", "must login");
 			return result;
 		}
 		
-		if (Integer.valueOf(rest.getRid()) == null) {
+		if (rest.getRid() == null) {
 			setRestSave(rest);
 			result.put("result", "save Rest");
 		}
-	
 		modifyArticle(rest);
 		result.put("result", "modify Article");
+		System.out.println(rest.getArticles().get(0).getArticleId());
 		
 		if (!rest.getMenus().isEmpty()) {
 			setMenusSave(rest);
@@ -178,18 +176,22 @@ public class CockInsertService {
 			//saveImgs(rest, images);
 		}
 		
-		return result;
+		result.put("rid", rest.getRid());
+		result.put("articleId", rest.getArticles().get(0).getArticleId());
 		
+		return result;
 	}
 
 	private void setTagsSave(RestVO rest) {
 		ArticleVO article = rest.getArticles().get(0);
 		List<TagVO> tags = rest.getTags();
+		int index = 0;
 		for (TagVO tag : tags) {
 			tag.setRid(article.getRid());
-			tag.setRid(article.getArticleId());
+			tag.setArticleId(article.getArticleId());
+			tag.setTagId(index);
+			index++;
 		}
-		rest.setTags(tags);
 		
 		cockInsertDAO.removeTags(article);
 		cockInsertDAO.insertTags(rest);
@@ -200,9 +202,8 @@ public class CockInsertService {
 		List<MenuVO> menus = rest.getMenus();
 		for (MenuVO menu : menus) {
 			menu.setRid(article.getRid());
-			menu.setRid(article.getArticleId());
+			menu.setArticleId(article.getArticleId());
 		}
-		rest.setMenus(menus);
 		
 		cockInsertDAO.removeMenus(article);
 		cockInsertDAO.insertMenus(rest);

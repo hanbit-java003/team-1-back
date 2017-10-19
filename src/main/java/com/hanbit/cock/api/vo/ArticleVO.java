@@ -4,8 +4,8 @@ import java.util.List;
 
 // article_id, rid, comment, status, likes, hate, write_dt
 public class ArticleVO {
-	private int articleId;
-	private int rid;
+	private Integer articleId;
+	private Integer rid;
 	private String comment;
 	private String status;
 	private int likes;
@@ -14,28 +14,16 @@ public class ArticleVO {
 	private String uid;
 	private List<ImgVO> imgs;
 	
-	public List<ImgVO> getImgs() {
-		return imgs;
-	}
-	public void setImgs(List<ImgVO> imgs) {
-		this.imgs = imgs;
-	}
-	public int getLikes() {
-		return likes;
-	}
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
-	public int getArticleId() {
+	public Integer getArticleId() {
 		return articleId;
 	}
-	public void setArticleId(int articleId) {
+	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
-	public int getRid() {
+	public Integer getRid() {
 		return rid;
 	}
-	public void setRid(int rid) {
+	public void setRid(Integer rid) {
 		this.rid = rid;
 	}
 	public String getComment() {
@@ -49,6 +37,12 @@ public class ArticleVO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getLikes() {
+		return likes;
+	}
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 	public int getHate() {
 		return hate;
@@ -68,4 +62,11 @@ public class ArticleVO {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
+	public List<ImgVO> getImgs() {
+		return imgs;
+	}
+	public void setImgs(List<ImgVO> imgs) {
+		this.imgs = imgs;
+	}
+	
 }

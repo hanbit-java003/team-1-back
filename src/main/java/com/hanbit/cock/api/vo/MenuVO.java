@@ -1,37 +1,37 @@
 package com.hanbit.cock.api.vo;
 
 public class MenuVO {
-	private int id;
-	private int rid;
-	private int articleId;
-	private int imgId;
+	private Integer id;
+	private Integer rid;
+	private Integer articleId;
+	private Integer imgId;
 	private int x;
 	private int y;
 	private String menu;
 	private int price;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getRid() {
+	public Integer getRid() {
 		return rid;
 	}
-	public void setRid(int rid) {
+	public void setRid(Integer rid) {
 		this.rid = rid;
 	}
-	public int getArticleId() {
+	public Integer getArticleId() {
 		return articleId;
 	}
-	public void setArticleId(int articleId) {
+	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
-	public int getImgId() {
+	public Integer getImgId() {
 		return imgId;
 	}
-	public void setImgId(int imgId) {
+	public void setImgId(Integer imgId) {
 		this.imgId = imgId;
 	}
 	public int getX() {
@@ -58,4 +58,5 @@ public class MenuVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
 }
