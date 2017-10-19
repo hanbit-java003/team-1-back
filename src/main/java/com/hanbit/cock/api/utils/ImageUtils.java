@@ -1,14 +1,7 @@
 package com.hanbit.cock.api.utils;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage; // image를 다룰때 사용하는 녀석.
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.imageio.ImageIO;
 
 import net.coobird.thumbnailator.Thumbnails;
 

@@ -1,14 +1,10 @@
 package com.hanbit.cock.api.insert.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +14,6 @@ import com.hanbit.cock.api.dao.FileDAO;
 import com.hanbit.cock.api.insert.dao.CockInsertDAO;
 import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.ArticleVO;
-import com.hanbit.cock.api.vo.FileVO;
-import com.hanbit.cock.api.vo.ImgVO;
 import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.RestVO;
 import com.hanbit.cock.api.vo.TagVO;

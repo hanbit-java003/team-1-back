@@ -3,7 +3,6 @@ package com.hanbit.cock.api.aop;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,8 +18,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hanbit.cock.api.exception.ExceptionVO;
 import com.hanbit.cock.api.exception.CockException;
+import com.hanbit.cock.api.exception.ExceptionVO;
 
 @Aspect
 @Component
