@@ -1,27 +1,27 @@
 package com.hanbit.cock.api.vo;
 
 public class TagVO {
-	private int tagId;
-	private int rid;
-	private int articleId;
+	private Integer tagId;
+	private Integer rid;
+	private Integer articleId;
 	private String tag;
 	
-	public int getTagId() {
+	public Integer getTagId() {
 		return tagId;
 	}
-	public void setTagId(int tagId) {
+	public void setTagId(Integer tagId) {
 		this.tagId = tagId;
 	}
-	public int getRid() {
+	public Integer getRid() {
 		return rid;
 	}
-	public void setRid(int rid) {
+	public void setRid(Integer rid) {
 		this.rid = rid;
 	}
-	public int getArticleId() {
+	public Integer getArticleId() {
 		return articleId;
 	}
-	public void setArticleId(int articleId) {
+	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
 	public String getTag() {
@@ -30,4 +30,5 @@ public class TagVO {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	
 }
