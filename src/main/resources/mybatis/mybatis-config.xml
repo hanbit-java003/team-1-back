@@ -11,12 +11,12 @@
 
 	<typeAliases>
 		<typeAlias alias="restVO" type="com.hanbit.cock.api.vo.RestVO"/>
+		<typeAlias alias="detailVO" type="com.hanbit.cock.api.vo.DetailVO"/>
 		<typeAlias alias="articleVO" type="com.hanbit.cock.api.vo.ArticleVO"/>
 		<typeAlias alias="menuVO" type="com.hanbit.cock.api.vo.MenuVO"/>
 		<typeAlias alias="tagVO" type="com.hanbit.cock.api.vo.TagVO"/>
 		<typeAlias alias="imgVO" type="com.hanbit.cock.api.vo.ImgVO"/>
 		<typeAlias alias="locationVO" type="com.hanbit.cock.api.vo.LocationVO"/>
-		<typeAlias alias="detailVO" type="com.hanbit.cock.api.detail.vo.DetailVO"/>
 		
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		
