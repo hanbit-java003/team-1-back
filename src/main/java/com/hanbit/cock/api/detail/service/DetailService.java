@@ -22,23 +22,31 @@ public class DetailService {
 		if (detail == null) {
 			detail = new DetailVO();
 		}
-
-		detail.setArticles(getArticles(rid));
+		
+		getArticles(rid);
 
 		return detail;
 	}
 
-	public List<ArticleVO> getArticles(int rid) {
+	public DetailVO getArticles(int rid) {
+		DetailVO detail = detailDAO.selectRest(rid);
+		
+		if (detail == null) {
+			detail = new DetailVO();
+		}
+
 		List<ArticleVO> articles = new ArrayList<>();
-		articles = detailDAO.selectArticles(rid);
 
-		System.out.println(articles);
-
-		return articles;
+		for (int i = 0; i < 2; i++) {
+			articles.add(getArticle(rid, i));
+		}
+		
+		detail.setArticles(articles);
+		
+		return detail;
 	}
 
-	public DetailVO getArticle(int rid, int articleId) {
-		DetailVO detailVO = detailDAO.selectRest(rid);
+	public ArticleVO getArticle(int rid, int articleId) {
 		ArticleVO article = new ArticleVO();
 		article.setRid(rid);
 		article.setArticleId(articleId);
@@ -47,10 +55,7 @@ public class DetailService {
 		article.setTags(detailDAO.selectTags(article));
 		article.setMenus(detailDAO.selectMenus(article));
 
-		detailVO.setArticles(new ArrayList<ArticleVO>());
-		detailVO.getArticles().add(article);
-
-		return detailVO;
+		return article;
 	}
 
 }

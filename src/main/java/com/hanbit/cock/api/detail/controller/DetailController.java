@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hanbit.cock.api.detail.service.DetailService;
+import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 
 @RestController
@@ -17,12 +18,12 @@ public class DetailController {
 
 	@RequestMapping("/{rid}")
 	public DetailVO getRest(@PathVariable(value = "rid") int rid) {
-		return detailService.getRest(rid);
+		return detailService.getArticles(rid);
 	}
 	
 	@RequestMapping("/{rid}/{articleId}")
-	public DetailVO getRest(@PathVariable(value = "rid") int rid,
-						    @PathVariable(value = "articleId") int articleId) {
+	public ArticleVO getRest(@PathVariable(value = "rid") int rid,
+						     @PathVariable(value = "articleId") int articleId) {
 		return detailService.getArticle(rid, articleId);
 	}
 }
