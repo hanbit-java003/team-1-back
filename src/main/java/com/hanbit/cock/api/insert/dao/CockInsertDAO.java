@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.ImgVO;
+import com.hanbit.cock.api.vo.LocationVO;
 import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.RestVO;
 import com.hanbit.cock.api.vo.TagVO;
@@ -80,6 +81,10 @@ public class CockInsertDAO {
 	
 	public int saveImgs(ArticleVO art) {
 		return sqlSession.insert("cockInsert.insertImgs", art);
+	}
+
+	public List<LocationVO> selectLocations(LocationVO location) {
+		return sqlSession.selectList("cockInsert.selectLocations", location);
 	}
 
 }
