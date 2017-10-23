@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hanbit.cock.api.vo.ArticleVO;
+import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
 import com.hanbit.cock.api.vo.MenuVO;
-import com.hanbit.cock.api.vo.RestVO;
 import com.hanbit.cock.api.vo.TagVO;
 
 @Repository
@@ -18,7 +18,7 @@ public class DetailDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public RestVO selectRest(Integer rid) {
+	public DetailVO selectRest(Integer rid) {
 		return sqlSession.selectOne("cockDetail.selectRest", rid);
 	}
 
