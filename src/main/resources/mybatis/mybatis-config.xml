@@ -16,7 +16,8 @@
 		<typeAlias alias="menuVO" type="com.hanbit.cock.api.vo.MenuVO"/>
 		<typeAlias alias="tagVO" type="com.hanbit.cock.api.vo.TagVO"/>
 		<typeAlias alias="imgVO" type="com.hanbit.cock.api.vo.ImgVO"/>
-
+		<typeAlias alias="locationVO" type="com.hanbit.cock.api.vo.LocationVO"/>
+		
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		
 		<typeAlias alias="memberVO" type="com.hanbit.cock.api.vo.MemberVO" />

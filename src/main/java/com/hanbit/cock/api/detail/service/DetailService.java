@@ -22,7 +22,7 @@ public class DetailService {
 		if (detail == null) {
 			detail = new DetailVO();
 		}
-		
+
 		getArticles(rid);
 
 		return detail;
@@ -30,19 +30,21 @@ public class DetailService {
 
 	public DetailVO getArticles(int rid) {
 		DetailVO detail = detailDAO.selectRest(rid);
-		
+
 		if (detail == null) {
 			detail = new DetailVO();
 		}
 
 		List<ArticleVO> articles = new ArrayList<>();
 
-		for (int i = 0; i < 2; i++) {
+		detail.setArticles(detailDAO.selectArticles(rid));
+
+		for (int i = 0; i < detail.getArticles().size(); i++) {
 			articles.add(getArticle(rid, i));
 		}
-		
+
 		detail.setArticles(articles);
-		
+
 		return detail;
 	}
 
