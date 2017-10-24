@@ -26,4 +26,8 @@ public class DetailController {
 						     @PathVariable(value = "articleId") int articleId) {
 		return detailService.getArticle(rid, articleId);
 	}
+	
+	/*
+	 * 삭제, 수정 해야함, 유저정보도 불러와야함...
+	 * */
 }
