@@ -72,22 +72,6 @@ public class ArticleVO {
 		this.writeDt = writeDt;
 	}
 
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-
-	public List<ImgVO> getImgs() {
-		return imgs;
-	}
-
-	public void setImgs(List<ImgVO> imgs) {
-		this.imgs = imgs;
-	}
-
 	public List<MenuVO> getMenus() {
 		return menus;
 	}
@@ -102,6 +86,22 @@ public class ArticleVO {
 
 	public void setTags(List<TagVO> tags) {
 		this.tags = tags;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public List<ImgVO> getImgs() {
+		return imgs;
+	}
+
+	public void setImgs(List<ImgVO> imgs) {
+		this.imgs = imgs;
 	}
 
 }
