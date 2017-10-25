@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hanbit.cock.api.detail.dao.DetailDAO;
 import com.hanbit.cock.api.vo.ArticleVO;
@@ -15,7 +16,7 @@ public class DetailService {
 
 	@Autowired
 	private DetailDAO detailDAO;
-
+	
 	public DetailVO getRest(int rid) {
 		DetailVO detail = detailDAO.selectRest(rid);
 
@@ -58,6 +59,14 @@ public class DetailService {
 		article.setMenus(detailDAO.selectMenus(article));
 
 		return article;
+	}
+	
+	@Transactional
+	public void removeArticle(ArticleVO article) {
+		detailDAO.deleteTags(article);
+		detailDAO.deleteImgs(article);
+		detailDAO.deleteMenus(article);
+		detailDAO.deleteArticle(article);
 	}
 
 }
