@@ -17,7 +17,7 @@ public class DetailDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	public DetailVO selectRest(Integer rid) {
 		return sqlSession.selectOne("cockDetail.selectRest", rid);
 	}
@@ -29,7 +29,7 @@ public class DetailDAO {
 	public ArticleVO selectArticle(ArticleVO article) {
 		return sqlSession.selectOne("cockDetail.selectArticle", article);
 	}
-	
+
 	public List<MenuVO> selectMenus(ArticleVO article) {
 		return sqlSession.selectList("cockDetail.selectMenus", article);
 	}
@@ -40,6 +40,22 @@ public class DetailDAO {
 
 	public List<ImgVO> selectImgs(ArticleVO article) {
 		return sqlSession.selectList("cockDetail.selectImgs", article);
+	}
+
+	public int deleteArticle(ArticleVO article) {
+		return sqlSession.delete("cockDetail.deleteArticle", article);
+	}
+	
+	public int deleteMenus(ArticleVO article) {
+		return sqlSession.delete("cockDetail.deleteMenus", article);
+	}
+	
+	public int deleteTags(ArticleVO article) {
+		return sqlSession.delete("cockDetail.deleteTags", article);
+	}
+
+	public int deleteImgs(ArticleVO article) {
+		return sqlSession.delete("cockDetail.deleteImgs", article);
 	}
 
 }

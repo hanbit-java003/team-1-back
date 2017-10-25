@@ -9,7 +9,9 @@ public class DetailVO {
 	private double lat;
 	private double lng;
 	private String status;
+	private String uid;
 	private List<ArticleVO> articles;
+	private MemberVO member;
 
 	public Integer getRid() {
 		return rid;
@@ -51,12 +53,28 @@ public class DetailVO {
 		this.status = status;
 	}
 
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
 	public List<ArticleVO> getArticles() {
 		return articles;
 	}
 
 	public void setArticles(List<ArticleVO> articles) {
 		this.articles = articles;
+	}
+
+	public MemberVO getMember() {
+		return member;
+	}
+
+	public void setMember(MemberVO member) {
+		this.member = member;
 	}
 
 }
