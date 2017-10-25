@@ -11,7 +11,6 @@ public class MemberVO {
 	private String password;  // new
 	private String createDt;
 	private String createdBy;
-	private String food;
 	private MemberDetailVO detail; 
 	
 	public String getUid() {
@@ -43,12 +42,6 @@ public class MemberVO {
 	}
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-	public String getFood() {
-		return food;
-	}
-	public void setFood(String food) {
-		this.food = food;
 	}
 	public String getCurrentPw() {
 		return currentPw;

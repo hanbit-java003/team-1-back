@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cockDetail">
+	
+	<select id="selectRest" parameterType="int" resultType="detailVO">
+		SELECT *
+		  FROM cc_rest
+		 WHERE rid=#{rid}
+	</select>
+	
+	<select id="selectArticles" parameterType="int" resultType="string">
+		SELECT *
+		  FROM cc_article
+		 WHERE rid=#{rid}
+	  ORDER BY article_id
+	</select>
+	
+	<select id="selectArticle" parameterType="articleVO" resultType="articleVO">
+		SELECT *
+		  FROM cc_article
+		 WHERE rid=#{rid} and article_id=#{articleId}
+	</select>
+	
+	<select id="selectMenus" parameterType="articleVO" resultType="menuVO">
+		SELECT *
+		  FROM cc_menu
+		 WHERE rid=#{rid} and article_id=#{articleId}
+	  ORDER BY id
+	</select>
+	
+	<select id="selectTags" parameterType="articleVO" resultType="tagVO">
+		SELECT *
+		  FROM cc_tag
+		 WHERE rid=#{rid} and article_id=#{articleId}
+	  ORDER BY tag_id
+	</select>
+	 
+	<select id="selectImgs" parameterType="articleVO" resultType="imgVO">
+		SELECT *
+		  FROM cc_img
+		 WHERE rid=#{rid} and article_id=#{articleId}
+	  ORDER BY img_id
+	</select>
+	
+</mapper>

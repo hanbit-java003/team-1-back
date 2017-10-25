@@ -2,17 +2,16 @@ package com.hanbit.cock.api.vo;
 
 import java.util.List;
 
-public class RestVO {
+public class DetailVO {
 
 	private Integer rid;
 	private String name;
 	private double lat;
 	private double lng;
 	private String status;
+	private String uid;
 	private List<ArticleVO> articles;
-	private List<MenuVO> menus;
-	private List<TagVO> tags;
-	private List<ImgVO> imgs;
+	private MemberVO member;
 
 	public Integer getRid() {
 		return rid;
@@ -54,6 +53,14 @@ public class RestVO {
 		this.status = status;
 	}
 
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
 	public List<ArticleVO> getArticles() {
 		return articles;
 	}
@@ -62,28 +69,12 @@ public class RestVO {
 		this.articles = articles;
 	}
 
-	public List<MenuVO> getMenus() {
-		return menus;
+	public MemberVO getMember() {
+		return member;
 	}
 
-	public void setMenus(List<MenuVO> menus) {
-		this.menus = menus;
-	}
-
-	public List<TagVO> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<TagVO> tags) {
-		this.tags = tags;
-	}
-
-	public List<ImgVO> getImgs() {
-		return imgs;
-	}
-
-	public void setImgs(List<ImgVO> imgs) {
-		this.imgs = imgs;
+	public void setMember(MemberVO member) {
+		this.member = member;
 	}
 
 }
