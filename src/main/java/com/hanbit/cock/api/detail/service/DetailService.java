@@ -67,6 +67,8 @@ public class DetailService {
 		detailDAO.deleteImgs(article);
 		detailDAO.deleteMenus(article);
 		detailDAO.deleteArticle(article);
+		
+		System.out.println("삭제");
 	}
 
 }
