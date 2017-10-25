@@ -1,23 +1,17 @@
 package com.hanbit.cock.api.insert.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hanbit.cock.api.dao.FileDAO;
 import com.hanbit.cock.api.insert.dao.CockInsertDAO;
 import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.ArticleVO;
@@ -122,20 +116,22 @@ public class CockInsertService {
 
 	private void saveImgs(RestVO rest, List<MultipartFile> images) throws Exception {
 		ArticleVO article = rest.getArticles().get(0);
-
+		ArticleVO oldArticle = getArticle(article.getRid(), article.getArticleId()).getArticles().get(0);
+		
 		int lastIndex = 0;
 		if (article.getImgs().size() > 0) {
-			String lastFileUrl = article.getImgs().get(article.getImgs().size() - 1).getPath();
+			String lastFileUrl = oldArticle.getImgs().get(oldArticle.getImgs().size() - 1).getPath();
 			lastIndex = Integer.valueOf(StringUtils.substringAfterLast(lastFileUrl, "_")) + 1;
 		}
 		
 		List<ImgVO> list = new ArrayList<>();
 		
 		int index = 0;
-		for (ImgVO oldImg : article.getImgs()) {
-			if ("_removed_".equals(oldImg.getPath())) {
-				String oldUrl = oldImg.getPath();
+		for (int i=oldArticle.getImgs().size()-1; i>-1; i--) {
+			if ("_removed_".equals(article.getImgs().get(i).getPath())) {
+				String oldUrl = oldArticle.getImgs().get(i).getPath();
 				String oldFileId = StringUtils.substringAfterLast(oldUrl, "/");
+				System.out.println(oldUrl);
 				fileService.removeFile(oldFileId);
 				continue;
 			}
@@ -144,7 +140,7 @@ public class CockInsertService {
 			newImg.setRid(article.getRid());
 			newImg.setArticleId(article.getArticleId());
 			newImg.setImgId(index);
-			newImg.setPath(oldImg.getPath());
+			newImg.setPath(article.getImgs().get(i).getPath());
 			
 			list.add(newImg);
 			index++;
@@ -157,7 +153,6 @@ public class CockInsertService {
 			String fileName = FilenameUtils.removeExtension(imgFile.getOriginalFilename());
 			String fileExt = FilenameUtils.getExtension(imgFile.getOriginalFilename());
 			String fileId = "art-" + fileName + "-" + fileIndex;
-			
 			String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
 			
 			FileVO fileVO = new FileVO();
