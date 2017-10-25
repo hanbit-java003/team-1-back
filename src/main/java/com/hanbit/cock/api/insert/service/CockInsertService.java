@@ -122,20 +122,22 @@ public class CockInsertService {
 
 	private void saveImgs(RestVO rest, List<MultipartFile> images) throws Exception {
 		ArticleVO article = rest.getArticles().get(0);
-
+		ArticleVO oldArticle = getArticle(article.getRid(), article.getArticleId()).getArticles().get(0);
+		
 		int lastIndex = 0;
 		if (article.getImgs().size() > 0) {
-			String lastFileUrl = article.getImgs().get(article.getImgs().size() - 1).getPath();
+			String lastFileUrl = oldArticle.getImgs().get(oldArticle.getImgs().size() - 1).getPath();
 			lastIndex = Integer.valueOf(StringUtils.substringAfterLast(lastFileUrl, "_")) + 1;
 		}
 		
 		List<ImgVO> list = new ArrayList<>();
 		
 		int index = 0;
-		for (ImgVO oldImg : article.getImgs()) {
-			if ("_removed_".equals(oldImg.getPath())) {
-				String oldUrl = oldImg.getPath();
+		for (int i=oldArticle.getImgs().size()-1; i>-1; i--) {
+			if ("_removed_".equals(article.getImgs().get(i).getPath())) {
+				String oldUrl = oldArticle.getImgs().get(i).getPath();
 				String oldFileId = StringUtils.substringAfterLast(oldUrl, "/");
+				System.out.println(oldUrl);
 				fileService.removeFile(oldFileId);
 				continue;
 			}
@@ -144,7 +146,7 @@ public class CockInsertService {
 			newImg.setRid(article.getRid());
 			newImg.setArticleId(article.getArticleId());
 			newImg.setImgId(index);
-			newImg.setPath(oldImg.getPath());
+			newImg.setPath(article.getImgs().get(i).getPath());
 			
 			list.add(newImg);
 			index++;
