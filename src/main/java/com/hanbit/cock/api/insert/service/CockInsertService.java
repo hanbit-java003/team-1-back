@@ -23,6 +23,7 @@ import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.FileVO;
 import com.hanbit.cock.api.vo.ImgVO;
+import com.hanbit.cock.api.vo.LocationVO;
 import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.RestVO;
 import com.hanbit.cock.api.vo.TagVO;
@@ -77,72 +78,6 @@ public class CockInsertService {
 		
 		cockInsertDAO.modifyArticle(newArt);
 	}
-	
-	/*
-
-	private void modifyArticle(RestVO rest, List<MultipartFile> images) throws Exception {
-		ArticleVO article = rest.getArticles().get(0);
-		
-		List<ImgVO> imgList = null;
-		
-		imgList = article.getImgs();
-		
-		for (int i=imgList.size()-1; i>-1; i--) {
-			String imgUrl = imgList.get(i).getPath();
-			
-			if (!"_removed_".equals(imgUrl)) {
-				continue;
-			}
-			
-			cockInsertDAO.removeImg(imgList.get(i));
-			String removeFileId = StringUtils.substringAfterLast(imgUrl, "/");
-			fileService.removeFile(removeFileId);
-			imgList.remove(i);
-		}
-		
-		int lastIndex = 0;
-		for (ImgVO img : imgList) {
-			img.setRid(article.getRid());
-			img.setArticleId(article.getRid());
-			img.setImgId(lastIndex);
-			
-			lastIndex++;
-		}
-		
-		for (int i=0; i<images.size(); i++) {
-			MultipartFile image = images.get(i);
-			
-			String fileIndex = article.getRid() + "_" + article.getArticleId() + "_" + (lastIndex + i);
-			String fileName = FilenameUtils.removeExtension(image.getOriginalFilename());
-			String fileExt = FilenameUtils.getExtension(image.getOriginalFilename());
-			String fileId = "art-" + fileName + "-" + fileIndex;
-			String filePath = "/hanbit2/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
-			
-			FileVO fileVO = new FileVO();
-			fileVO.setFileId(fileId);
-			fileVO.setFilePath(filePath);
-			fileVO.setFileName(fileId + "." + fileExt);
-			fileVO.setContentType(image.getContentType());
-			fileVO.setContentLength(image.getSize());
-
-			System.out.println(ToStringBuilder.reflectionToString(fileVO));
-			//fileService.addFile(fileVO, image.getInputStream()); - 보류
-			
-			String fileUrl = "/api/file/" + fileId;
-			
-			ImgVO img = new ImgVO();
-			img.setImgId(lastIndex + i);
-			img.setRid(newArt.getRid());
-			img.setArticleId(newArt.getArticleId());
-			img.setPath(fileUrl);
-			imgList.add(img);
-		}
-		
-		newArt.setImgs(imgList);
-		
-		//cockInsertDAO.saveArticle(newArt);
-		//cockInsertDAO.saveImgs(newArt);
-	}*/
 	
 	@Transactional
 	public Map setRestAndArticleSave(RestVO rest, List<MultipartFile> images) throws Exception {
@@ -222,7 +157,8 @@ public class CockInsertService {
 			String fileName = FilenameUtils.removeExtension(imgFile.getOriginalFilename());
 			String fileExt = FilenameUtils.getExtension(imgFile.getOriginalFilename());
 			String fileId = "art-" + fileName + "-" + fileIndex;
-			String filePath = "/hanbit/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
+			
+			String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
 			
 			FileVO fileVO = new FileVO();
 			fileVO.setFileId(fileId);
@@ -275,5 +211,14 @@ public class CockInsertService {
 		
 		cockInsertDAO.removeMenus(article);
 		cockInsertDAO.insertMenus(rest);
+	}
+
+	public List<LocationVO> getLocations(LocationVO location) {
+		//            +0.003, 0
+		//  0, -0.009 <- center -> 0, +0.009
+		//            -0.003, 0
+		List<LocationVO> locations = cockInsertDAO.selectLocations(location);	
+		
+		return locations;
 	}
 }

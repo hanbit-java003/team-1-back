@@ -17,11 +17,11 @@ values
     (1, 1, 0, '../img/insert/jeju.jpg');
     
 insert into cc_menu
-	(id, rid, article_id, img_id, x, y, menu)
+	(id, rid, article_id, img_id, x, y, menu, price)
 values
-	(0, 1, 0, 0, 10, 10, 'img0_menu0'),
-	(0, 1, 0, 1, 10, 10, 'img1_menu0'),
-	(1, 1, 0, 1, 40, 40, 'img1_menu1');
+	(0, 1, 0, 0, 10, 10, 'img0_menu0', 1000),
+	(0, 1, 0, 1, 10, 10, 'img1_menu0', 2000),
+	(1, 1, 0, 1, 40, 40, 'img1_menu1', 3000);
     
 insert into cc_tag
 	(tag_id, rid, article_id, tag)

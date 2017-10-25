@@ -39,13 +39,6 @@
 			<result property="phone" column="phone"/>
 			<result property="info" column="info"/>
 			<result property="avatar" column="avatar"/>
-<!-- 			<association property="feat" javaType="memberDetailFeatVO">
-				<result property="icon" column="icon"/>
-				<result property="name" column="name"/>
-				<result property="text" column="text"/>
-				<result property="id" column="id"/>
-				<result property="eid" column="eid"/>
-			</association> -->
 		</association>
 	</resultMap>
 	

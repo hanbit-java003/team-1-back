@@ -106,6 +106,7 @@ public class MemberController {
 			member.put("nick", session.getAttribute("nick"));
 			member.put("email", session.getAttribute("email"));
 			member.put("avatar", session.getAttribute("avatar"));
+			member.put("uid", session.getAttribute("uid"));
 		}
 
 		return member;

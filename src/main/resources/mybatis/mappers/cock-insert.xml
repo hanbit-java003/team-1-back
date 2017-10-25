@@ -47,7 +47,7 @@
 	<!-- *********************SAVE 에서 필요한 SQL******************** -->
 	
 	<select id="generateMaxRid" resultType="int">
-		SELECT MAX(rid) + 1
+		SELECT IFNULL(MAX(rid) + 1, 0)
 		  FROM cc_rest
 	</select>
 	
@@ -117,5 +117,14 @@
 			(#{img.imgId}, #{img.rid}, #{img.articleId}, #{img.path})
 		</foreach>
 	</insert>
+	
+	<!-- ********************* 기타 SQL ******************** -->
+	
+	<select id="selectLocations" parameterType="locationVO" resultType="locationVO">
+		SELECT rid, lat, lng, name title
+		  FROM cc_rest
+		 WHERE lat >= #{lat} - 0.009 AND lat &lt;= #{lat} + 0.009
+		   AND lng >= #{lng} - 0.009 AND lng &lt;= #{lng} + 0.009
+	</select>
 	
 </mapper>
