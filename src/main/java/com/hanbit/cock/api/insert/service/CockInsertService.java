@@ -1,23 +1,18 @@
 package com.hanbit.cock.api.insert.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hanbit.cock.api.dao.FileDAO;
+import com.hanbit.cock.api.annotation.EmblemUpdate;
 import com.hanbit.cock.api.insert.dao.CockInsertDAO;
 import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.ArticleVO;
@@ -36,8 +31,10 @@ public class CockInsertService {
 	
 	@Autowired
 	private FileService fileService;
-	
+
+	@EmblemUpdate
 	public RestVO getRest(int rid) {
+		System.out.println(rid);
 		RestVO restVO = cockInsertDAO.selectRest(rid);
 		if (restVO == null) { // restVO가 null 이면 List를 받을 수가 없다.
 			restVO = new RestVO();
@@ -159,7 +156,8 @@ public class CockInsertService {
 			String fileName = FilenameUtils.removeExtension(imgFile.getOriginalFilename());
 			String fileExt = FilenameUtils.getExtension(imgFile.getOriginalFilename());
 			String fileId = "art-" + fileName + "-" + fileIndex;
-			String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
+			String filePath = "/hanbit2/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
+			// String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
 			
 			FileVO fileVO = new FileVO();
 			fileVO.setFileId(fileId);

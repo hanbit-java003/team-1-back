@@ -123,7 +123,7 @@
 	<select id="selectLocations" parameterType="locationVO" resultType="locationVO">
 		SELECT rid, lat, lng, name title
 		  FROM cc_rest
-		 WHERE lat >= #{lat} - 0.009 AND lat &lt;= #{lat} + 0.009
+		 WHERE lat >= #{lat} - 0.003 AND lat &lt;= #{lat} + 0.003
 		   AND lng >= #{lng} - 0.009 AND lng &lt;= #{lng} + 0.009
 	</select>
 	

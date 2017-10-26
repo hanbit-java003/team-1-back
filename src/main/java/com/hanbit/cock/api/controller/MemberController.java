@@ -78,6 +78,7 @@ public class MemberController {
 		session.setAttribute(CockConstants.SIGNIN_KEY, true);
 		session.setAttribute("uid", memberVO.getUid());
 		session.setAttribute("email", memberVO.getEmail());
+		session.setAttribute("nick", memberVO.getNick());
 		
 		if(memberVO.getDetail() != null) {// detail이 null이 아닐 경우에만 실행.
 		session.setAttribute("avatar", memberVO.getDetail().getAvatar());
@@ -86,6 +87,7 @@ public class MemberController {
 
 		Map result = new HashMap();
 		result.put("email", memberVO.getEmail());
+		result.put("nick", memberVO.getNick());
 
 		return result;
 
@@ -101,6 +103,7 @@ public class MemberController {
 		}
 		else {
 			member.put(CockConstants.SIGNIN_KEY, true);
+			member.put("nick", session.getAttribute("nick"));
 			member.put("email", session.getAttribute("email"));
 			member.put("avatar", session.getAttribute("avatar"));
 			member.put("uid", session.getAttribute("uid"));
