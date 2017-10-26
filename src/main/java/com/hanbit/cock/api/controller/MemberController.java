@@ -147,11 +147,20 @@ public class MemberController {
 			@RequestParam(value= "avatar", required=false) MultipartFile image,
 			HttpSession session) throws Exception {
 		
+		String uid = (String) session.getAttribute("uid");
+		
 		MemberVO memberVO = objectMapper.readValue(json, MemberVO.class);
-		memberVO.setUid((String) session.getAttribute("uid"));
+		memberVO.setUid(uid);
 		
 		memberService.saveMemberDetail(memberVO, image);
+		
+		memberVO = memberService.getMemberDetail(uid);
 
+		session.setAttribute("nick", memberVO.getNick());
+		
+		if(memberVO.getDetail() != null) {// detail이 null이 아닐 경우에만 실행.
+			session.setAttribute("avatar", memberVO.getDetail().getAvatar());
+		}
 
 		Map result = new HashMap();
 		result.put("status", "ok");
