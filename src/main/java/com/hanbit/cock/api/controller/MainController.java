@@ -18,9 +18,14 @@ public class MainController {
 	@Autowired
 	private MainService mainService;
 	
-	@RequestMapping("/list")
-	public List<MainVO> listCockRest() {
-		return mainService.listCockRest();
+	@RequestMapping("/latest")
+	public List<MainVO> latestCockRest() {
+		return mainService.latestCockRest();
+	}
+	
+	@RequestMapping("/article")
+	public List<MainVO> articleCockRest() {
+		return mainService.articleCockRest();
 	}
 	
 	@RequestMapping("/tags")

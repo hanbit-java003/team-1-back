@@ -16,8 +16,12 @@ public class MainService {
 	@Autowired
 	private MainDAO mainDAO;
 	
-	public List<MainVO> listCockRest() {
-		return mainDAO.selectCockRest();
+	public List<MainVO> latestCockRest() {
+		return mainDAO.selectLatestCockRest();
+	}
+	
+	public List<MainVO> articleCockRest() {
+		return mainDAO.selectArticleCockRest();
 	}
 	
 	public List<TagVO> listRestTags() {
@@ -26,6 +30,6 @@ public class MainService {
 	
 	public List<TopFourVO> listCockTopFour() {
 		return mainDAO.selectTopFour();
-	}
+	}	
 	
 }
