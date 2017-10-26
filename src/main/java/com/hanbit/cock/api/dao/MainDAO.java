@@ -16,8 +16,12 @@ public class MainDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<MainVO> selectCockRest() {
-		return sqlSession.selectList("cockMain.selectRest");
+	public List<MainVO> selectLatestCockRest() {
+		return sqlSession.selectList("cockMain.selectLatestRest");
+	}
+	
+	public List<MainVO> selectArticleCockRest() {
+		return sqlSession.selectList("cockMain.selectArticleRest");
 	}
 	
 	public List<TagVO> selectRestTags() {
