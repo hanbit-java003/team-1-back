@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hanbit.cock.api.dao.MemberDAO;
 import com.hanbit.cock.api.detail.dao.DetailDAO;
+import com.hanbit.cock.api.emblem.dao.CockEmblemDAO;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.MemberDetailVO;
@@ -18,6 +20,12 @@ public class DetailService {
 
 	@Autowired
 	private DetailDAO detailDAO;
+	
+	@Autowired
+	private MemberDAO memberDAO; // chi
+	
+	@Autowired
+	private CockEmblemDAO cockEmblemDAO; // chi 
 	
 	public DetailVO getRest(int rid) {
 		DetailVO detail = detailDAO.selectRest(rid);
@@ -60,11 +68,20 @@ public class DetailService {
 		article.setTags(detailDAO.selectTags(article));
 		article.setMenus(detailDAO.selectMenus(article));
 		
-		MemberDetailVO memberDetail = detailDAO.selectMemberDetail(article.getUid());
+		/*MemberDetailVO memberDetail = detailDAO.selectMemberDetail(article.getUid());
 		MemberVO member = detailDAO.selectMember(article.getUid());
-		member.setDetail(memberDetail);
+		member.setDetail(memberDetail);*/
 		
-		article.setMember(member);
+		/*********************** chi *************************/ 
+		MemberVO memberVO = memberDAO.selectMemberDetail(article.getUid());
+		MemberDetailVO memberDetailVO = memberVO.getDetail(); 
+		article.setNick(memberVO.getNick());
+		article.setAvatar(memberDetailVO.getAvatar());
+		article.setEmblems(cockEmblemDAO.selectUidEmblem(article.getUid()));
+		
+		System.out.println(article.getUid());
+		
+		//article.setMember(memberVO);
 
 		return article;
 	}

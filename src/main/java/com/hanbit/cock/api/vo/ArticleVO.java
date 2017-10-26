@@ -2,6 +2,8 @@ package com.hanbit.cock.api.vo;
 
 import java.util.List;
 
+import com.hanbit.cock.api.emblem.vo.EmblemVO;
+
 // article_id, rid, comment, status, likes, hate, write_dt
 public class ArticleVO {
 	private Integer articleId;
@@ -12,12 +14,12 @@ public class ArticleVO {
 	private int hate;
 	private String writeDt;
 	private String uid;
+	private String nick; // chi
+	private String avatar; // chi
 	private List<ImgVO> imgs;
-
 	private List<TagVO> tags;
 	private List<MenuVO> menus;
-	
-	private MemberVO member;
+	private List<EmblemVO> emblems; // chi
 
 	public Integer getArticleId() {
 		return articleId;
@@ -26,7 +28,6 @@ public class ArticleVO {
 	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
-
 
 	public Integer getRid() {
 		return rid;
@@ -51,13 +52,14 @@ public class ArticleVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public int getLikes() {
 		return likes;
 	}
+
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-
 
 	public int getHate() {
 		return hate;
@@ -98,23 +100,37 @@ public class ArticleVO {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-	
+
 	public List<ImgVO> getImgs() {
 		return imgs;
 	}
+
 	public void setImgs(List<ImgVO> imgs) {
 		this.imgs = imgs;
 	}
 
-	public MemberVO getMember() {
-		return member;
+	public String getNick() {
+		return nick;
 	}
 
-	public void setMember(MemberVO member) {
-		this.member = member;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
-	
 
+	public String getAvatar() {
+		return avatar;
+	}
 
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public List<EmblemVO> getEmblems() {
+		return emblems;
+	}
+
+	public void setEmblems(List<EmblemVO> emblems) {
+		this.emblems = emblems;
+	}
 
 }
