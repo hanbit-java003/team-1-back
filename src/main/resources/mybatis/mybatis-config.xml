@@ -17,7 +17,10 @@
 		<typeAlias alias="tagVO" type="com.hanbit.cock.api.vo.TagVO"/>
 		<typeAlias alias="imgVO" type="com.hanbit.cock.api.vo.ImgVO"/>
 		<typeAlias alias="locationVO" type="com.hanbit.cock.api.vo.LocationVO"/>
+		
 		<typeAlias alias="emblemVO" type="com.hanbit.cock.api.emblem.vo.EmblemVO"/>
+		<typeAlias alias="emblemMemberVO" type="com.hanbit.cock.api.emblem.vo.EmblemMemberVO"/>
+		<typeAlias alias="emblemAchiveVO" type="com.hanbit.cock.api.emblem.vo.EmblemAchiveVO"/>
 		
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		

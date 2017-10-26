@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
+import com.hanbit.cock.api.vo.MemberDetailVO;
+import com.hanbit.cock.api.vo.MemberVO;
 import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.TagVO;
 
@@ -30,6 +32,14 @@ public class DetailDAO {
 		return sqlSession.selectOne("cockDetail.selectArticle", article);
 	}
 
+	public MemberVO selectMember(String uid) {
+		return sqlSession.selectOne("cockDetail.selectMember", uid);
+	}
+
+	public MemberDetailVO selectMemberDetail(String uid) {
+		return sqlSession.selectOne("cockDetail.selectMemberDetail", uid);
+	}
+
 	public List<MenuVO> selectMenus(ArticleVO article) {
 		return sqlSession.selectList("cockDetail.selectMenus", article);
 	}
@@ -45,11 +55,11 @@ public class DetailDAO {
 	public int deleteArticle(ArticleVO article) {
 		return sqlSession.delete("cockDetail.deleteArticle", article);
 	}
-	
+
 	public int deleteMenus(ArticleVO article) {
 		return sqlSession.delete("cockDetail.deleteMenus", article);
 	}
-	
+
 	public int deleteTags(ArticleVO article) {
 		return sqlSession.delete("cockDetail.deleteTags", article);
 	}

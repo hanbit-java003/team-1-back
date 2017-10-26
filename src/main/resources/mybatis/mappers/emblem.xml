@@ -5,9 +5,16 @@
 <mapper namespace="emblem">
 	
 	<select id="selectUidEmblem" parameterType="string" resultType="emblemVO">
-		SELECT *
-		  FROM emblem_achive
-		 WHERE uid=#{uid}
+		SELECT e.name, e.img, e.how_achieve
+		  FROM emblem_achive a, emblem e 
+		 WHERE a.uid=#{uid} AND e.name = a.emblem_name
 	</select>
+	
+	<insert id="insertEmblemId" parameterType="string">
+		INSERT INTO cc_rest
+			(uid)
+		VALUES
+			(#{uid})
+	</insert>
 	
 </mapper>
