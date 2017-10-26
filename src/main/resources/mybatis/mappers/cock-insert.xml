@@ -61,7 +61,7 @@
 		INSERT INTO cc_rest
 			(rid, name, lat, lng, status)
 		VALUES
-			(#{rid}, #{name}, #{lat}, #{lng}, #{status});
+			(#{rid}, #{name}, #{lat}, #{lng}, #{status})
 	</insert>
 	
 	<insert id="replaceArticle" parameterType="articleVO">

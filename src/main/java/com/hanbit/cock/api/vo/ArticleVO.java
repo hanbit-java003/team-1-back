@@ -2,6 +2,8 @@ package com.hanbit.cock.api.vo;
 
 import java.util.List;
 
+import com.hanbit.cock.api.emblem.vo.EmblemVO;
+
 // article_id, rid, comment, status, likes, hate, write_dt
 public class ArticleVO {
 	private Integer articleId;
@@ -12,9 +14,12 @@ public class ArticleVO {
 	private int hate;
 	private String writeDt;
 	private String uid;
+	private String email; // chi
+	private String avatar; // chi
 	private List<ImgVO> imgs;
 	private List<TagVO> tags;
 	private List<MenuVO> menus;
+	private List<EmblemVO> emblems; // chi
 
 	public Integer getArticleId() {
 		return articleId;
@@ -102,6 +107,30 @@ public class ArticleVO {
 
 	public void setImgs(List<ImgVO> imgs) {
 		this.imgs = imgs;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public List<EmblemVO> getEmblems() {
+		return emblems;
+	}
+
+	public void setEmblems(List<EmblemVO> emblems) {
+		this.emblems = emblems;
 	}
 
 }

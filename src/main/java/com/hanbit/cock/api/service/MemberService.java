@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hanbit.cock.api.dao.MemberDAO;
+import com.hanbit.cock.api.emblem.dao.CockEmblemDAO;
 import com.hanbit.cock.api.vo.MemberVO;
 import com.hanbit.cock.api.exception.CockException;
 import com.hanbit.cock.api.service.FileService;
@@ -29,10 +30,14 @@ public class MemberService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private CockEmblemDAO cockEmblemDAO; 
 
 	@Autowired
 	private FileService fileService;
 
+	@Transactional
 	public void signUp(MemberVO memberVO){
 
 		// countMember가 0보다 크면 있는거다. 중복확인..
@@ -55,9 +60,11 @@ public class MemberService {
 
 		memberDAO.insertMember(memberVO);
 
+		// 엠블럼 릴레이션 생성
+		cockEmblemDAO.signUpEmblemId(memberVO.getUid());
 	}
 
-
+	
 	private String generateUid() {
 		//62^12 거의 안겹친다고 보면된다. 
 		int length = 12;
@@ -94,6 +101,7 @@ public class MemberService {
 
 		return memberDAO.selectMemberDetail(uid); 
 	}
+	
 	@Transactional // 여러개의 DAO를 실행해야되기 때문에
 	public void saveMemberDetail(MemberVO memberVO,MultipartFile image)
 			throws IOException{

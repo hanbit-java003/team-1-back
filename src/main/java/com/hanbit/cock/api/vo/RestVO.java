@@ -2,6 +2,8 @@ package com.hanbit.cock.api.vo;
 
 import java.util.List;
 
+import com.hanbit.cock.api.emblem.vo.EmblemVO;
+
 public class RestVO {
 
 	private Integer rid;
@@ -85,5 +87,4 @@ public class RestVO {
 	public void setImgs(List<ImgVO> imgs) {
 		this.imgs = imgs;
 	}
-
 }

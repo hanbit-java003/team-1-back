@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hanbit.cock.api.annotation.SignInRequired;
 import com.hanbit.cock.api.insert.service.CockInsertService;
 import com.hanbit.cock.api.vo.LocationVO;
 import com.hanbit.cock.api.vo.RestVO;
@@ -24,7 +25,8 @@ public class CockInsertController {
 	private CockInsertService cockInsertService;
 	
 	private ObjectMapper mapper = new ObjectMapper();
-	//
+	
+	@SignInRequired
 	@RequestMapping("/{rid}")
 	public RestVO getRest(@PathVariable(value="rid") int rid) {
 		return cockInsertService.getRest(rid);

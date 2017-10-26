@@ -18,4 +18,8 @@ public class CockEmblemDAO {
 		return sqlSession.selectList("emblem.selectUidEmblem", uid);
 	}
 
+	public int signUpEmblemId(String uid) {
+		return sqlSession.insert("emblem.insertEmblemId", uid);
+	}
+
 }
