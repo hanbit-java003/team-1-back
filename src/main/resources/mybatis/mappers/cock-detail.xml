@@ -44,8 +44,16 @@
 	  ORDER BY img_id
 	</select>
 	
-	<select id="selectMember" parameterType="articleVO" resultType="imgVO">
-		
+	<select id="selectMember" parameterType="string" resultType="memberVO">
+		SELECT uid, nick, email, password
+		  FROM cc_member
+		 WHERE uid = #{uid}
+	</select>
+	
+	<select id="selectMemberDetail" parameterType="string" resultType="memberDetailVO">
+		SELECT *
+		  FROM cc_member_detail
+	   	 WHERE uid = #{uid}
 	</select>
 	
 	<delete id="deleteArticle" parameterType="articleVO">

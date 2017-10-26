@@ -16,6 +16,8 @@ public class ArticleVO {
 
 	private List<TagVO> tags;
 	private List<MenuVO> menus;
+	
+	private MemberVO member;
 
 	public Integer getArticleId() {
 		return articleId;
@@ -102,6 +104,14 @@ public class ArticleVO {
 	}
 	public void setImgs(List<ImgVO> imgs) {
 		this.imgs = imgs;
+	}
+
+	public MemberVO getMember() {
+		return member;
+	}
+
+	public void setMember(MemberVO member) {
+		this.member = member;
 	}
 	
 

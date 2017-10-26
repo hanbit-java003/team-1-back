@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hanbit.cock.api.detail.dao.DetailDAO;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
+import com.hanbit.cock.api.vo.MemberDetailVO;
+import com.hanbit.cock.api.vo.MemberVO;
 
 @Service
 public class DetailService {
@@ -57,6 +59,12 @@ public class DetailService {
 		article.setImgs(detailDAO.selectImgs(article));
 		article.setTags(detailDAO.selectTags(article));
 		article.setMenus(detailDAO.selectMenus(article));
+		
+		MemberDetailVO memberDetail = detailDAO.selectMemberDetail(article.getUid());
+		MemberVO member = detailDAO.selectMember(article.getUid());
+		member.setDetail(memberDetail);
+		
+		article.setMember(member);
 
 		return article;
 	}
