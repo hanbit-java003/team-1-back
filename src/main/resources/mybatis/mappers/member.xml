@@ -13,7 +13,7 @@
 	<select id="countNick" parameterType="string" resultType="int">
 		SELECT COUNT(uid)
 			FROM cc_member
-		   WHERE nick = #{nick}			   	
+		   WHERE nick = #{nick}
 	</select>
 	
 	<insert id="insertMember" parameterType="memberVO">

@@ -32,9 +32,7 @@ public class CockInsertService {
 	@Autowired
 	private FileService fileService;
 
-	@EmblemUpdate
 	public RestVO getRest(int rid) {
-		System.out.println(rid);
 		RestVO restVO = cockInsertDAO.selectRest(rid);
 		if (restVO == null) { // restVO가 null 이면 List를 받을 수가 없다.
 			restVO = new RestVO();
@@ -59,7 +57,6 @@ public class CockInsertService {
 		return restVO;
 	}
 
-	
 	private void setRestSave(RestVO rest) {
 		rest.setRid(cockInsertDAO.ridGenerate());
 		cockInsertDAO.insertRest(rest);
@@ -77,6 +74,7 @@ public class CockInsertService {
 	}
 	
 	@Transactional
+	@EmblemUpdate
 	public Map setRestAndArticleSave(RestVO rest, List<MultipartFile> images) throws Exception {
 		Map result = new HashMap();		
 		// 처리순서 - 1. rest
@@ -113,6 +111,7 @@ public class CockInsertService {
 		
 		result.put("rid", rest.getRid());
 		result.put("articleId", rest.getArticles().get(0).getArticleId());
+		result.put("RestVO", rest);
 		
 		return result;
 	}

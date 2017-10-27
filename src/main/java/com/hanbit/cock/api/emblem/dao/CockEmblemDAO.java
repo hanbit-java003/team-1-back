@@ -21,5 +21,18 @@ public class CockEmblemDAO {
 	public int signUpEmblemId(String uid) {
 		return sqlSession.insert("emblem.insertEmblemId", uid);
 	}
+	
+	public int increaseRestCount(String uid) {
+		sqlSession.update("emblem.increaseRestCount", uid);
+		return selectRestCount(uid);
+	}
+	
+	public int selectRestCount(String uid) {
+		return sqlSession.selectOne("emblem.selectInsertRestCount", uid);
+	}
+	
+	public int achiveFirstRest(String uid) {
+		return sqlSession.insert("emblem.insertFirstRest", uid);
+	}
 
 }
