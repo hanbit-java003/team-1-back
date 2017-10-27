@@ -11,7 +11,7 @@
 	</select>
 	
 	<insert id="insertEmblemId" parameterType="string">
-		INSERT INTO cc_rest
+		INSERT INTO emblem_member
 			(uid)
 		VALUES
 			(#{uid})

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hanbit.cock.api.dao.MemberDAO;
+import com.hanbit.cock.api.emblem.dao.CockEmblemDAO;
 import com.hanbit.cock.api.vo.MemberVO;
 import com.hanbit.cock.api.exception.CockException;
 import com.hanbit.cock.api.service.FileService;
@@ -32,6 +33,9 @@ public class MemberService {
 
 	@Autowired
 	private FileService fileService;
+	
+	@Autowired
+	private CockEmblemDAO cockEmblemDAO;
 
 	public void signUp(MemberVO memberVO){
 
@@ -54,6 +58,9 @@ public class MemberService {
 		memberVO.setPassword(encodedPassword);
 
 		memberDAO.insertMember(memberVO);
+		
+		// 엠블럼 릴레이션 생성
+		cockEmblemDAO.signUpEmblemId(memberVO.getUid());
 
 	}
 
