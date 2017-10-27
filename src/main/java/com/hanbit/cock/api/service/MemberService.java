@@ -37,6 +37,7 @@ public class MemberService {
 	@Autowired
 	private CockEmblemDAO cockEmblemDAO;
 
+	@Transactional
 	public void signUp(MemberVO memberVO){
 
 		// countMember가 0보다 크면 있는거다. 중복확인..
