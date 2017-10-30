@@ -36,6 +36,24 @@ public class MemberService {
 	
 	@Autowired
 	private CockEmblemDAO cockEmblemDAO;
+	
+	// E-mail 중복확인
+	public void emailCheck(MemberVO memberVO) {
+		// countMember가 0보다 크면 있는거다. 중복확인..
+		if(memberDAO.countMember(memberVO.getEmail()) > 0) {
+			// exception을 발생 시켜준다.
+			throw new CockException("이미 가입된 이메일 입니다.");
+		}
+	}
+	
+	// 별명 중복확인 버튼.
+	public void nickCheck(MemberVO memberVO) {
+		// countNick 이 0보다 크면 있는거.
+		if(memberDAO.countNick(memberVO.getNick())> 0) {
+			// exception을 발생 시켜준다.
+			throw new CockException("이미 중복된 별명 입니다.");
+		}
+	}
 
 	@Transactional
 	public void signUp(MemberVO memberVO){

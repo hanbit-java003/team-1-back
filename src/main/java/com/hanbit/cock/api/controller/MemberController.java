@@ -36,6 +36,32 @@ public class MemberController {
 	private MemberService memberService;
 	
 	private static final ObjectMapper objectMapper = new ObjectMapper();
+	
+	@RequestMapping("/emailCheck")
+	public Map emailCheck(@RequestParam("email") String email) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setEmail(email);
+		
+		memberService.emailCheck(memberVO);
+		
+		Map result = new HashMap();
+		result.put("status","ok");
+		
+		return result;
+	}
+	
+	@RequestMapping("/nickCheck")
+	public Map nickCheck(@RequestParam("nick") String nick) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setNick(nick);
+		
+		memberService.nickCheck(memberVO);
+		
+		Map result = new HashMap();
+		result.put("status", "ok");
+
+		return result;
+	}
 
 	// 보안상 Post를 사용한다.
 	@PostMapping("/signup")
