@@ -45,8 +45,8 @@ public class MemberController {
 		memberService.emailCheck(memberVO);
 		
 		Map result = new HashMap();
-		result.put("status","ok");
-		
+		result.put("status", "ok");
+
 		return result;
 	}
 	
