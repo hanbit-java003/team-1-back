@@ -1,5 +1,7 @@
 package com.hanbit.cock.api.email;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hanbit.cock.api.vo.MemberVO;
+
 @RestController
 @RequestMapping("/api")
 public class EmailController {
@@ -26,21 +30,26 @@ public class EmailController {
 
 	// Email 인증 추가.
 	@RequestMapping("/email")
-	public ModelAndView emailAuth(@RequestParam ("authNum") String authNum,
-			@RequestParam("email") String email,
+	public Map emailAuth(@RequestParam("email") String email,
 			HttpServletResponse response, HttpServletRequest request)throws Exception {
-
+		
+		String authNum;
+		
+		MemberVO memberVO = new MemberVO();
+		
 		email = request.getParameter("email");
-
+		
+		memberVO.setEmail(email);
+		
 		authNum  = RandomNum();
 
 		sendEmail(email.toString(), authNum);
 
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("email",email);
-		mv.addObject("authNum",authNum);
+		Map map = new HashMap();
+		map.put("email",email);
+		map.put("authNum",authNum);
 
-		return mv;
+		return map;
 	}
 
 
