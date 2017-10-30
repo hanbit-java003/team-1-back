@@ -4,12 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cockDetail">
 	
+	<!-- 식당 -->
 	<select id="selectRest" parameterType="int" resultType="detailVO">
 		SELECT *
 		  FROM cc_rest
 		 WHERE rid=#{rid}
 	</select>
 	
+	<!-- 식당별 카드 목록 -->
 	<select id="selectArticles" parameterType="int" resultType="string">
 		SELECT *
 		  FROM cc_article
@@ -17,6 +19,7 @@
 	  ORDER BY article_id
 	</select>
 	
+	<!-- 카드 개별 정보 -->
 	<select id="selectArticle" parameterType="articleVO" resultType="articleVO">
 		SELECT *
 		  FROM cc_article
@@ -56,6 +59,7 @@
 	   	 WHERE uid = #{uid}
 	</select>
 	
+	<!-- 카드 삭제 -->
 	<delete id="deleteArticle" parameterType="articleVO">
 		DELETE
 		  FROM cc_menu
@@ -79,5 +83,18 @@
 		  FROM cc_menu
 		 WHERE rid=#{rid} and article_id=#{articleId}
 	</delete>
+	
+	<!-- 좋아요, 싫어요 증감 -->
+	<select id="increaseLikes" parameterType="articleVO">
+		UPDATE cc_article 
+		   SET likes = likes + 1 
+		 WHERE rid = #{rid} and article_id = #{articleId};
+	</select>
+	
+	<select id="decreaseLikes" parameterType="articleVO">
+		UPDATE cc_article 
+		   SET likes = likes - 1 
+		 WHERE rid = #{rid} and article_id = #{articleId};
+	</select>
 	
 </mapper>

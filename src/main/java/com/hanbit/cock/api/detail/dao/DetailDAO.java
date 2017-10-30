@@ -67,5 +67,13 @@ public class DetailDAO {
 	public int deleteImgs(ArticleVO article) {
 		return sqlSession.delete("cockDetail.deleteImgs", article);
 	}
+	
+	public int updateLikesIncrease(ArticleVO article) {
+		return sqlSession.update("cockDetail.increaseLikes", article);
+	}
+	
+	public int updateLikesDecrease(ArticleVO article) {
+		return sqlSession.update("cockDetail.decreaseLikes", article);
+	}
 
 }

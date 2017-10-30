@@ -95,5 +95,13 @@ public class DetailService {
 		
 		System.out.println("삭제");
 	}
+	
+	public void increaseLikes(ArticleVO article) {
+		detailDAO.updateLikesIncrease(article);
+	}
+	
+	public void decreaseLikes(ArticleVO article) {
+		detailDAO.updateLikesDecrease(article);
+	}
 
 }

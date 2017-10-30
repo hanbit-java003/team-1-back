@@ -39,6 +39,44 @@ public class DetailController {
 	public Map<String, Boolean> removeArticle(@PathVariable("rid") int rid,
 											  @PathVariable("articleId") int articleId) {
 		
+		ArticleVO article = new ArticleVO();
+		article.setRid(rid);
+		article.setArticleId(articleId);
+		
+		detailService.removeArticle(article);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		result.put("ok", true);
+		
+		return result;
+	}
+	
+	@RequestMapping("/inc/{rid}/{articleId}")
+	public Map<String, Boolean> increaseLikes(@PathVariable("rid") int rid,
+											  @PathVariable("articleId") int articleId) {
+		
+		ArticleVO article = new ArticleVO();
+		article.setRid(rid);
+		article.setArticleId(articleId);
+		
+		detailService.increaseLikes(article);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		result.put("ok", true);
+		
+		return result;
+	}
+	
+	@RequestMapping("/dec/{rid}/{articleId}")
+	public Map<String, Boolean> decreaseLikes(@PathVariable("rid") int rid,
+											  @PathVariable("articleId") int articleId) {
+		
+		ArticleVO article = new ArticleVO();
+		article.setRid(rid);
+		article.setArticleId(articleId);
+		
+		detailService.decreaseLikes(article);
+		
 		Map<String, Boolean> result = new HashMap<>();
 		result.put("ok", true);
 		
