@@ -79,7 +79,7 @@ public class DetailService {
 		article.setAvatar(memberDetailVO.getAvatar());
 		article.setEmblems(cockEmblemDAO.selectUidEmblem(article.getUid()));
 		
-		System.out.println(article.getUid());
+		//System.out.println(article.getUid());
 		
 		//article.setMember(memberVO);
 
@@ -88,9 +88,9 @@ public class DetailService {
 	
 	@Transactional
 	public void removeArticle(ArticleVO article) {
-		detailDAO.deleteTags(article);
-		detailDAO.deleteImgs(article);
 		detailDAO.deleteMenus(article);
+		detailDAO.deleteImgs(article);
+		detailDAO.deleteTags(article);
 		detailDAO.deleteArticle(article);
 		
 		System.out.println("삭제");

@@ -62,7 +62,7 @@
 	<!-- 카드 삭제 -->
 	<delete id="deleteArticle" parameterType="articleVO">
 		DELETE
-		  FROM cc_menu
+		  FROM cc_article
 		 WHERE rid=#{rid} and article_id=#{articleId}
 	</delete>
 	
