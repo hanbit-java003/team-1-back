@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hanbit.cock.api.emblem.vo.EmblemVO;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
@@ -52,6 +53,10 @@ public class DetailDAO {
 		return sqlSession.selectList("cockDetail.selectImgs", article);
 	}
 
+	public List<EmblemVO> selectEmblems(ArticleVO article) {
+		return sqlSession.selectList("cockDetail.selectEmblems", article);
+	}
+
 	public int deleteArticle(ArticleVO article) {
 		return sqlSession.delete("cockDetail.deleteArticle", article);
 	}
@@ -67,11 +72,11 @@ public class DetailDAO {
 	public int deleteImgs(ArticleVO article) {
 		return sqlSession.delete("cockDetail.deleteImgs", article);
 	}
-	
+
 	public int updateLikesIncrease(ArticleVO article) {
 		return sqlSession.update("cockDetail.increaseLikes", article);
 	}
-	
+
 	public int updateLikesDecrease(ArticleVO article) {
 		return sqlSession.update("cockDetail.decreaseLikes", article);
 	}

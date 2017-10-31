@@ -12,11 +12,11 @@
 	</select>
 	
 	<!-- 식당별 카드 목록 -->
-	<select id="selectArticles" parameterType="int" resultType="string">
-		SELECT *
-		  FROM cc_article
+	<select id="selectArticles" parameterType="int" resultType="ArticleVO">
+		SELECT * 
+		  FROM (cc_article a LEFT JOIN cc_member m on a.uid = m.uid) LEFT JOIN cc_member_detail d on m.uid = d.uid
 		 WHERE rid=#{rid}
-	  ORDER BY article_id
+	  ORDER BY a.article_id desc
 	</select>
 	
 	<!-- 카드 개별 정보 -->
@@ -57,6 +57,12 @@
 		SELECT *
 		  FROM cc_member_detail
 	   	 WHERE uid = #{uid}
+	</select>
+	
+	<select id="selectEmblems" parameterType="string" resultType="emblemVO">
+		SELECT e.name, e.img, e.how_achieve
+		  FROM emblem_achive a, emblem e 
+		 WHERE a.uid=#{uid} AND e.name = a.emblem_name
 	</select>
 	
 	<!-- 카드 삭제 -->
