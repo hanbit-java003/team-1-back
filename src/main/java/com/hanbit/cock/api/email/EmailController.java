@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.mail.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +37,7 @@ public class EmailController {
 
 	// Email 인증 추가.
 	@RequestMapping("/email")
+	@Transactional
 	public Map emailAuth(@RequestParam("email") String email,
 			HttpServletResponse response, HttpServletRequest request)throws Exception {
 		
@@ -47,6 +49,7 @@ public class EmailController {
 		
 		memberVO.setEmail(email);
 		
+		// 이메일 중복체크.
 		memberService.emailCheck(memberVO);
 		
 		authNum  = RandomNum();
