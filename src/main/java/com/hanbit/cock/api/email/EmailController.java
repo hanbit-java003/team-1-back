@@ -16,17 +16,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.mail.Session;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hanbit.cock.api.service.MemberService;
 import com.hanbit.cock.api.vo.MemberVO;
+
+
 
 @RestController
 @RequestMapping("/api")
 public class EmailController {
-
+	
+	@Autowired
+	private MemberService memberService;
 
 	// Email 인증 추가.
 	@RequestMapping("/email")
@@ -41,12 +47,16 @@ public class EmailController {
 		
 		memberVO.setEmail(email);
 		
+		memberService.emailCheck(memberVO);
+		
 		authNum  = RandomNum();
 
 		sendEmail(email.toString(), authNum);
 		
+		
 
 		Map map = new HashMap();
+		map.put("status", "ok");
 		map.put("email",email);
 		map.put("authNum",authNum);
 		
