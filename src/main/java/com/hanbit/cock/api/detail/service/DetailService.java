@@ -20,13 +20,13 @@ public class DetailService {
 
 	@Autowired
 	private DetailDAO detailDAO;
-	
+
 	@Autowired
 	private MemberDAO memberDAO; // chi
-	
+
 	@Autowired
-	private CockEmblemDAO cockEmblemDAO; // chi 
-	
+	private CockEmblemDAO cockEmblemDAO; // chi
+
 	public DetailVO getRest(int rid) {
 		DetailVO detail = detailDAO.selectRest(rid);
 
@@ -34,12 +34,12 @@ public class DetailService {
 			detail = new DetailVO();
 		}
 
-		getArticles(rid);
+		detail.setArticles(getArticles(rid));
 
 		return detail;
 	}
 
-	public DetailVO getArticles(int rid) {
+	public List<ArticleVO> getArticles(int rid) {
 		DetailVO detail = detailDAO.selectRest(rid);
 
 		if (detail == null) {
@@ -47,16 +47,16 @@ public class DetailService {
 		}
 
 		List<ArticleVO> articles = new ArrayList<>();
+		articles = detailDAO.selectArticles(rid);
 
-		detail.setArticles(detailDAO.selectArticles(rid));
-
-		for (int i = 0; i < detail.getArticles().size(); i++) {
-			articles.add(getArticle(rid, i));
+		for (int i = 0; i < articles.size(); i++) {
+			articles.get(i).setImgs(detailDAO.selectImgs(articles.get(i)));
+			articles.get(i).setTags(detailDAO.selectTags(articles.get(i)));
+			articles.get(i).setMenus(detailDAO.selectMenus(articles.get(i)));
+			articles.get(i).setEmblems(detailDAO.selectEmblems(articles.get(i)));
 		}
 
-		detail.setArticles(articles);
-
-		return detail;
+		return articles;
 	}
 
 	public ArticleVO getArticle(int rid, int articleId) {
@@ -67,39 +67,41 @@ public class DetailService {
 		article.setImgs(detailDAO.selectImgs(article));
 		article.setTags(detailDAO.selectTags(article));
 		article.setMenus(detailDAO.selectMenus(article));
-		
-		/*MemberDetailVO memberDetail = detailDAO.selectMemberDetail(article.getUid());
-		MemberVO member = detailDAO.selectMember(article.getUid());
-		member.setDetail(memberDetail);*/
-		
-		/*********************** chi *************************/ 
+
+		/*
+		 * MemberDetailVO memberDetail = detailDAO.selectMemberDetail(article.getUid());
+		 * MemberVO member = detailDAO.selectMember(article.getUid());
+		 * member.setDetail(memberDetail);
+		 */
+
+		/*********************** chi *************************/
 		MemberVO memberVO = memberDAO.selectMemberDetail(article.getUid());
-		MemberDetailVO memberDetailVO = memberVO.getDetail(); 
+		MemberDetailVO memberDetailVO = memberVO.getDetail();
 		article.setNick(memberVO.getNick());
 		article.setAvatar(memberDetailVO.getAvatar());
 		article.setEmblems(cockEmblemDAO.selectUidEmblem(article.getUid()));
-		
-		//System.out.println(article.getUid());
-		
-		//article.setMember(memberVO);
+
+		// System.out.println(article.getUid());
+
+		// article.setMember(memberVO);
 
 		return article;
 	}
-	
+
 	@Transactional
 	public void removeArticle(ArticleVO article) {
 		detailDAO.deleteMenus(article);
 		detailDAO.deleteImgs(article);
 		detailDAO.deleteTags(article);
 		detailDAO.deleteArticle(article);
-		
+
 		System.out.println("삭제");
 	}
-	
+
 	public void increaseLikes(ArticleVO article) {
 		detailDAO.updateLikesIncrease(article);
 	}
-	
+
 	public void decreaseLikes(ArticleVO article) {
 		detailDAO.updateLikesDecrease(article);
 	}

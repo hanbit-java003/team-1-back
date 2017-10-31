@@ -22,7 +22,7 @@ public class DetailController {
 
 	@RequestMapping("/{rid}")
 	public DetailVO getRest(@PathVariable(value = "rid") int rid) {
-		return detailService.getArticles(rid);
+		return detailService.getRest(rid);
 	}
 	
 	@RequestMapping("/{rid}/{articleId}")
