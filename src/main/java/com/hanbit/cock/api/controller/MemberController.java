@@ -37,7 +37,7 @@ public class MemberController {
 	
 	private static final ObjectMapper objectMapper = new ObjectMapper();
 	
-	@RequestMapping("/emailCheck")
+/*	@RequestMapping("/emailCheck")
 	public Map emailCheck(@RequestParam("email") String email) {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setEmail(email);
@@ -48,7 +48,7 @@ public class MemberController {
 		result.put("status", "ok");
 
 		return result;
-	}
+	}*/
 	
 	@RequestMapping("/nickCheck")
 	public Map nickCheck(@RequestParam("nick") String nick) {
