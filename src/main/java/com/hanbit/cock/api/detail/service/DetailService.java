@@ -30,14 +30,12 @@ public class DetailService {
 	}
 
 	public List<ArticleVO> getArticles(int rid) {
-		DetailVO detail = detailDAO.selectRest(rid);
-
-		if (detail == null) {
-			detail = new DetailVO();
-		}
-
 		List<ArticleVO> articles = new ArrayList<>();
 		articles = detailDAO.selectArticles(rid);
+
+		if (articles.size() == 0) {
+			detailDAO.deleteRest(rid);
+		}
 
 		for (int i = 0; i < articles.size(); i++) {
 			articles.get(i).setImgs(detailDAO.selectImgs(articles.get(i)));
@@ -55,7 +53,7 @@ public class DetailService {
 		detailDAO.deleteImgs(article);
 		detailDAO.deleteTags(article);
 		detailDAO.deleteArticle(article);
-
+		
 		System.out.println("삭제");
 	}
 

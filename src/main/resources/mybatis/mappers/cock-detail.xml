@@ -47,7 +47,13 @@
 		 WHERE a.uid=#{uid} AND e.name = a.emblem_name
 	</select>
 	
-	<!-- 카드 삭제 -->
+	<!-- 삭제 -->
+	<delete id="deleteRest" parameterType="int">
+		DELETE
+		  FROM cc_rest
+		 WHERE rid=#{rid}
+	</delete>
+	
 	<delete id="deleteArticle" parameterType="articleVO">
 		DELETE
 		  FROM cc_article
