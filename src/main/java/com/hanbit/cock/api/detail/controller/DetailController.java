@@ -24,17 +24,7 @@ public class DetailController {
 	public DetailVO getRest(@PathVariable(value = "rid") int rid) {
 		return detailService.getRest(rid);
 	}
-	
-	@RequestMapping("/{rid}/{articleId}")
-	public ArticleVO getRest(@PathVariable(value = "rid") int rid,
-						     @PathVariable(value = "articleId") int articleId) {
-		return detailService.getArticle(rid, articleId);
-	}
-	
-	/*
-	 * 삭제, 수정 해야함, 유저정보도 불러와야함...
-	 * */
-	
+
 	@DeleteMapping("/{rid}/{articleId}")
 	public Map<String, Boolean> removeArticle(@PathVariable("rid") int rid,
 											  @PathVariable("articleId") int articleId) {

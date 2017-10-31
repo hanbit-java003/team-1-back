@@ -20,12 +20,6 @@
 	</select>
 	
 	<!-- 카드 개별 정보 -->
-	<select id="selectArticle" parameterType="articleVO" resultType="articleVO">
-		SELECT *
-		  FROM cc_article
-		 WHERE rid=#{rid} and article_id=#{articleId}
-	</select>
-	
 	<select id="selectMenus" parameterType="articleVO" resultType="menuVO">
 		SELECT *
 		  FROM cc_menu
@@ -45,18 +39,6 @@
 		  FROM cc_img
 		 WHERE rid=#{rid} and article_id=#{articleId}
 	  ORDER BY img_id
-	</select>
-	
-	<select id="selectMember" parameterType="string" resultType="memberVO">
-		SELECT uid, nick, email, password
-		  FROM cc_member
-		 WHERE uid = #{uid}
-	</select>
-	
-	<select id="selectMemberDetail" parameterType="string" resultType="memberDetailVO">
-		SELECT *
-		  FROM cc_member_detail
-	   	 WHERE uid = #{uid}
 	</select>
 	
 	<select id="selectEmblems" parameterType="string" resultType="emblemVO">

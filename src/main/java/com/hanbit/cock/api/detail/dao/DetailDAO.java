@@ -10,8 +10,6 @@ import com.hanbit.cock.api.emblem.vo.EmblemVO;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
-import com.hanbit.cock.api.vo.MemberDetailVO;
-import com.hanbit.cock.api.vo.MemberVO;
 import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.TagVO;
 
@@ -27,18 +25,6 @@ public class DetailDAO {
 
 	public List<ArticleVO> selectArticles(Integer rid) {
 		return sqlSession.selectList("cockDetail.selectArticles", rid);
-	}
-
-	public ArticleVO selectArticle(ArticleVO article) {
-		return sqlSession.selectOne("cockDetail.selectArticle", article);
-	}
-
-	public MemberVO selectMember(String uid) {
-		return sqlSession.selectOne("cockDetail.selectMember", uid);
-	}
-
-	public MemberDetailVO selectMemberDetail(String uid) {
-		return sqlSession.selectOne("cockDetail.selectMemberDetail", uid);
 	}
 
 	public List<MenuVO> selectMenus(ArticleVO article) {
