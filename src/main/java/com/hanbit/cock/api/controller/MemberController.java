@@ -36,7 +36,7 @@ public class MemberController {
 	private MemberService memberService;
 	
 	private static final ObjectMapper objectMapper = new ObjectMapper();
-	
+	 
 /*	@RequestMapping("/emailCheck")
 	public Map emailCheck(@RequestParam("email") String email) {
 		MemberVO memberVO = new MemberVO();
