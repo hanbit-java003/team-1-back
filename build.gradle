@@ -39,6 +39,11 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-aop')
 	
 	compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
+	
+	//email 인증.
+	compile group: 'javax.mail', name: 'mail', version: '1.4'
+	// email 인증
+	compile 'com.google.apis:google-api-services-gmail:v1-rev71-1.22.0'
 
 
 	compile('org.springframework.boot:spring-boot-starter-web')

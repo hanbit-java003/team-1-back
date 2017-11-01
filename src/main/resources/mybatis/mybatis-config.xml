@@ -21,8 +21,12 @@
 		<typeAlias alias="emblemVO" type="com.hanbit.cock.api.emblem.vo.EmblemVO"/>
 		<typeAlias alias="emblemMemberVO" type="com.hanbit.cock.api.emblem.vo.EmblemMemberVO"/>
 		<typeAlias alias="emblemAchiveVO" type="com.hanbit.cock.api.emblem.vo.EmblemAchiveVO"/>
+		<typeAlias alias="dataCollection" type="com.hanbit.cock.api.data.DataCollection"/>
 		
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
+		
+		<typeAlias alias="mainVO" type="com.hanbit.cock.api.vo.MainVO"/>
+		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>
 		
 		<typeAlias alias="memberVO" type="com.hanbit.cock.api.vo.MemberVO" />
 		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />

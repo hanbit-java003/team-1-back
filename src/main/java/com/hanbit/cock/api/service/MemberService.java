@@ -59,7 +59,7 @@ public class MemberService {
 		memberVO.setPassword(encodedPassword);
 
 		memberDAO.insertMember(memberVO);
-
+		
 		// 엠블럼 릴레이션 생성
 		cockEmblemDAO.signUpEmblemId(memberVO.getUid());
 	}

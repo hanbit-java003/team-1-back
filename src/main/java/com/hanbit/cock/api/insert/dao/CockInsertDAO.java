@@ -81,6 +81,7 @@ public class CockInsertDAO {
 	
 	public int saveImgs(ArticleVO art) {
 		return sqlSession.insert("cockInsert.insertImgs", art);
+
 	}
 
 	public List<LocationVO> selectLocations(LocationVO location) {

@@ -36,4 +36,30 @@
 			(#{uid}, 'firstRest')
 	</insert>
 	
+	<insert id="insertHundredRest" parameterType="string">
+		INSERT INTO emblem_achive
+			(uid, emblem_name)
+		VALUES
+			(#{uid}, 'hundred')
+	</insert>
+	
+	<update id="increaseCollection" parameterType="dataCollection">
+		UPDATE emblem_member
+		   SET ${attribute} = ${attribute} + 1
+		 WHERE uid = #{uid}
+	</update>
+	
+	<select id="selectCollection" parameterType="dataCollection" resultType="int">
+		SELECT ${attribute}
+		  FROM emblem_member
+		 WHERE uid=#{uid}
+	</select>
+	
+	<insert id="insertCollection" parameterType="dataCollection">
+		INSERT INTO emblem_achive
+			(uid, emblem_name)
+		VALUES
+			(#{uid}, #{title})
+	</insert>
+	
 </mapper>
