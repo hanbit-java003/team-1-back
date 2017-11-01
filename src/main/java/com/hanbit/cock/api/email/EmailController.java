@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hanbit.cock.api.exception.CockException;
 import com.hanbit.cock.api.service.MemberService;
 import com.hanbit.cock.api.vo.MemberVO;
 
@@ -34,6 +35,33 @@ public class EmailController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	String authNum;
+	String authNumvall;
+	
+	
+	public void setAuthNumvall(String authNumvall) {
+		this.authNumvall = authNumvall;
+	}
+	
+	// 인증번호 검증.
+	@RequestMapping("/authnum")
+	public Map authNum(@RequestParam("authNumvall") String authNumvall)throws Exception {
+		
+		setAuthNumvall(authNumvall);
+		
+		System.out.println("authNum : " + authNum + "," + "authNumvall : " + authNumvall);
+		
+		if(!authNum.equals(authNumvall)) {
+			throw new CockException("틀린 인증번호입니다. 인증번호를 다시 입력해주세요.");
+		}
+		
+		
+		Map map = new HashMap();
+		map.put("status", "ok");
+		
+		return map;
+	}
 
 	// Email 인증 추가.
 	@RequestMapping("/email")
@@ -41,7 +69,7 @@ public class EmailController {
 	public Map emailAuth(@RequestParam("email") String email,
 			HttpServletResponse response, HttpServletRequest request)throws Exception {
 		
-		String authNum;
+		
 		
 		MemberVO memberVO = new MemberVO();
 		
