@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cockAdmin">
+	
+	<select id="selectCountRest" resultType="int">
+		SELECT COUNT(rid) AS count
+		  FROM cc_rest;
+	</select>
+	
+	<select id="selectCountArticle" resultType="int">
+		SELECT COUNT(article_id) AS count
+  		  FROM cc_article;
+	</select>
+	
+	<select id="selectCountMember" resultType="int">
+		SELECT COUNT(uid) AS count
+  		  FROM cc_member;
+	</select>
+	
+</mapper>

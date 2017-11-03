@@ -5,32 +5,35 @@
 <mapper namespace="cockMain">
 	
 	<select id="selectLatestRest" resultType="MainVO">
-		SELECT r.rid, lat, lng, name, i.path AS img, COUNT(distinct a.article_id) AS count, a.write_dt	
+		SELECT r.rid, lat, lng, name, i.path AS img, GROUP_CONCAT(distinct t.tag) AS tags, COUNT(distinct a.article_id) AS count, a.write_dt	
 		  FROM cc_rest r
 		  LEFT JOIN cc_article a
 			ON r.rid = a.rid 
 		  LEFT JOIN cc_img i
-			ON a.rid = i.rid		  
+			ON a.rid = i.rid
+		  LEFT JOIN cc_tag t
+		    ON r.rid = t.rid		  
 		 GROUP BY rid
 		 ORDER BY a.write_dt DESC
 	</select>
 	
 	<select id="selectArticleRest" resultType="MainVO">
-		SELECT r.rid, lat, lng, name, i.path AS img, COUNT(distinct a.article_id) AS count, a.write_dt	
+		SELECT r.rid, lat, lng, name, i.path AS img, GROUP_CONCAT(distinct t.tag) AS tags, COUNT(distinct a.article_id) AS count, a.write_dt	
 		  FROM cc_rest r
 		  LEFT JOIN cc_article a
 			ON r.rid = a.rid 
 		  LEFT JOIN cc_img i
-			ON a.rid = i.rid		  
+			ON a.rid = i.rid
+		  LEFT JOIN cc_tag t
+		    ON r.rid = t.rid		  
 		 GROUP BY rid
 		 ORDER BY count DESC
 	</select>
 	
 	<select id="selectTags" resultType="tagVO">
-		SELECT rid, tag
+		SELECT rid, GROUP_CONCAT(tag) AS tag
 		  FROM cc_tag
-		 GROUP BY tag
-		 ORDER BY COUNT(tag) DESC
+		 GROUP BY rid
 	</select>
 	
 	<select id="selectTopFour" resultType="TopFourVO">
