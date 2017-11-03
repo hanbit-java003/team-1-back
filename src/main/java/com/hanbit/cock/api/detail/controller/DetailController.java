@@ -20,9 +20,10 @@ public class DetailController {
 	@Autowired
 	private DetailService detailService;
 
-	@RequestMapping("/{rid}")
-	public DetailVO getRest(@PathVariable(value = "rid") int rid) {
-		return detailService.getRest(rid);
+	@RequestMapping("/{rid}/{likes}")
+	public DetailVO getRest(@PathVariable(value = "rid") int rid,
+							@PathVariable(value = "likes") boolean likes) {
+		return detailService.getRest(rid, likes);
 	}
 
 	@DeleteMapping("/{rid}/{articleId}")

@@ -26,6 +26,10 @@ public class DetailDAO {
 	public List<ArticleVO> selectArticles(Integer rid) {
 		return sqlSession.selectList("cockDetail.selectArticles", rid);
 	}
+	
+	public List<ArticleVO> selectArticlesByLikes(Integer rid) {
+		return sqlSession.selectList("cockDetail.selectArticlesByLikes", rid);
+	}
 
 	public List<MenuVO> selectMenus(ArticleVO article) {
 		return sqlSession.selectList("cockDetail.selectMenus", article);

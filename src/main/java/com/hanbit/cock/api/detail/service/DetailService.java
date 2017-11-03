@@ -17,14 +17,19 @@ public class DetailService {
 	@Autowired
 	private DetailDAO detailDAO;
 
-	public DetailVO getRest(int rid) {
+	public DetailVO getRest(int rid, boolean sort) {
 		DetailVO detail = detailDAO.selectRest(rid);
 
 		if (detail == null) {
 			detail = new DetailVO();
 		}
-
-		detail.setArticles(getArticles(rid));
+		
+		if (!sort) {
+			detail.setArticles(getArticles(rid));
+		}
+		else {
+			detail.setArticles(getArticlesByLikes(rid));
+		}
 
 		return detail;
 	}
@@ -44,6 +49,24 @@ public class DetailService {
 			articles.get(i).setEmblems(detailDAO.selectEmblems(articles.get(i)));
 		}
 
+		return articles;
+	}
+	
+	public List<ArticleVO> getArticlesByLikes(int rid) {
+		List<ArticleVO> articles = new ArrayList<>();
+		articles = detailDAO.selectArticlesByLikes(rid);
+		
+		if (articles.size() == 0) {
+			detailDAO.deleteRest(rid);
+		}
+		
+		for (int i = 0; i < articles.size(); i++) {
+			articles.get(i).setImgs(detailDAO.selectImgs(articles.get(i)));
+			articles.get(i).setTags(detailDAO.selectTags(articles.get(i)));
+			articles.get(i).setMenus(detailDAO.selectMenus(articles.get(i)));
+			articles.get(i).setEmblems(detailDAO.selectEmblems(articles.get(i)));
+		}
+		
 		return articles;
 	}
 
