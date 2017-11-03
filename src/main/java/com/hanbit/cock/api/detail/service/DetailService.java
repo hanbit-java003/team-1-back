@@ -24,6 +24,7 @@ public class DetailService {
 			detail = new DetailVO();
 		}
 		
+		// 최신순 / 좋아요순 정렬
 		if (!sort) {
 			detail.setArticles(getArticles(rid));
 		}
