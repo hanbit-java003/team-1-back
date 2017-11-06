@@ -30,6 +30,7 @@
 		<typeAlias alias="memberVO" type="com.hanbit.cock.api.vo.MemberVO" />
 		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />
 		
+		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
 		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
 	</typeAliases>
 

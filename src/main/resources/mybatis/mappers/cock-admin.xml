@@ -6,17 +6,26 @@
 	
 	<select id="selectCountRest" resultType="int">
 		SELECT COUNT(rid) AS count
-		  FROM cc_rest;
+		  FROM cc_rest
 	</select>
 	
 	<select id="selectCountArticle" resultType="int">
 		SELECT COUNT(article_id) AS count
-  		  FROM cc_article;
+  		  FROM cc_article
 	</select>
 	
 	<select id="selectCountMember" resultType="int">
 		SELECT COUNT(uid) AS count
-  		  FROM cc_member;
+  		  FROM cc_member
+	</select>
+	
+	<select id="selectAdminRest" resultType="AdminRestVO">
+		SELECT r.rid, r.name, count(article_id) AS count
+		  FROM cc_rest AS r
+		  LEFT JOIN cc_article AS a
+			ON r.rid = a.rid
+		 GROUP BY a.rid
+		 ORDER BY r.rid
 	</select>
 	
 </mapper>
