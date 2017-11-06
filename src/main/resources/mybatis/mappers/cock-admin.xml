@@ -20,10 +20,12 @@
 	</select>
 	
 	<select id="selectAdminRest" resultType="AdminRestVO">
-		SELECT r.rid, r.name, count(article_id) AS count
+		SELECT r.rid, r.name, r.lat, r.lng, count(article_id) AS count, address, phone, operating, signature
 		  FROM cc_rest AS r
-		  LEFT JOIN cc_article AS a
+ 		  LEFT JOIN cc_article AS a
 			ON r.rid = a.rid
+ 		  LEFT JOIN cc_rest_detail AS d
+			ON r.rid = d.rid
 		 GROUP BY a.rid
 		 ORDER BY r.rid
 	</select>
