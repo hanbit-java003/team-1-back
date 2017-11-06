@@ -23,6 +23,10 @@
 		<typeAlias alias="emblemAchiveVO" type="com.hanbit.cock.api.emblem.vo.EmblemAchiveVO"/>
 		<typeAlias alias="dataCollection" type="com.hanbit.cock.api.data.DataCollection"/>
 		
+		<typeAlias alias="searchRestVO" type="com.hanbit.cock.api.search.vo.SearchRestVO"/>
+		<typeAlias alias="searchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
+		<typeAlias alias="searchImgVO" type="com.hanbit.cock.api.search.vo.SearchImgVO"/>
+		
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		
 		<typeAlias alias="mainVO" type="com.hanbit.cock.api.vo.MainVO"/>
