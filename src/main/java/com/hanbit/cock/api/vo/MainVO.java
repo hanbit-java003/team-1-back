@@ -1,14 +1,12 @@
 package com.hanbit.cock.api.vo;
 
-import java.util.List;
-
 public class MainVO {
 	
 	private Integer rid;
 	private String name;
 	private double lat;
 	private double lng;
-	private List<TagVO> tags;
+	private String tags;
 	private String img;
 	private Integer count;
 	private String writeDt;
@@ -37,10 +35,10 @@ public class MainVO {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
-	public List<TagVO> getTags() {
+	public String getTags() {
 		return tags;
 	}
-	public void setTags(List<TagVO> tags) {
+	public void setTags(String tags) {
 		this.tags = tags;
 	}
 	public String getImg() {
@@ -60,6 +58,6 @@ public class MainVO {
 	}
 	public void setWriteDt(String writeDt) {
 		this.writeDt = writeDt;
-	}
+	}	
 
 }
