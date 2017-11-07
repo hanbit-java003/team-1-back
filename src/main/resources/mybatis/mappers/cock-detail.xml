@@ -16,14 +16,14 @@
 		SELECT * 
 		  FROM (cc_article a LEFT JOIN cc_member m on a.uid = m.uid) LEFT JOIN cc_member_detail d on m.uid = d.uid
 		 WHERE rid=#{rid}
-	  ORDER BY a.article_id desc
+	  ORDER BY a.write_dt desc
 	</select>
 	
 	<select id="selectArticlesByLikes" parameterType="int" resultType="ArticleVO">
 		SELECT * 
 		  FROM (cc_article a LEFT JOIN cc_member m on a.uid = m.uid) LEFT JOIN cc_member_detail d on m.uid = d.uid
 		 WHERE rid=#{rid}
-	  ORDER BY a.likes desc
+	  ORDER BY a.likes desc, a.write_dt desc
 	</select>
 	
 	<!-- 카드 개별 정보 -->
