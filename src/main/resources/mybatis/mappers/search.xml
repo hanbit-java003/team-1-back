@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">
+	
+	<select id="selectMatchRests" parameterType="string" resultType="searchRestVO">
+		SELECT *
+		  FROM cc_rest
+		 WHERE
+			<foreach collection="array" item="item" separator="AND">
+			   name LIKE '%${item}%'
+			</foreach>
+	</select>
+	
+	<select id="countArticles" parameterType="int" resultType="int">
+		SELECT COUNT(*) article_cnt
+		  FROM cc_article
+		 WHERE rid=#{rid}
+	</select>
+	
+	<select id="countMaxLikes" parameterType="int" resultType="int">
+		SELECT MAX(likes) like_cnt
+		  FROM cc_article
+		 WHERE rid=#{rid}
+	</select>
+	
+	<select id="searchMatchArticles" parameterType="string" resultType="searchArticleVO">
+		SELECT rid, article_id FROM cc_article WHERE 
+			<foreach collection="array" item="item" separator="AND">
+			   comment LIKE '%${item}%'
+			</foreach>
+		 UNION
+		SELECT rid, article_id FROM cc_menu WHERE
+			<foreach collection="array" item="item" separator="AND">
+			   menu LIKE '%${item}%'
+			</foreach>
+		 UNION
+		SELECT rid, article_id FROM cc_tag WHERE
+			<foreach collection="array" item="item" separator="AND">
+			   tag LIKE '%${item}%'
+			</foreach>
+	</select>
+	
+	<select id="selectArticle" parameterType="searchArticleVO" resultType="searchArticleVO">
+		SELECT a.*, m.nick, r.name
+		  FROM cc_article a, cc_member m, (SELECT name FROM cc_rest WHERE rid=#{rid}) r
+		 WHERE a.rid=#{rid} AND a.article_id=#{articleId} AND a.uid = m.uid
+	</select>
+	
+	<select id="selectMatchMenus" parameterType="searchArticleVO" resultType="string">
+		SELECT menu
+		  FROM cc_menu
+		 WHERE rid=#{rid} AND article_id=#{articleId}
+	</select>
+	
+	<select id="selectMatchTags" parameterType="searchArticleVO" resultType="string">
+		SELECT tag
+		  FROM cc_tag
+		 WHERE rid=#{rid} AND article_id=#{articleId}
+	</select>
+	
+	<select id="selectRestImgs" parameterType="int" resultType="string">
+		SELECT i.path 
+		  FROM cc_img i, (SELECT article_id FROM cc_article WHERE rid=#{rid} ORDER BY write_dt DESC LIMIT 1) a
+		 where i.rid=#{rid} AND i.article_id=a.article_id;
+	</select>
+	
+	<select id="selectArticleImgs" parameterType="searchImgVO" resultType="string">
+		SELECT path
+		  FROM cc_img
+		 WHERE rid=#{rid} AND article_id=#{articleId}
+	</select>
+	
+</mapper>
