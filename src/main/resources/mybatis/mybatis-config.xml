@@ -30,13 +30,13 @@
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		
 		<typeAlias alias="mainVO" type="com.hanbit.cock.api.vo.MainVO"/>
-		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>		
+		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>
 		
 		<typeAlias alias="memberVO" type="com.hanbit.cock.api.vo.MemberVO" />
 		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />
 		
-		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
-		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
+		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO" />
+		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO" />
 	</typeAliases>
 
 </configuration>
