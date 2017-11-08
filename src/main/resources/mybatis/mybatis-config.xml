@@ -11,6 +11,7 @@
 
 	<typeAliases>
 		<typeAlias alias="restVO" type="com.hanbit.cock.api.vo.RestVO"/>
+		<typeAlias alias="restDetailVO" type="com.hanbit.cock.api.vo.RestDetailVO"/>
 		<typeAlias alias="detailVO" type="com.hanbit.cock.api.vo.DetailVO"/>
 		<typeAlias alias="articleVO" type="com.hanbit.cock.api.vo.ArticleVO"/>
 		<typeAlias alias="menuVO" type="com.hanbit.cock.api.vo.MenuVO"/>
@@ -21,22 +22,21 @@
 		<typeAlias alias="emblemVO" type="com.hanbit.cock.api.emblem.vo.EmblemVO"/>
 		<typeAlias alias="emblemMemberVO" type="com.hanbit.cock.api.emblem.vo.EmblemMemberVO"/>
 		<typeAlias alias="emblemAchiveVO" type="com.hanbit.cock.api.emblem.vo.EmblemAchiveVO"/>
-		<typeAlias alias="dataCollection" type="com.hanbit.cock.api.data.DataCollection"/>
-		
-		<typeAlias alias="searchRestVO" type="com.hanbit.cock.api.search.vo.SearchRestVO"/>
-		<typeAlias alias="searchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
-		<typeAlias alias="searchImgVO" type="com.hanbit.cock.api.search.vo.SearchImgVO"/>
 		
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		
 		<typeAlias alias="mainVO" type="com.hanbit.cock.api.vo.MainVO"/>
-		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>
+		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>		
 		
 		<typeAlias alias="memberVO" type="com.hanbit.cock.api.vo.MemberVO" />
 		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />
 		
-		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO" />
-		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO" />
+		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
+		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
+		
+		<typeAlias alias="SearchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
+		<typeAlias alias="SearchImgVO" type="com.hanbit.cock.api.search.vo.SearchImgVO"/>
+		<typeAlias alias="SearchRestVO" type="com.hanbit.cock.api.search.vo.SearchRestVO"/>
 	</typeAliases>
 
 </configuration>

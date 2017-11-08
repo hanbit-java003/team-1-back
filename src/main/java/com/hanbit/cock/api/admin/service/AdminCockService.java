@@ -7,15 +7,28 @@ import org.springframework.stereotype.Service;
 
 import com.hanbit.cock.api.admin.dao.AdminCockDAO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.vo.RestDetailVO;
 
 @Service
 public class AdminCockService {
 	
 	@Autowired
-	private AdminCockDAO adminRestDAO;
+	private AdminCockDAO adminCockDAO;
 	
 	public List<AdminRestVO> listAdminRest() {
-		return adminRestDAO.selectAdminRest();
+		return adminCockDAO.selectAdminRest();
+	}
+	
+	public List<AdminRestVO> listAdminRestEdit(int rid) {
+		return adminCockDAO.selectAdminRestEdit(rid);
+	}
+	
+	public void saveAdminRestDetail(RestDetailVO restDetailVO) {
+		adminCockDAO.insertAdminRestDetail(restDetailVO);
+	}
+	
+	public void modifyAdminRestDetail(RestDetailVO restDetailVO) {
+		adminCockDAO.updateAdminRestDetail(restDetailVO);
 	}
 
 }
