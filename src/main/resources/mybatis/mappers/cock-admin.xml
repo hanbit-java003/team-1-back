@@ -65,4 +65,16 @@
 		 WHERE rid = #{rid}  	   
 	</update>
 	
+	<delete id="deleteAdminRest" parameterType="int">
+		DELETE
+		  FROM cc_rest		   
+		 WHERE rid = #{rid}
+	</delete>
+	
+	<delete id="deleteAdminRestDetail" parameterType="int">
+		DELETE
+		  FROM cc_rest_detail
+		 WHERE rid = #{rid}
+	</delete>
+	
 </mapper>

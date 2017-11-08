@@ -30,5 +30,13 @@ public class AdminCockDAO {
 	public int updateAdminRestDetail(RestDetailVO restDetailVO) {
 		return sqlSession.update("cockAdmin.updateAdminRestDetail", restDetailVO);
 	}
+	
+	public int deleteAdminRest(int rid) {
+		return sqlSession.delete("cockAdmin.deleteAdminRest", rid);
+	}
+	
+	public int deleteAdminRestDetail(int rid) {
+		return sqlSession.delete("cockAdmin.deleteAdminRestDetail", rid);
+	}
 
 }

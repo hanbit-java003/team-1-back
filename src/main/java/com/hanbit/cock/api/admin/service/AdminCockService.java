@@ -30,5 +30,9 @@ public class AdminCockService {
 	public void modifyAdminRestDetail(RestDetailVO restDetailVO) {
 		adminCockDAO.updateAdminRestDetail(restDetailVO);
 	}
+	
+	public void deleteAdminRest(int rid) {		
+		adminCockDAO.deleteAdminRest(rid);
+	}
 
 }
