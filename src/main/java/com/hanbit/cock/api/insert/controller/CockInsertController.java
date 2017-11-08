@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hanbit.cock.api.annotation.SignInRequired;
 import com.hanbit.cock.api.insert.service.CockInsertService;
 import com.hanbit.cock.api.vo.LocationVO;
+import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.RestVO;
 
 @RestController
@@ -62,5 +63,10 @@ public class CockInsertController {
 		List<LocationVO> locations = cockInsertService.getLocations(location);
 		
 		return locations;
+	}
+	
+	@RequestMapping("/get/menu/{rid}/{text}/")
+	public List<MenuVO> getMenu(@PathVariable("rid") int rid, @PathVariable(value="text", required = false) String text) {
+		return cockInsertService.getMatchMenuList(rid, text);
 	}
 }

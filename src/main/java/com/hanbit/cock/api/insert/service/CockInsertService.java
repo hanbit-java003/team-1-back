@@ -219,4 +219,12 @@ public class CockInsertService {
 		
 		return locations;
 	}
+	
+	public List<MenuVO> getMatchMenuList(int rid, String text) {
+		Map map = new HashMap<>();
+		map.put("rid", rid);
+		map.put("text", text);
+		
+		return cockInsertDAO.getMatchMenus(map);
+	}
 }

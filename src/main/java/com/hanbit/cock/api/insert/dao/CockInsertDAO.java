@@ -1,6 +1,7 @@
 package com.hanbit.cock.api.insert.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,10 @@ public class CockInsertDAO {
 
 	public List<LocationVO> selectLocations(LocationVO location) {
 		return sqlSession.selectList("cockInsert.selectLocations", location);
+	}
+
+	public List<MenuVO> getMatchMenus(Map map) {
+		return sqlSession.selectList("cockInsert.selectMatchMenus", map);
 	}
 
 }

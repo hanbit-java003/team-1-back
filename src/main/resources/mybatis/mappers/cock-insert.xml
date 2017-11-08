@@ -127,4 +127,10 @@
 		   AND lng >= #{lng} - 0.009 AND lng &lt;= #{lng} + 0.009
 	</select>
 	
+	<select id="selectMatchMenus" parameterType="map" resultType="menuVO">
+		SELECT *
+		  FROM cc_menu
+		 WHERE rid=#{rid} AND menu LIKE '%${text}%'
+	</select>
+	
 </mapper>
