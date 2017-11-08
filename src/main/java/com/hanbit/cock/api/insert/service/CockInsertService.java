@@ -1,6 +1,7 @@
 package com.hanbit.cock.api.insert.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,11 +142,16 @@ public class CockInsertService {
 			ImgVO newImg = new ImgVO();
 			newImg.setRid(article.getRid());
 			newImg.setArticleId(article.getArticleId());
-			newImg.setImgId(index);
+			//newImg.setImgId(index);
 			newImg.setPath(article.getImgs().get(i).getPath());
 			
 			list.add(newImg);
 			index++;
+		}
+		
+		Collections.reverse(list); // 뒤집힌 것 뒤집어주기 - menu입력 순서와 일치해야하기 때문에
+		for (int i=0; i<index; i++) {
+			list.get(i).setImgId(i);
 		}
 		
 		for (int i=0; i<images.size(); i++) {
