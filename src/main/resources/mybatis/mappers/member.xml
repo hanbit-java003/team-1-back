@@ -43,7 +43,7 @@
 	</resultMap>
 	
 	<select id="selectMemberDetail" parameterType="String" resultMap="memberDetail">
-		SELECT email, nick, phone, IFNULL (info, 'N') info , avatar
+		SELECT m.uid, email, nick, phone, IFNULL (info, 'N') info , avatar
 			FROM cc_member m LEFT JOIN cc_member_detail d
  				ON m.uid = d.uid
 			WHERE m.uid = #{uid}

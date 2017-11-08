@@ -37,6 +37,8 @@
 		<typeAlias alias="SearchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
 		<typeAlias alias="SearchImgVO" type="com.hanbit.cock.api.search.vo.SearchImgVO"/>
 		<typeAlias alias="SearchRestVO" type="com.hanbit.cock.api.search.vo.SearchRestVO"/>
+		
+		<typeAlias alias="cockMemberWroteVO" type="com.hanbit.cock.api.member.vo.CockMemberWroteVO"/>
 	</typeAliases>
 
 </configuration>
