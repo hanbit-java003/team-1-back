@@ -65,16 +65,29 @@
 		 WHERE rid = #{rid}  	   
 	</update>
 	
+	<!-- 맛집 기본 정보 삭제-->
 	<delete id="deleteAdminRest" parameterType="int">
 		DELETE
 		  FROM cc_rest		   
 		 WHERE rid = #{rid}
 	</delete>
 	
+	<!-- 맛집 추가 정보 삭제 -->
 	<delete id="deleteAdminRestDetail" parameterType="int">
 		DELETE
 		  FROM cc_rest_detail
 		 WHERE rid = #{rid}
 	</delete>
+	
+	<select id="selectAdminMember" resultType="AdminMemberVO">
+		SELECT m.uid, email, nick, create_dt, phone, COUNT(article_id) AS count, info
+		  FROM cc_member m
+ 		  LEFT JOIN cc_member_detail d
+			ON m.uid = d.uid
+ 		  LEFT JOIN cc_article a
+			ON m.uid = a.uid
+		 GROUP BY uid
+		 ORDER BY m.create_dt
+	</select>
 	
 </mapper>

@@ -7,13 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hanbit.cock.api.admin.service.AdminCockService;
+import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
@@ -22,9 +21,7 @@ import com.hanbit.cock.api.vo.RestDetailVO;
 public class AdminCockController {
 	
 	@Autowired
-	private AdminCockService adminCockService;
-	
-	private ObjectMapper mapper = new ObjectMapper();
+	private AdminCockService adminCockService;	
 	
 	@RequestMapping("/rest")
 	public List<AdminRestVO> listAdminRest() {
@@ -81,6 +78,11 @@ public class AdminCockController {
 		result.put("status", "ok");
 		
 		return result;
+	}
+	
+	@RequestMapping("/member")
+	public List<AdminMemberVO> listAdminMember() {
+		return adminCockService.listAdminMember();
 	}
 	
 }

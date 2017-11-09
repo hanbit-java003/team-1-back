@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
@@ -37,6 +38,10 @@ public class AdminCockDAO {
 	
 	public int deleteAdminRestDetail(int rid) {
 		return sqlSession.delete("cockAdmin.deleteAdminRestDetail", rid);
+	}
+	
+	public List<AdminMemberVO> selectAdminMember() {
+		return sqlSession.selectList("cockAdmin.selectAdminMember");
 	}
 
 }

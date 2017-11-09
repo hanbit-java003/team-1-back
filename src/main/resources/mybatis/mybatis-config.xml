@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
@@ -32,6 +31,7 @@
 		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />
 		
 		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
+		<typeAlias alias="adminMemberVO" type="com.hanbit.cock.api.admin.vo.AdminMemberVO"/>
 		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
 		
 		<typeAlias alias="SearchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
