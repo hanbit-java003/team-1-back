@@ -93,4 +93,7 @@ public class CockInsertDAO {
 		return sqlSession.selectList("cockInsert.selectMatchMenus", map);
 	}
 
+	public int removeArticle(ArticleVO art) {
+		return sqlSession.delete("cockInsert.deleteArticle", art);
+	}
 }

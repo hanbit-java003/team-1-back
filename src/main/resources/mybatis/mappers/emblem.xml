@@ -18,9 +18,9 @@
 	</insert>
 	
 	<update id="increaseRestCount" parameterType="string">
-		UPDATE emblem_member
-		   SET regist_rest = regist_rest + 1
-		 WHERE uid = #{uid}
+		UPDATE emblem_member e, (SELECT COUNT(*) c FROM cc_article WHERE uid=#{uid}) s
+		   SET e.regist_rest = s.c
+		 WHERE uid=#{uid};
 	</update>
 	
 	<select id="selectInsertRestCount" parameterType="string" resultType="int">

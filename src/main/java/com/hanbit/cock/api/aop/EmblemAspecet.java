@@ -39,58 +39,63 @@ public class EmblemAspecet {
 		Signature signature = joinPoint.getSignature(); 
 		
 		String name = signature.getName();
-		System.out.println(name + " name");
+		System.out.println(name + "() Method");
 
-		Map map = (Map) retVal;
 		if (name.equals("setRestAndArticleSave")) {
-			RestVO rest = (RestVO) map.get("RestVO");
-			ArticleVO article = rest.getArticles().get(0);
-			String uid = article.getUid();
-			
-			int restNum = cockEmblemDAO.increaseRestCount(uid);
-			
-			if (restNum == 1) { // 식당 첫 입력 - firstRest 
-				cockEmblemDAO.achiveFirstRest(uid);
-				System.out.println("achive firstRest : " + uid);
-			}
-			else if (restNum == 100) { // 식당 100 입력 - hundredRest
-				cockEmblemDAO.achiveHundredRest(uid);
-				System.out.println("achive hundredRest : " + uid);
-			}
-			
-			if (rest.getTags() != null && rest.getMenus() != null) {
-				Noodles noodles = new Noodles();
-				Meats meat = new Meats();
-				Chickens chickens = new Chickens();
-				
-				if (matchCollection(rest, noodles)) {
-					noodles.setUid(uid);
-					System.out.println("increase noodle : " + uid);
-					if (cockEmblemDAO.increaseCollection(noodles) == 100) {
-						cockEmblemDAO.insertCollection(noodles);
-						System.out.println("achive noodle : " + uid);
-					}
-				}
-				else if (matchCollection(rest, meat)) {
-					meat.setUid(uid);
-					System.out.println("increase meat : " + uid);
-					if (cockEmblemDAO.increaseCollection(meat) == 100) {
-						cockEmblemDAO.insertCollection(meat);
-						System.out.println("achive meat : " + uid);
-					}
-				}
-				else if (matchCollection(rest, chickens)) {
-					chickens.setUid(uid);
-					System.out.println("increase chicken : " + uid);
-					if (cockEmblemDAO.increaseCollection(chickens) == 100) {
-						cockEmblemDAO.insertCollection(chickens);
-						System.out.println("achive chicken : " + uid);
-					}
-				}
-			}
-			
+			Map map = (Map) retVal;
+			setRestAndArticleSaveEmblemService(map);
 		}
 		
+	}
+	
+	private boolean setRestAndArticleSaveEmblemService(Map map) {
+		RestVO rest = (RestVO) map.get("RestVO");
+		ArticleVO article = rest.getArticles().get(0);
+		String uid = article.getUid();
+		
+		int restNum = cockEmblemDAO.increaseRestCount(uid);
+		
+		if (restNum == 1) { // 식당 첫 입력 - firstRest 
+			cockEmblemDAO.achiveFirstRest(uid);
+			System.out.println("achive firstRest : " + uid);
+		}
+		else if (restNum == 100) { // 식당 100 입력 - hundredRest
+			cockEmblemDAO.achiveHundredRest(uid);
+			System.out.println("achive hundredRest : " + uid);
+		}
+		
+		if (rest.getTags() != null && rest.getMenus() != null) {
+			Noodles noodles = new Noodles();
+			Meats meat = new Meats();
+			Chickens chickens = new Chickens();
+			
+			if (matchCollection(rest, noodles)) {
+				noodles.setUid(uid);
+				System.out.println("increase noodle : " + uid);
+				if (cockEmblemDAO.increaseCollection(noodles) == 100) {
+					cockEmblemDAO.insertCollection(noodles);
+					System.out.println("achive noodle : " + uid);
+				}
+			}
+			else if (matchCollection(rest, meat)) {
+				meat.setUid(uid);
+				System.out.println("increase meat : " + uid);
+				if (cockEmblemDAO.increaseCollection(meat) == 100) {
+					cockEmblemDAO.insertCollection(meat);
+					System.out.println("achive meat : " + uid);
+				}
+			}
+			else if (matchCollection(rest, chickens)) {
+				chickens.setUid(uid);
+				System.out.println("increase chicken : " + uid);
+				if (cockEmblemDAO.increaseCollection(chickens) == 100) {
+					cockEmblemDAO.insertCollection(chickens);
+					System.out.println("achive chicken : " + uid);
+				}
+			}
+		}
+		
+		return true;
 	}
 	
 	private boolean matchCollection(RestVO rest, DataCollection collection) {

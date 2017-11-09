@@ -233,4 +233,23 @@ public class CockInsertService {
 		
 		return cockInsertDAO.getMatchMenus(map);
 	}
+
+	@Transactional
+	@EmblemUpdate
+	public boolean removeArticle(int rid, int articleId, String uid) {
+		ArticleVO art = new ArticleVO();
+		
+		art.setRid(rid);
+		art.setArticleId(articleId);
+		art.setUid(uid);
+				
+		art = cockInsertDAO.selectArticle(art);
+
+		cockInsertDAO.removeMenus(art);
+		cockInsertDAO.removeTags(art);
+		cockInsertDAO.removeImgs(art);
+		cockInsertDAO.removeArticle(art);
+		
+		return true;
+	}
 }
