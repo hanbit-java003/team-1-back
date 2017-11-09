@@ -16,7 +16,16 @@
 		SELECT name, comment
 		 FROM cc_rest r LEFT JOIN cc_article a
 		 on r.rid = a.rid
-		WHERE uid = #{uid};
+		WHERE uid = #{uid}
+	</select>
+	
+	
+		<!-- 등록된 게시글 불러오기 -->
+	<select id="selectMemberWroteList" parameterType="pageVO" resultType="cockMemberWroteVO">
+		SELECT name, comment
+		 FROM cc_rest r LEFT JOIN cc_article a
+		 on r.rid = a.rid
+		LIMIT #{firstIndex}, #{rowsPerPage}
 	</select>
 	
 </mapper>

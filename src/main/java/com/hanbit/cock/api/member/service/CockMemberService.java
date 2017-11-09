@@ -25,5 +25,10 @@ public class CockMemberService {
 		
 		return cockMemberDAO.selectMemberWrote(uid);
 	}
+	
+	public List<CockMemberWroteVO> getMemberWroteList(int page) {
+		
+		return cockMemberDAO.selectMemberWroteList(page);
+	}
 
 }

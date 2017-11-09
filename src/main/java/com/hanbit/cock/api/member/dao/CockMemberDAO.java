@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hanbit.cock.api.member.vo.CockMemberWroteVO;
+import com.hanbit.cock.api.member.vo.PageVO;
 
 @Repository
 public class CockMemberDAO {
@@ -23,6 +24,20 @@ public class CockMemberDAO {
 	public List<CockMemberWroteVO> selectMemberWrote(String uid) {
 		
 		return sqlSession.selectList("cockMember.selectMemberWrote", uid);
+	}
+	
+	//등록된 게시물 페이지 처리하기 위해
+	public List<CockMemberWroteVO> selectMemberWroteList(int page) {
+		int rowsPerPage = 5;
+		int firstIndex = (page-1)*rowsPerPage; // 첫번째 페이지 구하는 방법
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setFirstIndex(firstIndex);
+		pageVO.setRowsPerPage(rowsPerPage);
+		
+		
+		return sqlSession.selectList("cockMember.selectMemberWroteList", pageVO);
+		
 	}
 
 }
