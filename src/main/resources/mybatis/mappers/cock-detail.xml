@@ -27,10 +27,10 @@
 	</select>
 	
 	<!-- 카드 개별 정보 -->
-	<select id="selectMenus" parameterType="articleVO" resultType="menuVO">
+	<select id="selectMenus" parameterType="imgVO" resultType="menuVO">
 		SELECT *
 		  FROM cc_menu
-		 WHERE rid=#{rid} and article_id=#{articleId}
+		 WHERE rid=#{rid} and article_id=#{articleId} and img_id=#{imgId}
 	  ORDER BY id
 	</select>
 	

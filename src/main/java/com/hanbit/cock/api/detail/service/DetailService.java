@@ -76,7 +76,7 @@ public class DetailService {
 
 		for (int i = 0; i < imgs.size(); i++) {
 			List<MenuVO> menus = new ArrayList<>();
-			menus = detailDAO.selectMenus(article);
+			menus = detailDAO.selectMenus(imgs.get(i));
 			imgs.get(i).setMenus(menus);
 		}
 
