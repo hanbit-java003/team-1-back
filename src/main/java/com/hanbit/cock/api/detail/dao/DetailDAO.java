@@ -31,8 +31,8 @@ public class DetailDAO {
 		return sqlSession.selectList("cockDetail.selectArticlesByLikes", rid);
 	}
 
-	public List<MenuVO> selectMenus(ArticleVO article) {
-		return sqlSession.selectList("cockDetail.selectMenus", article);
+	public List<MenuVO> selectMenus(ImgVO img) {
+		return sqlSession.selectList("cockDetail.selectMenus", img);
 	}
 
 	public List<TagVO> selectTags(ArticleVO article) {
@@ -65,6 +65,10 @@ public class DetailDAO {
 	
 	public int deleteRest(int rid) {
 		return sqlSession.delete("cockDetail.deleteRest", rid);
+	}
+
+	public int deleteRestDetail(int rid) {
+		return sqlSession.delete("cockDetail.deleteRestDetail", rid);
 	}
 
 	public int updateLikesIncrease(ArticleVO article) {

@@ -1,11 +1,13 @@
 package com.hanbit.cock.api.insert.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hanbit.cock.api.annotation.EmblemUpdate;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.ImgVO;
 import com.hanbit.cock.api.vo.LocationVO;
@@ -88,4 +90,11 @@ public class CockInsertDAO {
 		return sqlSession.selectList("cockInsert.selectLocations", location);
 	}
 
+	public List<MenuVO> getMatchMenus(Map map) {
+		return sqlSession.selectList("cockInsert.selectMatchMenus", map);
+	}
+
+	public int removeArticle(ArticleVO art) {
+		return sqlSession.delete("cockInsert.deleteArticle", art);
+	}
 }

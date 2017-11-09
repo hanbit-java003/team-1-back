@@ -1,6 +1,7 @@
 package com.hanbit.cock.api.insert.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hanbit.cock.api.annotation.EmblemUpdate;
 import com.hanbit.cock.api.insert.dao.CockInsertDAO;
 import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.ArticleVO;
@@ -30,7 +32,7 @@ public class CockInsertService {
 	
 	@Autowired
 	private FileService fileService;
-	
+
 	public RestVO getRest(int rid) {
 		RestVO restVO = cockInsertDAO.selectRest(rid);
 		if (restVO == null) { // restVO가 null 이면 List를 받을 수가 없다.
@@ -56,7 +58,6 @@ public class CockInsertService {
 		return restVO;
 	}
 
-	
 	private void setRestSave(RestVO rest) {
 		rest.setRid(cockInsertDAO.ridGenerate());
 		cockInsertDAO.insertRest(rest);
@@ -74,6 +75,7 @@ public class CockInsertService {
 	}
 	
 	@Transactional
+	@EmblemUpdate
 	public Map setRestAndArticleSave(RestVO rest, List<MultipartFile> images) throws Exception {
 		Map result = new HashMap();		
 		// 처리순서 - 1. rest
@@ -110,6 +112,7 @@ public class CockInsertService {
 		
 		result.put("rid", rest.getRid());
 		result.put("articleId", rest.getArticles().get(0).getArticleId());
+		result.put("RestVO", rest);
 		
 		return result;
 	}
@@ -139,11 +142,16 @@ public class CockInsertService {
 			ImgVO newImg = new ImgVO();
 			newImg.setRid(article.getRid());
 			newImg.setArticleId(article.getArticleId());
-			newImg.setImgId(index);
+			//newImg.setImgId(index);
 			newImg.setPath(article.getImgs().get(i).getPath());
 			
 			list.add(newImg);
 			index++;
+		}
+		
+		Collections.reverse(list); // 뒤집힌 것 뒤집어주기 - menu입력 순서와 일치해야하기 때문에
+		for (int i=0; i<index; i++) {
+			list.get(i).setImgId(i);
 		}
 		
 		for (int i=0; i<images.size(); i++) {
@@ -153,6 +161,7 @@ public class CockInsertService {
 			String fileName = FilenameUtils.removeExtension(imgFile.getOriginalFilename());
 			String fileExt = FilenameUtils.getExtension(imgFile.getOriginalFilename());
 			String fileId = "art-" + fileName + "-" + fileIndex;
+			//String filePath = "/hanbit2/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
 			String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
 			
 			FileVO fileVO = new FileVO();
@@ -215,5 +224,32 @@ public class CockInsertService {
 		List<LocationVO> locations = cockInsertDAO.selectLocations(location);	
 		
 		return locations;
+	}
+	
+	public List<MenuVO> getMatchMenuList(int rid, String text) {
+		Map map = new HashMap<>();
+		map.put("rid", rid);
+		map.put("text", text);
+		
+		return cockInsertDAO.getMatchMenus(map);
+	}
+
+	@Transactional
+	@EmblemUpdate
+	public boolean removeArticle(int rid, int articleId, String uid) {
+		ArticleVO art = new ArticleVO();
+		
+		art.setRid(rid);
+		art.setArticleId(articleId);
+		art.setUid(uid);
+				
+		art = cockInsertDAO.selectArticle(art);
+
+		cockInsertDAO.removeMenus(art);
+		cockInsertDAO.removeTags(art);
+		cockInsertDAO.removeImgs(art);
+		cockInsertDAO.removeArticle(art);
+		
+		return true;
 	}
 }

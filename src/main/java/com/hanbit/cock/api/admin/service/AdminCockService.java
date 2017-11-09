@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hanbit.cock.api.admin.dao.AdminCockDAO;
+import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
@@ -33,6 +34,10 @@ public class AdminCockService {
 	
 	public void deleteAdminRest(int rid) {		
 		adminCockDAO.deleteAdminRest(rid);
+	}
+	
+	public List<AdminMemberVO> listAdminMember() {
+		return adminCockDAO.selectAdminMember();
 	}
 
 }
