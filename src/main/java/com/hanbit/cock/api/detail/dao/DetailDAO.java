@@ -31,8 +31,8 @@ public class DetailDAO {
 		return sqlSession.selectList("cockDetail.selectArticlesByLikes", rid);
 	}
 
-	public List<MenuVO> selectMenus(ArticleVO article) {
-		return sqlSession.selectList("cockDetail.selectMenus", article);
+	public List<MenuVO> selectMenus(ImgVO img) {
+		return sqlSession.selectList("cockDetail.selectMenus", img);
 	}
 
 	public List<TagVO> selectTags(ArticleVO article) {
