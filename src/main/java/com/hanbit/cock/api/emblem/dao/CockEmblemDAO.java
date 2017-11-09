@@ -23,8 +23,8 @@ public class CockEmblemDAO {
 		return sqlSession.insert("emblem.insertEmblemId", uid);
 	}
 	
-	public int increaseRestCount(String uid) {
-		sqlSession.update("emblem.increaseRestCount", uid);
+	public int updateArticleCount(String uid) {
+		sqlSession.update("emblem.updateArticleCount", uid);
 		return selectRestCount(uid);
 	}
 	
@@ -32,11 +32,11 @@ public class CockEmblemDAO {
 		return sqlSession.selectOne("emblem.selectInsertRestCount", uid);
 	}
 	
-	public int achiveFirstRest(String uid) {
+	public int achiveFirstArticle(String uid) {
 		return sqlSession.insert("emblem.insertFirstRest", uid);
 	}
 
-	public int achiveHundredRest(String uid) {
+	public int achiveHundredArticles(String uid) {
 		return sqlSession.insert("emblem.insertHundredRest", uid);
 	}
 

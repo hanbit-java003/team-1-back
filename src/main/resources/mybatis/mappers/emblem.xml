@@ -17,7 +17,13 @@
 			(#{uid})
 	</insert>
 	
-	<update id="increaseRestCount" parameterType="string">
+	<update id="updateRestCount" parameterType="string">
+		UPDATE emblem_member e, (SELECT COUNT(*) c FROM cc_article WHERE uid=#{uid}) s
+		   SET e.regist_rest = s.c
+		 WHERE uid=#{uid};
+	</update>
+	
+	<update id="updateArticleCount" parameterType="string">
 		UPDATE emblem_member e, (SELECT COUNT(*) c FROM cc_article WHERE uid=#{uid}) s
 		   SET e.regist_rest = s.c
 		 WHERE uid=#{uid};

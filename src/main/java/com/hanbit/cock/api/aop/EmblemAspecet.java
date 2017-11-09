@@ -3,13 +3,17 @@ package com.hanbit.cock.api.aop;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.hanbit.cock.api.data.Chickens;
@@ -34,8 +38,8 @@ public class EmblemAspecet {
 	
 	}
 	
-	@AfterReturning(pointcut = "emblemServiceMethod()", returning = "retVal") 
-	public void printString(JoinPoint joinPoint, Object retVal ) {
+	@AfterReturning(pointcut="emblemServiceMethod()", returning = "retVal") 
+	public void afterEmblem(JoinPoint joinPoint, Object retVal ) {
 		Signature signature = joinPoint.getSignature(); 
 		
 		String name = signature.getName();
@@ -45,23 +49,38 @@ public class EmblemAspecet {
 			Map map = (Map) retVal;
 			setRestAndArticleSaveEmblemService(map);
 		}
+		else if (name.equals("insertRest")) {
+			
+		}
 		
 	}
+	
+	@Around("execution(public * com.hanbit.cock.api.insert.dao.CockInsertDAO.insertRest(..))")
+    public Object aroundTargetMethod(ProceedingJoinPoint thisJoinPoint) throws Throwable {
+		
+		
+		
+        Object retVal = thisJoinPoint.proceed();
+ 
+        return retVal;
+	}
+	
 	
 	private boolean setRestAndArticleSaveEmblemService(Map map) {
 		RestVO rest = (RestVO) map.get("RestVO");
 		ArticleVO article = rest.getArticles().get(0);
 		String uid = article.getUid();
 		
-		int restNum = cockEmblemDAO.increaseRestCount(uid);
+		int restNum = 0;
+		int articleNum = cockEmblemDAO.updateArticleCount(uid);
 		
-		if (restNum == 1) { // 식당 첫 입력 - firstRest 
-			cockEmblemDAO.achiveFirstRest(uid);
-			System.out.println("achive firstRest : " + uid);
+		if (articleNum == 1) { // 기사 첫 입력 - firstRest 
+			cockEmblemDAO.achiveFirstArticle(uid);
+			System.out.println("achive firstArticle : " + uid);
 		}
-		else if (restNum == 100) { // 식당 100 입력 - hundredRest
-			cockEmblemDAO.achiveHundredRest(uid);
-			System.out.println("achive hundredRest : " + uid);
+		else if (articleNum == 100) { // 기사 100 입력 - hundredRest
+			cockEmblemDAO.achiveHundredArticles(uid);
+			System.out.println("achive hundredArticles : " + uid);
 		}
 		
 		if (rest.getTags() != null && rest.getMenus() != null) {
