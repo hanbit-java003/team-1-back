@@ -21,6 +21,11 @@
 		<typeAlias alias="emblemVO" type="com.hanbit.cock.api.emblem.vo.EmblemVO"/>
 		<typeAlias alias="emblemMemberVO" type="com.hanbit.cock.api.emblem.vo.EmblemMemberVO"/>
 		<typeAlias alias="emblemAchiveVO" type="com.hanbit.cock.api.emblem.vo.EmblemAchiveVO"/>
+		<typeAlias alias="dataCollection" type="com.hanbit.cock.api.data.DataCollection"/>
+		
+		<typeAlias alias="searchRestVO" type="com.hanbit.cock.api.search.vo.SearchRestVO"/>
+		<typeAlias alias="searchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
+		<typeAlias alias="searchImgVO" type="com.hanbit.cock.api.search.vo.SearchImgVO"/>
 		
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		
@@ -33,10 +38,6 @@
 		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
 		<typeAlias alias="adminMemberVO" type="com.hanbit.cock.api.admin.vo.AdminMemberVO"/>
 		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
-		
-		<typeAlias alias="SearchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
-		<typeAlias alias="SearchImgVO" type="com.hanbit.cock.api.search.vo.SearchImgVO"/>
-		<typeAlias alias="SearchRestVO" type="com.hanbit.cock.api.search.vo.SearchRestVO"/>
 		
 		<typeAlias alias="cockMemberWroteVO" type="com.hanbit.cock.api.member.vo.CockMemberWroteVO"/>
 	</typeAliases>

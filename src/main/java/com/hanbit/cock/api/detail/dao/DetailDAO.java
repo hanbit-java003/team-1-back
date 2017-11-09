@@ -67,6 +67,10 @@ public class DetailDAO {
 		return sqlSession.delete("cockDetail.deleteRest", rid);
 	}
 
+	public int deleteRestDetail(int rid) {
+		return sqlSession.delete("cockDetail.deleteRestDetail", rid);
+	}
+
 	public int updateLikesIncrease(ArticleVO article) {
 		return sqlSession.update("cockDetail.increaseLikes", article);
 	}

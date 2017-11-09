@@ -41,6 +41,7 @@ public class DetailService {
 		articles = detailDAO.selectArticles(rid);
 
 		if (articles.size() == 0) {
+			detailDAO.deleteRestDetail(rid);
 			detailDAO.deleteRest(rid);
 		}
 
@@ -58,6 +59,7 @@ public class DetailService {
 		articles = detailDAO.selectArticlesByLikes(rid);
 
 		if (articles.size() == 0) {
+			detailDAO.deleteRestDetail(rid);
 			detailDAO.deleteRest(rid);
 		}
 

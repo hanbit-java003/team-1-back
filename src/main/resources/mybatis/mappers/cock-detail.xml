@@ -61,6 +61,12 @@
 		 WHERE rid=#{rid}
 	</delete>
 	
+	<delete id="deleteRestDetail" parameterType="int">
+		DELETE
+		  FROM cc_rest_detail
+		 WHERE rid=#{rid}
+	</delete>
+	
 	<delete id="deleteArticle" parameterType="articleVO">
 		DELETE
 		  FROM cc_article
