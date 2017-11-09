@@ -21,6 +21,7 @@ public class FileController {
 
 	private static final String FILE_ROOT = "/hanbit/";
 	
+	
 	@Autowired
 	private FileService fileService;
 
