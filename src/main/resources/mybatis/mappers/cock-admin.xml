@@ -4,21 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cockAdmin">
 	
+	<!-- 등록된 맛집 수 -->
 	<select id="selectCountRest" resultType="int">
 		SELECT COUNT(rid) AS count
 		  FROM cc_rest
 	</select>
 	
+	<!-- 등록된 게시글 수 -->
 	<select id="selectCountArticle" resultType="int">
 		SELECT COUNT(article_id) AS count
   		  FROM cc_article
 	</select>
 	
+	<!-- 가입 회원 수 -->
 	<select id="selectCountMember" resultType="int">
 		SELECT COUNT(uid) AS count
   		  FROM cc_member
 	</select>
 	
+	<!-- 맛집 관리 -->
 	<select id="selectAdminRest" resultType="AdminRestVO">
 		SELECT r.rid, r.name, r.lat, r.lng, count(article_id) AS count, address, phone, operating, signature
 		  FROM cc_rest AS r
@@ -29,5 +33,48 @@
 		 GROUP BY a.rid
 		 ORDER BY r.rid
 	</select>
+	
+	<!-- 맛집 수정 -->
+	<select id="selectAdminRestEdit" parameterType="int" resultType="AdminRestVO">
+		SELECT r.rid, r.name, r.lat, r.lng, count(article_id) AS count, address, phone, operating, signature
+ 		  FROM cc_rest AS r
+ 		  LEFT JOIN cc_article AS a
+			ON r.rid = a.rid
+ 		  LEFT JOIN cc_rest_detail AS d
+			ON r.rid = d.rid 
+		 WHERE r.rid = #{rid}
+		 GROUP BY a.rid 
+		 ORDER BY r.rid;
+	</select>
+	
+	<!-- 맛집 추가 정보 입력 -->
+	<insert id="insertAdminRestDetail" parameterType="RestDetailVO">
+		INSERT INTO cc_rest_detail
+			(rid, address, phone, operating, signature)
+		VALUES
+			(#{rid}, #{address}, #{phone}, #{operating}, #{signature})
+	</insert>
+	
+	<!-- 맛집 추가 정보 수정 -->
+	<update id="updateAdminRestDetail" parameterType="RestDetailVO">
+		UPDATE cc_rest_detail
+		   SET address = #{address},
+		   	   phone = #{phone},
+		   	   operating = #{operating},
+		   	   signature = #{signature}
+		 WHERE rid = #{rid}  	   
+	</update>
+	
+	<delete id="deleteAdminRest" parameterType="int">
+		DELETE
+		  FROM cc_rest		   
+		 WHERE rid = #{rid}
+	</delete>
+	
+	<delete id="deleteAdminRestDetail" parameterType="int">
+		DELETE
+		  FROM cc_rest_detail
+		 WHERE rid = #{rid}
+	</delete>
 	
 </mapper>

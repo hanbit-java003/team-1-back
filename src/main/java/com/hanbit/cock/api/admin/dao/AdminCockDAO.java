@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.vo.RestDetailVO;
 
 @Repository
 public class AdminCockDAO {
@@ -16,6 +17,26 @@ public class AdminCockDAO {
 	
 	public List<AdminRestVO> selectAdminRest() {
 		return sqlSession.selectList("cockAdmin.selectAdminRest");
+	}
+	
+	public List<AdminRestVO> selectAdminRestEdit(int rid) {
+		return sqlSession.selectList("cockAdmin.selectAdminRestEdit", rid);
+	}
+	
+	public int insertAdminRestDetail(RestDetailVO restDetailVO) {
+		return sqlSession.insert("cockAdmin.insertAdminRestDetail", restDetailVO);
+	}
+	
+	public int updateAdminRestDetail(RestDetailVO restDetailVO) {
+		return sqlSession.update("cockAdmin.updateAdminRestDetail", restDetailVO);
+	}
+	
+	public int deleteAdminRest(int rid) {
+		return sqlSession.delete("cockAdmin.deleteAdminRest", rid);
+	}
+	
+	public int deleteAdminRestDetail(int rid) {
+		return sqlSession.delete("cockAdmin.deleteAdminRestDetail", rid);
 	}
 
 }
