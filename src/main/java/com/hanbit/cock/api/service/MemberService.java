@@ -78,8 +78,8 @@ public class MemberService {
 
 		memberDAO.insertMember(memberVO);
 		
-		/*// 엠블럼 릴레이션 생성
-		cockEmblemDAO.signUpEmblemId(memberVO.getUid());*/
+		// 엠블럼 릴레이션 생성
+		cockEmblemDAO.signUpEmblemId(memberVO.getUid());
 
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hanbit.cock.api.member.vo.CockMemberWroteVO;
 import com.hanbit.cock.api.member.vo.PageVO;
+import com.hanbit.cock.api.member.vo.CockBookmarkVO;
 import com.hanbit.cock.api.member.vo.CockMemberBookmarkVO;
 
 @Repository
@@ -57,6 +58,17 @@ public class CockMemberDAO {
 		pageVO.setUid(uid);
 		
 		return sqlSession.selectList("cockMember.selectMemberBookmarkList", pageVO);
+	}
+	
+	// 메인에 즐겨찾기 부분 카드에 뿌려주기.
+	public List<CockBookmarkVO> selectBookmark(String uid, int rid) {
+		
+		CockBookmarkVO bookmarkVO = new CockBookmarkVO();
+		bookmarkVO.setRid(rid);
+		bookmarkVO.setUid(uid);
+		
+		
+		return sqlSession.selectOne("cockMember.selectBookmark", bookmarkVO);
 	}
 
 }

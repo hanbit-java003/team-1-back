@@ -53,4 +53,9 @@
 		LIMIT #{firstIndex}, #{rowsPerPage}) t, (SELECT @rownum := #{firstIndex}) a;
 	</select>
 	
+	<select id="selectBookmark" resultType="cockBookmarkVO">
+		SELECT rid
+			FROM cc_bookmark
+		WHERE uid = #{uid}
+	</select>
 </mapper>

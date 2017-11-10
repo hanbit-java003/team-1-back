@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hanbit.cock.api.member.dao.CockMemberDAO;
 import com.hanbit.cock.api.member.vo.CockMemberWroteVO;
+import com.hanbit.cock.api.member.vo.CockBookmarkVO;
 import com.hanbit.cock.api.member.vo.CockMemberBookmarkVO;
 
 @Service
@@ -43,6 +44,12 @@ public class CockMemberService {
 	public List<CockMemberBookmarkVO> getMemberBookmarkList(String uid, int page) {
 		
 		return cockMemberDAO.selectMemberBookmarkList(uid, page);
+	}
+	
+	// 메인에 즐겨찾기 부분 카드에 뿌려주기.
+	public List<CockBookmarkVO> getBookmark(String uid, int rid) {
+		
+		return cockMemberDAO.selectBookmark(uid, rid);
 	}
 
 }
