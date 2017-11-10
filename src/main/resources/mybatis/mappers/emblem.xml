@@ -11,48 +11,16 @@
 	</select>
 	
 	<insert id="insertEmblemId" parameterType="string">
-		INSERT INTO cc_rest
+		INSERT INTO emblem_member
 			(uid)
 		VALUES
 			(#{uid})
 	</insert>
 	
-	<update id="updateRestCount" parameterType="string">
+	<update id="updateArticleCount" parameterType="dataCollection">
 		UPDATE emblem_member e, (SELECT COUNT(*) c FROM cc_article WHERE uid=#{uid}) s
-		   SET e.regist_rest = s.c
-		 WHERE uid=#{uid};
-	</update>
-	
-	<update id="updateArticleCount" parameterType="string">
-		UPDATE emblem_member e, (SELECT COUNT(*) c FROM cc_article WHERE uid=#{uid}) s
-		   SET e.regist_rest = s.c
-		 WHERE uid=#{uid};
-	</update>
-	
-	<select id="selectInsertRestCount" parameterType="string" resultType="int">
-		SELECT regist_rest
-		  FROM emblem_member
+		   SET e.regist_article = s.c
 		 WHERE uid=#{uid}
-	</select>
-	
-	<insert id="insertFirstRest" parameterType="string">
-		INSERT INTO emblem_achive
-			(uid, emblem_name)
-		VALUES
-			(#{uid}, 'firstRest')
-	</insert>
-	
-	<insert id="insertHundredRest" parameterType="string">
-		INSERT INTO emblem_achive
-			(uid, emblem_name)
-		VALUES
-			(#{uid}, 'hundred')
-	</insert>
-	
-	<update id="increaseCollection" parameterType="dataCollection">
-		UPDATE emblem_member
-		   SET ${attribute} = ${attribute} + 1
-		 WHERE uid = #{uid}
 	</update>
 	
 	<select id="selectCollection" parameterType="dataCollection" resultType="int">
@@ -61,11 +29,26 @@
 		 WHERE uid=#{uid}
 	</select>
 	
+	<update id="increaseCollection" parameterType="dataCollection">
+		UPDATE emblem_member
+		   SET ${attribute} = ${attribute} + 1
+		 WHERE uid = #{uid}
+	</update>
+	
 	<insert id="insertCollection" parameterType="dataCollection">
-		INSERT INTO emblem_achive
+		INSERT IGNORE INTO emblem_achive
 			(uid, emblem_name)
 		VALUES
 			(#{uid}, #{title})
 	</insert>
+	
+	<update id="decreaseCollection" parameterType="dataCollection">
+		UPDATE emblem_member
+		   SET ${attribute} = 
+				CASE
+					WHEN ${attribute} = 1 THEN 0 ELSE ${attribute} - 1
+				END
+		 WHERE uid=#{uid};
+	</update>
 	
 </mapper>

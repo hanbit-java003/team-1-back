@@ -23,25 +23,8 @@ public class CockEmblemDAO {
 		return sqlSession.insert("emblem.insertEmblemId", uid);
 	}
 	
-	public int updateArticleCount(String uid) {
-		sqlSession.update("emblem.updateArticleCount", uid);
-		return selectRestCount(uid);
-	}
-	
-	public int selectRestCount(String uid) {
-		return sqlSession.selectOne("emblem.selectInsertRestCount", uid);
-	}
-	
-	public int achiveFirstArticle(String uid) {
-		return sqlSession.insert("emblem.insertFirstRest", uid);
-	}
-
-	public int achiveHundredArticles(String uid) {
-		return sqlSession.insert("emblem.insertHundredRest", uid);
-	}
-
-	public int increaseCollection(DataCollection collection) {
-		sqlSession.update("emblem.increaseCollection", collection);
+	public int updateArticleCount(DataCollection collection) {
+		sqlSession.update("emblem.updateArticleCount", collection);
 		return selectCollection(collection);
 	}
 	
@@ -49,7 +32,17 @@ public class CockEmblemDAO {
 		return sqlSession.selectOne("emblem.selectCollection", collection);
 	}
 	
+	public int increaseCollection(DataCollection collection) {
+		sqlSession.update("emblem.increaseCollection", collection);
+		return selectCollection(collection);
+	}
+	
 	public int insertCollection(DataCollection collection) {
 		return sqlSession.insert("emblem.insertCollection", collection);
+	}
+
+	public int decreaseCollection(DataCollection collection) {
+		sqlSession.update("emblem.decreaseCollection", collection);
+		return selectCollection(collection);
 	}
 }
