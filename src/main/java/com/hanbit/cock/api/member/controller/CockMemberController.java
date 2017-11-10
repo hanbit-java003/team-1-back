@@ -16,6 +16,7 @@ import com.hanbit.cock.api.controller.MemberController;
 import com.hanbit.cock.api.member.service.CockMemberService;
 import com.hanbit.cock.api.member.vo.CockMemberWroteVO;
 import com.hanbit.cock.api.member.vo.PageVO;
+import com.hanbit.cock.api.member.vo.CockMemberBookmarkVO;
 
 @RestController
 @RequestMapping("/api/cock/member/")
@@ -27,22 +28,22 @@ public class CockMemberController {
 	@Autowired
 	private MemberController memberController;
 	
-	// 총 개수.
+	// 내가 쓴 글 총 개수.
 	@RequestMapping("/count/article")
 	public int memberCountArticle(@RequestParam("uid") String uid) {
 		return cockMemberService.memberCountArticle(uid);
 	}
 	
-	@SignInRequired //로그인 했을때만 됨.
+/*	@SignInRequired //로그인 했을때만 됨.
 	@RequestMapping("/wrote")
 	public List<CockMemberWroteVO> getMemberWrote(@RequestParam("uid") String uid) {
 		
 		return cockMemberService.getMemberWrote(uid);
-	}
+	}*/
 	
-	//페이징 처리를 위한
-	@RequestMapping("/total")
-	public Map total(@RequestParam("uid") String uid) {
+	// 내가 쓴 글 페이징 처리를 위한
+	@RequestMapping("/total/article")
+	public Map totalArticle(@RequestParam("uid") String uid) {
 		int totalCount = cockMemberService.memberCountArticle(uid);
 		
 		Map result = new HashMap();
@@ -51,12 +52,53 @@ public class CockMemberController {
 		return result;
 	}
 	
-	@RequestMapping("/list")
-	public List<CockMemberWroteVO> getMemberWroteList(@RequestParam(value="page", defaultValue="1") int page){
+	// 내가 등록한 맛집 페이징 처리해서 불러옴.
+	@RequestMapping("/wrote/list")
+	public List<CockMemberWroteVO> getMemberWroteList(
+			@RequestParam(value="page", defaultValue="1") int page,
+			HttpSession session) {
 
+		String uid = (String) session.getAttribute("uid");
 		
+		System.out.println(uid);
 		
-		return cockMemberService.getMemberWroteList(page);
+		return cockMemberService.getMemberWroteList(uid, page);
+	}
+	
+	//즐겨찾기 한 맛집 수
+	@RequestMapping("/count/bookmark")
+	public int memberCountBookmark(HttpSession session){
+		String uid = (String) session.getAttribute("uid");
+		
+		return cockMemberService.memberCountBookmark(uid);
+	}
+	
+	// 즐겨찾기 한 맛집 페이징 처리를 위해서 total
+	@RequestMapping("/total/bookmark")
+	public Map totalBookmark(HttpSession session){
+		String uid = (String) session.getAttribute("uid");
+		
+		int totalCount = cockMemberService.memberCountBookmark(uid);
+		
+		Map result = new HashMap();
+		result.put("total", totalCount);
+		
+		return result;
+		
+	}
+	
+	// 즐겨찾기 한 맛집 페이징 처리 하여 가져오기.
+	@RequestMapping("/bookmark/list")
+	public List<CockMemberBookmarkVO> getMemberBookmarkList(
+			@RequestParam(value="page", defaultValue="1") int page,
+			HttpSession session){
+		
+		String uid = (String) session.getAttribute("uid");
+		
+		System.out.println(uid);
+		
+		return cockMemberService.getMemberBookmarkList(uid, page);
+		
 	}
 	
 	

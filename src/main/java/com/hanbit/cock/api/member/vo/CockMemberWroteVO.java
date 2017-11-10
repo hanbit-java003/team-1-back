@@ -4,6 +4,7 @@ public class CockMemberWroteVO {
 	
 	private String name;
 	private String comment;
+	private int no;
 	
 	
 	public String getName() {
@@ -17,5 +18,11 @@ public class CockMemberWroteVO {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
 	}
 }

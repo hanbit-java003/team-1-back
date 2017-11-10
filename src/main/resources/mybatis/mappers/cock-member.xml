@@ -12,20 +12,45 @@
 	</select>
 	
 	<!-- 등록된 게시글 불러오기 -->
-	<select id="selectMemberWrote" resultType="cockMemberWroteVO">
+	<!-- <select id="selectMemberWrote" resultType="cockMemberWroteVO">
 		SELECT name, comment
 		 FROM cc_rest r LEFT JOIN cc_article a
 		 on r.rid = a.rid
 		WHERE uid = #{uid}
-	</select>
+	</select> -->
 	
 	
 		<!-- 등록된 게시글 불러오기 -->
 	<select id="selectMemberWroteList" parameterType="pageVO" resultType="cockMemberWroteVO">
-		SELECT name, comment
+		<!-- SELECT name, comment
 		 FROM cc_rest r LEFT JOIN cc_article a
 		 on r.rid = a.rid
-		LIMIT #{firstIndex}, #{rowsPerPage}
+		LIMIT #{firstIndex}, #{rowsPerPage} -->
+		SELECT t.*, @rowNum := @rownum + 1 as no from
+        (SELECT name, comment
+		 FROM cc_rest r LEFT JOIN cc_article a
+		 on r.rid = a.rid
+		 WHERE uid = #{uid}
+		LIMIT  #{firstIndex}, #{rowsPerPage}) t, (SELECT @rownum := #{firstIndex}) a;
+	</select>
+	
+	<!-- 내가 즐겨찾기 한 맛집 수 -->
+	<select id="selectMemberCountBookmark" resultType="int">
+		SELECT COUNT(rid) AS count
+  		  FROM cc_bookmark
+  		  WHERE uid = #{uid};
+	</select>
+	
+	<!-- 즐겨찾기 한 맛집 페이징 처리해서 불러오기 -->
+	<select id="selectMemberBookmarkList" parameterType="pageVO" resultType="cockMemberBookmarkVO">
+		SELECT t.*, @rowNum := @rownum + 1 AS NO FROM
+		(SELECT name, address, phone 
+		FROM cc_rest r LEFT JOIN cc_bookmark b
+		ON r.rid = b.rid
+		LEFT JOIN cc_rest_detail d
+		ON r.rid = d.rid
+		WHERE uid = #{uid}
+		LIMIT #{firstIndex}, #{rowsPerPage}) t, (SELECT @rownum := #{firstIndex}) a;
 	</select>
 	
 </mapper>

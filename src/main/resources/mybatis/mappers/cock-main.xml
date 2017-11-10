@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="selectTags" resultType="tagVO">
-		SELECT rid, GROUP_CONCAT(tag) AS tag
+		SELECT rid, GROUP_CONCAT(distinct tag) AS tag
 		  FROM cc_tag
 		 GROUP BY rid
 	</select>

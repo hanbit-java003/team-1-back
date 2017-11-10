@@ -36,10 +36,13 @@
 		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />
 		
 		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
+		<typeAlias alias="adminArticleVO" type="com.hanbit.cock.api.admin.vo.AdminArticleVO"/>
 		<typeAlias alias="adminMemberVO" type="com.hanbit.cock.api.admin.vo.AdminMemberVO"/>
+		<typeAlias alias="adminPageVO" type="com.hanbit.cock.api.admin.vo.AdminPageVO"/>
 		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
 		
 		<typeAlias alias="cockMemberWroteVO" type="com.hanbit.cock.api.member.vo.CockMemberWroteVO"/>
+		<typeAlias alias="cockMemberBookmarkVO" type="com.hanbit.cock.api.member.vo.CockMemberBookmarkVO"/>
 		<typeAlias alias="pageVO" type="com.hanbit.cock.api.member.vo.PageVO"/>
 	</typeAliases>
 
