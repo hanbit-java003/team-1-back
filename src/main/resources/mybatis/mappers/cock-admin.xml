@@ -79,6 +79,18 @@
 		 WHERE rid = #{rid}
 	</delete>
 	
+	<!-- 게시글 관리 -->
+	<select id="selectAdminArticle" resultType="AdminArticleVO">
+		SELECT t.*, @rowNum := @rownum + 1 as no
+  		  FROM (
+			SELECT article_id, rid, comment, likes, hate, write_dt, uid
+	  		  FROM cc_article  		 
+			 ORDER BY write_dt DESC
+	 		 LIMIT #{firstIndex}, #{rowsPerPage}
+			) t, (SELECT @rownum := #{firstIndex}) r;
+	</select>
+	
+	<!-- 회원 관리 -->
 	<select id="selectAdminMember" resultType="AdminMemberVO">
 		SELECT m.uid, email, nick, create_dt, phone, COUNT(article_id) AS count, info
 		  FROM cc_member m
@@ -87,7 +99,7 @@
  		  LEFT JOIN cc_article a
 			ON m.uid = a.uid
 		 GROUP BY uid
-		 ORDER BY m.create_dt
+		 ORDER BY m.create_dt DESC
 	</select>
 	
 </mapper>
