@@ -5,7 +5,7 @@ public class CockMemberWroteVO {
 	private String name;
 	private String comment;
 	private int no;
-	
+	  
 	
 	public String getName() {
 		return name;
