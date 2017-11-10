@@ -48,7 +48,7 @@ public class CockMemberDAO {
 	
 	// 즐겨찾기 한 맛집 페이지 처리해서 가져오기
 	public List<CockMemberBookmarkVO> selectMemberBookmarkList(String uid, int page) {
-		int rowsPerPage = 10;
+		int rowsPerPage = 7;
 		int firstIndex = (page-1) * rowsPerPage; // 첫번째 페이지 구현..
 		
 		PageVO pageVO = new PageVO();

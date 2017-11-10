@@ -60,8 +60,6 @@ public class CockMemberController {
 
 		String uid = (String) session.getAttribute("uid");
 		
-		System.out.println(uid);
-		
 		return cockMemberService.getMemberWroteList(uid, page);
 	}
 	
@@ -94,8 +92,6 @@ public class CockMemberController {
 			HttpSession session){
 		
 		String uid = (String) session.getAttribute("uid");
-		
-		System.out.println(uid);
 		
 		return cockMemberService.getMemberBookmarkList(uid, page);
 		
