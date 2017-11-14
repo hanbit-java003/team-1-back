@@ -61,14 +61,10 @@ public class CockMemberDAO {
 	}
 	
 	// 메인에 즐겨찾기 부분 카드에 뿌려주기.
-	public List<CockBookmarkVO> selectBookmark(String uid, int rid) {
+	public List<CockBookmarkVO> selectBookmark(String uid) {
+			
 		
-		CockBookmarkVO bookmarkVO = new CockBookmarkVO();
-		bookmarkVO.setRid(rid);
-		bookmarkVO.setUid(uid);
-		
-		
-		return sqlSession.selectOne("cockMember.selectBookmark", bookmarkVO);
+		return sqlSession.selectList("cockMember.selectBookmark", uid);
 	}
 
 }

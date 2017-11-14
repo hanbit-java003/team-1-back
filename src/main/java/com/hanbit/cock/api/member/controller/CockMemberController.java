@@ -16,6 +16,7 @@ import com.hanbit.cock.api.controller.MemberController;
 import com.hanbit.cock.api.member.service.CockMemberService;
 import com.hanbit.cock.api.member.vo.CockMemberWroteVO;
 import com.hanbit.cock.api.member.vo.PageVO;
+import com.hanbit.cock.api.member.vo.CockBookmarkVO;
 import com.hanbit.cock.api.member.vo.CockMemberBookmarkVO;
 
 @RestController
@@ -95,6 +96,18 @@ public class CockMemberController {
 		
 		return cockMemberService.getMemberBookmarkList(uid, page);
 		
+	}
+	
+	// 즐겨찾기 메인 색깔.
+	@RequestMapping("/bookmark")
+	public List<CockBookmarkVO> getBookmark(HttpSession session) {
+		String uid = (String) session.getAttribute("uid");
+		
+		CockBookmarkVO bookmarkVO = new CockBookmarkVO();
+		
+		bookmarkVO.setUid(uid);
+		
+		return cockMemberService.getBookmark(uid);
 	}
 	
 	

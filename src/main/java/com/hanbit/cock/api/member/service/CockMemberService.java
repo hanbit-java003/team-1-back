@@ -47,9 +47,9 @@ public class CockMemberService {
 	}
 	
 	// 메인에 즐겨찾기 부분 카드에 뿌려주기.
-	public List<CockBookmarkVO> getBookmark(String uid, int rid) {
+	public List<CockBookmarkVO> getBookmark(String uid) {
 		
-		return cockMemberDAO.selectBookmark(uid, rid);
+		return cockMemberDAO.selectBookmark(uid);
 	}
 
 }

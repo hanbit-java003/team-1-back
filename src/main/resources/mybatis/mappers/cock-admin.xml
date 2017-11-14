@@ -24,7 +24,7 @@
 	
 	<!-- 맛집 관리 -->
 	<select id="selectAdminRest" resultType="AdminRestVO">
-		SELECT r.rid, r.name, r.lat, r.lng, count(article_id) AS count, address, phone, operating, signature
+		SELECT r.rid, name, lat, lng, count(article_id) AS count, address, phone, operating, signature, d.status
 		  FROM cc_rest AS r
  		  LEFT JOIN cc_article AS a
 			ON r.rid = a.rid
@@ -36,7 +36,7 @@
 	
 	<!-- 맛집 수정 -->
 	<select id="selectAdminRestEdit" parameterType="int" resultType="AdminRestVO">
-		SELECT r.rid, r.name, r.lat, r.lng, count(article_id) AS count, address, phone, operating, signature
+		SELECT r.rid, name, lat, lng, count(article_id) AS count, address, phone, operating, signature, d.status
  		  FROM cc_rest AS r
  		  LEFT JOIN cc_article AS a
 			ON r.rid = a.rid
@@ -50,9 +50,9 @@
 	<!-- 맛집 추가 정보 입력 -->
 	<insert id="insertAdminRestDetail" parameterType="RestDetailVO">
 		INSERT INTO cc_rest_detail
-			(rid, address, phone, operating, signature)
+			(rid, address, phone, operating, signature, status)
 		VALUES
-			(#{rid}, #{address}, #{phone}, #{operating}, #{signature})
+			(#{rid}, #{address}, #{phone}, #{operating}, #{signature}, #{status})
 	</insert>
 	
 	<!-- 맛집 추가 정보 수정 -->
@@ -61,7 +61,8 @@
 		   SET address = #{address},
 		   	   phone = #{phone},
 		   	   operating = #{operating},
-		   	   signature = #{signature}
+		   	   signature = #{signature},
+		   	   status = #{status}
 		 WHERE rid = #{rid}  	   
 	</update>
 	

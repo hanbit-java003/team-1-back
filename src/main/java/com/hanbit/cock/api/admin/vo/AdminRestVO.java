@@ -11,6 +11,7 @@ public class AdminRestVO {
 	private String phone;
 	private String operating;
 	private String signature;
+	private String status;
 	
 	public int getRid() {
 		return rid;
@@ -65,6 +66,12 @@ public class AdminRestVO {
 	}
 	public void setSignature(String signature) {
 		this.signature = signature;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}	
 
 }

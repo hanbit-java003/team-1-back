@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="selectBookmark" resultType="cockBookmarkVO">
-		SELECT rid
+		SELECT rid,uid
 			FROM cc_bookmark
 		WHERE uid = #{uid}
 	</select>
