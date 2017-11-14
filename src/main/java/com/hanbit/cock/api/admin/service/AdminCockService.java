@@ -11,6 +11,7 @@ import com.hanbit.cock.api.admin.vo.AdminArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
+import com.hanbit.cock.api.vo.RestVO;
 
 @Service
 public class AdminCockService {
@@ -31,7 +32,7 @@ public class AdminCockService {
 	// 맛집 추가 입력사항 저장
 	public void saveAdminRestDetail(RestDetailVO restDetailVO) {
 		adminCockDAO.insertAdminRestDetail(restDetailVO);
-	}
+	}	
 	
 	// 맛집 추가 입력사항 수정
 	public void modifyAdminRestDetail(RestDetailVO restDetailVO) {

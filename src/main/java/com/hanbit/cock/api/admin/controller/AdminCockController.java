@@ -39,7 +39,7 @@ public class AdminCockController {
 	// 맛집 추가 입력사항 저장
 	@RequestMapping("/rest/save")
 	public Map saveAdminRestDetail(@RequestParam("rid") int rid, @RequestParam("address") String address, @RequestParam("phone") String phone,
-			@RequestParam("operating") String operating, @RequestParam("signature") String signature) {
+			@RequestParam("operating") String operating, @RequestParam("signature") String signature, @RequestParam("status") String status) {
 		
 		RestDetailVO restDetailVO = new RestDetailVO();
 		restDetailVO.setRid(rid);
@@ -47,6 +47,7 @@ public class AdminCockController {
 		restDetailVO.setPhone(phone);
 		restDetailVO.setOperating(operating);
 		restDetailVO.setSignature(signature);
+		restDetailVO.setStatus(status);
 		
 		adminCockService.saveAdminRestDetail(restDetailVO);
 		
@@ -59,13 +60,14 @@ public class AdminCockController {
 	// 맛집 추가 입력사항 수정
 	@RequestMapping("/rest/edit")
 	public Map modifyAdminRestDetail(@RequestParam("rid") int rid, @RequestParam("address") String address, @RequestParam("phone") String phone,
-			@RequestParam("operating") String operating, @RequestParam("signature") String signature) {
+			@RequestParam("operating") String operating, @RequestParam("signature") String signature, @RequestParam("status") String status) {
 		
 		RestDetailVO restDetailVO = new RestDetailVO();		
 		restDetailVO.setAddress(address);
 		restDetailVO.setPhone(phone);
 		restDetailVO.setOperating(operating);
 		restDetailVO.setSignature(signature);
+		restDetailVO.setStatus(status);
 		
 		adminCockService.modifyAdminRestDetail(restDetailVO);
 		
