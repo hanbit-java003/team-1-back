@@ -47,7 +47,7 @@ public class MemberService {
 	}
 	
 	// 별명 중복확인 버튼.
-	public void nickCheck(MemberVO memberVO) {
+	public void nickCheck(MemberVO memberVO) { 
 		// countNick 이 0보다 크면 있는거.
 		if(memberDAO.countNick(memberVO.getNick())> 0) {
 			// exception을 발생 시켜준다.
