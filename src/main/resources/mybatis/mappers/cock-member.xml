@@ -27,7 +27,7 @@
 		 on r.rid = a.rid
 		LIMIT #{firstIndex}, #{rowsPerPage} -->
 		SELECT t.*, @rowNum := @rownum + 1 as no from
-        (SELECT name, comment
+        (SELECT name, comment, r.rid
 		 FROM cc_rest r LEFT JOIN cc_article a
 		 on r.rid = a.rid
 		 WHERE uid = #{uid}
@@ -44,7 +44,7 @@
 	<!-- 즐겨찾기 한 맛집 페이징 처리해서 불러오기 -->
 	<select id="selectMemberBookmarkList" parameterType="pageVO" resultType="cockMemberBookmarkVO">
 		SELECT t.*, @rowNum := @rownum + 1 AS NO FROM
-		(SELECT name, address, phone 
+		(SELECT name, address, phone, r.rid
 		FROM cc_rest r LEFT JOIN cc_bookmark b
 		ON r.rid = b.rid
 		LEFT JOIN cc_rest_detail d

@@ -4,6 +4,7 @@ public class CockMemberWroteVO {
 	
 	private String name;
 	private String comment;
+	private String rid;
 	private int no;
 	  
 	
@@ -24,5 +25,11 @@ public class CockMemberWroteVO {
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	public String getRid() {
+		return rid;
+	}
+	public void setRid(String rid) {
+		this.rid = rid;
 	}
 }
