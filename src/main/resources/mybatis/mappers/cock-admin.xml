@@ -91,6 +91,34 @@
 			) t, (SELECT @rownum := #{firstIndex}) r;
 	</select>
 	
+	<!-- 메뉴 삭제 -->
+	<delete id="deleteAdminMenus" parameterType="AdminArticleVO">
+		DELETE
+		  FROM cc_menu
+		 WHERE rid = #{rid} AND article_id = #{articleId}
+	</delete>
+	
+	<!-- 이미지 삭제 -->
+	<delete id="deleteAdminImgs" parameterType="AdminArticleVO">
+		DELETE
+		  FROM cc_img
+		 WHERE rid = #{rid} AND article_id = #{articleId}
+	</delete>
+	
+	<!-- 태그 삭제 -->
+	<delete id="deleteAdminTags" parameterType="AdminArticleVO">
+		DELETE
+		  FROM cc_tag
+		 WHERE rid = #{rid} AND article_id = #{articleId}
+	</delete>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteAdminArticle" parameterType="AdminArticleVO">
+		DELETE
+		  FROM cc_article
+		 WHERE rid = #{rid} AND article_id = #{articleId}
+	</delete>
+	
 	<!-- 회원 관리 -->
 	<select id="selectAdminMember" resultType="AdminMemberVO">
 		SELECT m.uid, email, nick, create_dt, phone, COUNT(article_id) AS count, info
