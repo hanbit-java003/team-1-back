@@ -41,7 +41,7 @@ public class AdminCockService {
 	
 	// 맛집 기본 & 추가 입력사항 삭제
 	@Transactional
-	public void deleteAdminRest(int rid) {
+	public void removeAdminRest(int rid) {
 		adminCockDAO.deleteAdminRestDetail(rid);
 		adminCockDAO.deleteAdminRest(rid);
 		
@@ -51,6 +51,17 @@ public class AdminCockService {
 	// 게시글 관리 리스트
 	public List<AdminArticleVO> listAdminArticle(int page) {
 		return adminCockDAO.selectAdminArticle(page);
+	}
+	
+	// 게시글 삭제
+	@Transactional
+	public void removeAdminArticle(AdminArticleVO adminArticleVO) {
+		adminCockDAO.deleteAdminMenus(adminArticleVO);
+		adminCockDAO.deleteAdminImgs(adminArticleVO);
+		adminCockDAO.deleteAdminTags(adminArticleVO);
+		adminCockDAO.deleteAdminArticle(adminArticleVO);
+		
+		System.out.println("삭제 완료");
 	}
 	
 	// 회원 관리 리스트

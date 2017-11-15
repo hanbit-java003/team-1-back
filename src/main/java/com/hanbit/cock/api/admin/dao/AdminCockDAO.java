@@ -60,6 +60,26 @@ public class AdminCockDAO {
 		return sqlSession.selectList("cockAdmin.selectAdminArticle", adminPageVO);
 	}
 	
+	// 메뉴 삭제
+	public int deleteAdminMenus(AdminArticleVO adminArticleVO) {
+		return sqlSession.delete("cockAdmin.deleteAdminMenus", adminArticleVO);
+	}
+	
+	// 이미지 삭제
+	public int deleteAdminImgs(AdminArticleVO adminArticleVO) {
+		return sqlSession.delete("cockAdmin.deleteAdminImgs", adminArticleVO);
+	}
+	
+	// 태그 삭제
+	public int deleteAdminTags(AdminArticleVO adminArticleVO) {
+		return sqlSession.delete("cockAdmin.deleteAdminTags", adminArticleVO);
+	}
+	
+	// 게시글 삭제
+	public int deleteAdminArticle(AdminArticleVO adminArticleVO) {
+		return sqlSession.delete("cockAdmin.deleteAdminArticle", adminArticleVO);
+	}
+	
 	// 회원 관리 리스트
 	public List<AdminMemberVO> selectAdminMember() {
 		return sqlSession.selectList("cockAdmin.selectAdminMember");

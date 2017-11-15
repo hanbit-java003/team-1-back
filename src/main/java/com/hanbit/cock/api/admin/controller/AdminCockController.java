@@ -78,12 +78,12 @@ public class AdminCockController {
 	}
 	
 	// 맛집 기본 & 추가 입력사항 삭제
-	@DeleteMapping("/rest/{rid}")
-	public Map deleteAdminRest(@PathVariable("rid") int rid) {
-		adminCockService.deleteAdminRest(rid);
+	@DeleteMapping("/{rid}")
+	public Map removeAdminRest(@PathVariable("rid") int rid) {
+		adminCockService.removeAdminRest(rid);
 		
 		Map result = new HashMap();
-		result.put("status", "ok");
+		result.put("ok", true);
 		
 		return result;
 	}
@@ -93,6 +93,23 @@ public class AdminCockController {
 	public List<AdminArticleVO> listAdminArticle(@RequestParam(value="page", defaultValue="1") int page) {
 		return adminCockService.listAdminArticle(page);
 	}
+	
+	// 게시글 삭제
+	@DeleteMapping("/{rid}/{articleId}")
+	public Map removeAdminArticle(@PathVariable("rid") int rid, @PathVariable("articleId") int articleId) {
+		
+		AdminArticleVO adminArticleVO = new AdminArticleVO();
+		adminArticleVO.setRid(rid);
+		adminArticleVO.setArticleId(articleId);		
+		
+		adminCockService.removeAdminArticle(adminArticleVO);	
+		
+		Map result = new HashMap();
+		result.put("ok", true);
+		
+		return result;
+	}
+	
 	
 	// 회원 관리 리스트
 	@RequestMapping("/member")
