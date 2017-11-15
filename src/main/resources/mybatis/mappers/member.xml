@@ -24,7 +24,7 @@
 	</insert>
 	
 	<select id="selectMember" parameterType="string" resultMap="memberDetail">
-		SELECT m.uid, nick, email, password, d.avatar
+		SELECT m.uid, nick, email, password, d.avatar, m.master
 			FROM cc_member m LEFT JOIN cc_member_detail d
 				ON m.uid = d.uid
 			WHERE email = #{email}
@@ -35,6 +35,7 @@
 		<result property="password" column="password"/>
 		<result property="email" column="email"/>
 		<result property="nick" column="nick"/>
+		<result property="master" column="master"/>
 		<association property="detail" javaType="memberDetailVO">
 			<result property="phone" column="phone"/>
 			<result property="info" column="info"/>
@@ -43,7 +44,7 @@
 	</resultMap>
 	
 	<select id="selectMemberDetail" parameterType="String" resultMap="memberDetail">
-		SELECT m.uid, email, nick, phone, IFNULL (info, 'N') info , avatar
+		SELECT m.uid, email, nick, phone, IFNULL (info, 'N') info , avatar, m.master
 			FROM cc_member m LEFT JOIN cc_member_detail d
  				ON m.uid = d.uid
 			WHERE m.uid = #{uid}

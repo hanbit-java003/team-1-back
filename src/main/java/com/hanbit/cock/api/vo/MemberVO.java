@@ -11,6 +11,7 @@ public class MemberVO {
 	private String password;  // new
 	private String createDt;
 	private String createdBy;
+	private String master;
 	private MemberDetailVO detail; 
 	
 	public String getUid() {
@@ -60,6 +61,12 @@ public class MemberVO {
 	}
 	public void setDetail(MemberDetailVO detail) {
 		this.detail = detail;
+	}
+	public String getMaster() {
+		return master;
+	}
+	public void setMaster(String master) {
+		this.master = master;
 	}
 	
 }

@@ -16,6 +16,8 @@ import com.hanbit.cock.api.controller.MemberController;
 import com.hanbit.cock.api.member.service.CockMemberService;
 import com.hanbit.cock.api.member.vo.CockMemberWroteVO;
 import com.hanbit.cock.api.member.vo.PageVO;
+
+
 import com.hanbit.cock.api.member.vo.CockBookmarkVO;
 import com.hanbit.cock.api.member.vo.CockMemberBookmarkVO;
 
@@ -108,6 +110,25 @@ public class CockMemberController {
 		bookmarkVO.setUid(uid);
 		
 		return cockMemberService.getBookmark(uid);
+	}
+	
+	// 맛집 즐겨찾기
+	@RequestMapping("/bookmark/save")
+	public Map saveBookmark(@RequestParam("rid") int rid,
+			HttpSession session){
+		String uid = (String) session.getAttribute("uid");
+		
+		CockBookmarkVO bookmarkVO = new CockBookmarkVO();
+		bookmarkVO.setRid(rid);
+		bookmarkVO.setUid(uid);
+		
+		cockMemberService.saveBookmark(bookmarkVO);
+		
+		Map result = new HashMap();
+		result.put("status", "ok");
+		
+		return result;
+		
 	}
 	
 	

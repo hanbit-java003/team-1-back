@@ -66,5 +66,12 @@ public class CockMemberDAO {
 		
 		return sqlSession.selectList("cockMember.selectBookmark", uid);
 	}
+	
+	// 맛집 즐겨찾기 추가.
+	public int insertBookmark(CockBookmarkVO bookmarkVO) {
+		
+		
+		return sqlSession.insert("cockMember.insertBookmark", bookmarkVO);
+	}
 
 }

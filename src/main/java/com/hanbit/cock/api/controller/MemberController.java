@@ -98,7 +98,7 @@ public class MemberController {
 
 		if (remember) {
 			Cookie cookie = new Cookie("rid", "1234");
-			cookie.setMaxAge(600); // 초 단위 숫자값
+			cookie.setMaxAge(6000); // 초 단위 숫자값
 			response.addCookie(cookie);
 		}
 
@@ -107,6 +107,7 @@ public class MemberController {
 		session.setAttribute("uid", memberVO.getUid());
 		session.setAttribute("email", memberVO.getEmail());
 		session.setAttribute("nick", memberVO.getNick());
+		session.setAttribute("master", memberVO.getMaster());
 		
 		if(memberVO.getDetail() != null) {// detail이 null이 아닐 경우에만 실행.
 		session.setAttribute("avatar", memberVO.getDetail().getAvatar());
@@ -116,7 +117,7 @@ public class MemberController {
 		Map result = new HashMap();
 		result.put("email", memberVO.getEmail());
 		result.put("nick", memberVO.getNick());
-
+		
 		return result;
 
 	}
@@ -135,6 +136,7 @@ public class MemberController {
 			member.put("email", session.getAttribute("email"));
 			member.put("avatar", session.getAttribute("avatar"));
 			member.put("uid", session.getAttribute("uid"));
+			member.put("master", session.getAttribute("master"));
 		}
 
 		return member;

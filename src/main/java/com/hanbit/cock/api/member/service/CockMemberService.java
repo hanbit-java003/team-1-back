@@ -51,5 +51,11 @@ public class CockMemberService {
 		
 		return cockMemberDAO.selectBookmark(uid);
 	}
+	
+	// 맛집 즐겨찾기
+	public int saveBookmark(CockBookmarkVO bookmarkVO ) {
+		
+		return cockMemberDAO.insertBookmark(bookmarkVO);
+	}
 
 }
