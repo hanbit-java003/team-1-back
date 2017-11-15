@@ -131,5 +131,26 @@ public class CockMemberController {
 		
 	}
 	
+	// 맛집 즐겨찾기 삭제.
+	@RequestMapping("/bookmark/remove")
+	public Map removeBookmark(
+			@RequestParam("rid") int rid,
+			HttpSession session){
+		
+		String uid = (String) session.getAttribute("uid");
+		
+		CockBookmarkVO bookmarkVO = new CockBookmarkVO();
+		bookmarkVO.setRid(rid);
+		bookmarkVO.setUid(uid);
+		
+		cockMemberService.removeBookmark(bookmarkVO);
+		
+		
+		Map result = new HashMap();
+		result.put("status", "ok");
+		
+		return result;
+	}
+	
 	
 }

@@ -67,4 +67,11 @@
 		VALUES
 			(#{uid},#{rid});
 	</insert>
+	
+	<!-- 맛집 즐겨찾기 삭제 -->
+	<delete id="deleteBookmark" parameterType="CockBookmarkVO">
+		DELETE
+			FROM cc_bookmark		   
+		WHERE rid = #{rid} and uid = #{uid}
+	</delete>
 </mapper>

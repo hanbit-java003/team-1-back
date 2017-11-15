@@ -73,5 +73,11 @@ public class CockMemberDAO {
 		
 		return sqlSession.insert("cockMember.insertBookmark", bookmarkVO);
 	}
+	
+	//맛집 즐겨찾기 삭제.
+	public int deleteBookmark(CockBookmarkVO bookmarkVO) {
+		
+		return sqlSession.delete("cockMember.deleteBookmark", bookmarkVO);
+	}
 
 }
