@@ -49,7 +49,7 @@ public class AdminCockController {
 		restDetailVO.setSignature(signature);
 		restDetailVO.setStatus(status);
 		
-		adminCockService.saveAdminRestDetail(restDetailVO);
+		adminCockService.saveAdminRestDetail(restDetailVO);		
 		
 		Map result = new HashMap();
 		result.put("status", "ok");
@@ -62,7 +62,8 @@ public class AdminCockController {
 	public Map modifyAdminRestDetail(@RequestParam("rid") int rid, @RequestParam("address") String address, @RequestParam("phone") String phone,
 			@RequestParam("operating") String operating, @RequestParam("signature") String signature, @RequestParam("status") String status) {
 		
-		RestDetailVO restDetailVO = new RestDetailVO();		
+		RestDetailVO restDetailVO = new RestDetailVO();
+		restDetailVO.setRid(rid);
 		restDetailVO.setAddress(address);
 		restDetailVO.setPhone(phone);
 		restDetailVO.setOperating(operating);
