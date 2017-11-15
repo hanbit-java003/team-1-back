@@ -12,6 +12,7 @@ import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
 import com.hanbit.cock.api.vo.MenuVO;
+import com.hanbit.cock.api.vo.RestDetailVO;
 
 @Service
 public class DetailService {
@@ -34,6 +35,11 @@ public class DetailService {
 		}
 
 		return detail;
+	}
+	
+	public RestDetailVO getRestDetail(int rid) {
+		RestDetailVO rd = detailDAO.selectRestDetail(rid);
+		return rd;
 	}
 
 	public List<ArticleVO> getArticles(int rid) {

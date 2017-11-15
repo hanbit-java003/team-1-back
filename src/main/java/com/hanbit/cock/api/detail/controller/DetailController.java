@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hanbit.cock.api.detail.service.DetailService;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
+import com.hanbit.cock.api.vo.RestDetailVO;
 
 @RestController
 @RequestMapping("/api/cock/detail")
@@ -24,6 +25,11 @@ public class DetailController {
 	public DetailVO getRest(@PathVariable(value = "rid") int rid,
 							@PathVariable(value = "likes") boolean likes) {
 		return detailService.getRest(rid, likes);
+	}
+	
+	@RequestMapping("/info/{rid}")
+	public RestDetailVO getRestDetail(@PathVariable(value = "rid") int rid) {
+		return detailService.getRestDetail(rid);
 	}
 
 	@DeleteMapping("/{rid}/{articleId}")

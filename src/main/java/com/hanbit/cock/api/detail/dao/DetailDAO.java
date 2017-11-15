@@ -11,6 +11,7 @@ import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
 import com.hanbit.cock.api.vo.MenuVO;
+import com.hanbit.cock.api.vo.RestDetailVO;
 import com.hanbit.cock.api.vo.TagVO;
 
 @Repository
@@ -21,6 +22,10 @@ public class DetailDAO {
 
 	public DetailVO selectRest(Integer rid) {
 		return sqlSession.selectOne("cockDetail.selectRest", rid);
+	}
+	
+	public RestDetailVO selectRestDetail(Integer rid) {
+		return sqlSession.selectOne("cockDetail.selectRestDetail", rid);
 	}
 
 	public List<ArticleVO> selectArticles(Integer rid) {
