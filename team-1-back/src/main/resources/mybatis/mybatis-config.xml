@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="restVO" type="com.hanbit.cock.api.vo.RestVO"/>
+		<typeAlias alias="restDetailVO" type="com.hanbit.cock.api.vo.RestDetailVO"/>
+		<typeAlias alias="detailVO" type="com.hanbit.cock.api.vo.DetailVO"/>
+		<typeAlias alias="articleVO" type="com.hanbit.cock.api.vo.ArticleVO"/>
+		<typeAlias alias="menuVO" type="com.hanbit.cock.api.vo.MenuVO"/>
+		<typeAlias alias="tagVO" type="com.hanbit.cock.api.vo.TagVO"/>
+		<typeAlias alias="imgVO" type="com.hanbit.cock.api.vo.ImgVO"/>
+		<typeAlias alias="locationVO" type="com.hanbit.cock.api.vo.LocationVO"/>
+		
+		<typeAlias alias="emblemVO" type="com.hanbit.cock.api.emblem.vo.EmblemVO"/>
+		<typeAlias alias="emblemMemberVO" type="com.hanbit.cock.api.emblem.vo.EmblemMemberVO"/>
+		<typeAlias alias="emblemAchiveVO" type="com.hanbit.cock.api.emblem.vo.EmblemAchiveVO"/>
+		<typeAlias alias="dataCollection" type="com.hanbit.cock.api.data.DataCollection"/>
+		
+		<typeAlias alias="searchRestVO" type="com.hanbit.cock.api.search.vo.SearchRestVO"/>
+		<typeAlias alias="searchArticleVO" type="com.hanbit.cock.api.search.vo.SearchArticleVO"/>
+		<typeAlias alias="searchImgVO" type="com.hanbit.cock.api.search.vo.SearchImgVO"/>
+		
+		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
+		
+		<typeAlias alias="mainVO" type="com.hanbit.cock.api.vo.MainVO"/>
+		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>
+		
+		<typeAlias alias="memberVO" type="com.hanbit.cock.api.vo.MemberVO" />
+		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />
+		
+		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
+		<typeAlias alias="adminArticleVO" type="com.hanbit.cock.api.admin.vo.AdminArticleVO"/>
+		<typeAlias alias="adminMemberVO" type="com.hanbit.cock.api.admin.vo.AdminMemberVO"/>
+		<typeAlias alias="adminPageVO" type="com.hanbit.cock.api.admin.vo.AdminPageVO"/>
+		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
+		<typeAlias alias="adminAlertArticleVO" type="com.hanbit.cock.api.admin.vo.AdminAlertArticleVO"/>
+		
+		<typeAlias alias="cockMemberWroteVO" type="com.hanbit.cock.api.member.vo.CockMemberWroteVO"/>
+		<typeAlias alias="cockMemberBookmarkVO" type="com.hanbit.cock.api.member.vo.CockMemberBookmarkVO"/>
+		<typeAlias alias="cockBookmarkVO" type="com.hanbit.cock.api.member.vo.CockBookmarkVO"/>
+		<typeAlias alias="pageVO" type="com.hanbit.cock.api.member.vo.PageVO"/>
+	</typeAliases>
+
+</configuration>
