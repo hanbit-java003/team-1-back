@@ -23,7 +23,7 @@
 	</select>
 	
 	<!-- 신고 게시글 수 -->
-	<select id="selectCountMember" resultType="int">
+	<select id="selectCountAlertArticle" resultType="int">
 		SELECT COUNT(*) AS count
   		  FROM cc_alert_article
 	</select>
