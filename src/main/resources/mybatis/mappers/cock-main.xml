@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cockMain">
 	
-	<select id="selectLatestRest" resultType="MainVO">
+	<select id="selectLatestRest" resultType="mainVO">
 		SELECT r.rid, lat, lng, name, i.path AS img, GROUP_CONCAT(distinct t.tag) AS tags, COUNT(distinct a.article_id) AS count, a.write_dt	
 		  FROM cc_rest r
 		  LEFT JOIN cc_article a
@@ -17,7 +17,7 @@
 		 ORDER BY a.write_dt DESC
 	</select>
 	
-	<select id="selectArticleRest" resultType="MainVO">
+	<select id="selectArticleRest" resultType="mainVO">
 		SELECT r.rid, lat, lng, name, i.path AS img, GROUP_CONCAT(distinct t.tag) AS tags, COUNT(distinct a.article_id) AS count, a.write_dt	
 		  FROM cc_rest r
 		  LEFT JOIN cc_article a
@@ -36,7 +36,7 @@
 		 GROUP BY rid
 	</select>
 	
-	<select id="selectTopFour" resultType="TopFourVO">
+	<select id="selectTopFour" resultType="topFourVO">
 		SELECT t.*, @rowNum := @rownum + 1 as rank
 		  FROM (SELECT r.rid, name, i.path AS img, COUNT(distinct a.article_id) AS count
 				  FROM cc_rest r

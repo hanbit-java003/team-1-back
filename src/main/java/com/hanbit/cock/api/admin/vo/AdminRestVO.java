@@ -12,6 +12,7 @@ public class AdminRestVO {
 	private String operating;
 	private String signature;
 	private String status;
+	private String photo;
 	
 	public int getRid() {
 		return rid;
@@ -72,6 +73,12 @@ public class AdminRestVO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}	
-
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 }

@@ -1,15 +1,20 @@
 package com.hanbit.cock.api.admin.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hanbit.cock.api.admin.dao.AdminCockDAO;
 import com.hanbit.cock.api.admin.vo.AdminArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.service.FileService;
+import com.hanbit.cock.api.vo.FileVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 import com.hanbit.cock.api.vo.RestVO;
 
@@ -18,6 +23,9 @@ public class AdminCockService {
 	
 	@Autowired
 	private AdminCockDAO adminCockDAO;
+	
+	@Autowired
+	private FileService fileService;
 	
 	// 맛집 관리 리스트
 	public List<AdminRestVO> listAdminRest() {
@@ -30,13 +38,63 @@ public class AdminCockService {
 	}
 	
 	// 맛집 추가 입력사항 저장
-	public void saveAdminRestDetail(RestDetailVO restDetailVO) {
+	@Transactional
+	public void saveAdminRestDetail(RestDetailVO restDetailVO, MultipartFile photo) {
+		String photoFileId = "photo-rest-" + restDetailVO.getRid();		
+		
+		restDetailVO.setPhoto("/api/file/" + photoFileId);		
+		
 		adminCockDAO.insertAdminRestDetail(restDetailVO);
+		
+		FileVO fileVO = new FileVO();
+		
+		String fileExt = FilenameUtils.getExtension(photo.getOriginalFilename());
+		String fileName = photoFileId + "." + fileExt;
+		
+		fileVO.setFileId(photoFileId);
+		fileVO.setFilePath("/hanbit/webpack/cock-front/src/img/rest-photo/" + fileName);
+		fileVO.setContentType(photo.getContentType());
+		fileVO.setContentLength(photo.getSize());
+		fileVO.setFileName(fileName);
+		
+		try {
+			fileService.addFile(fileVO, photo.getInputStream());
+		}
+		catch (IOException e) {
+			throw new RuntimeException(e);
+		}			
 	}	
 	
 	// 맛집 추가 입력사항 수정
-	public void modifyAdminRestDetail(RestDetailVO restDetailVO) {
+	@Transactional
+	public void modifyAdminRestDetail(RestDetailVO restDetailVO, MultipartFile photo) {
+		String photoFileId = "photo-rest-" + restDetailVO.getRid();
+		
+		if (photo != null) {
+			restDetailVO.setPhoto("/api/file/" + photoFileId);
+		}
+		
 		adminCockDAO.updateAdminRestDetail(restDetailVO);
+		
+		if (photo != null) {
+			FileVO fileVO = new FileVO();		
+			
+			String fileExt = FilenameUtils.getExtension(photo.getOriginalFilename());
+			String fileName = photoFileId + "." + fileExt;
+			
+			fileVO.setFileId(photoFileId);
+			fileVO.setFilePath("/hanbit/webpack/cock-front/src/img/rest-photo/" + fileName);			
+			fileVO.setContentType(photo.getContentType());
+			fileVO.setContentLength(photo.getSize());
+			fileVO.setFileName(fileName);
+			
+			try {
+				fileService.modifyFile(fileVO, photo.getInputStream());
+			}
+			catch (IOException e) {
+				throw new RuntimeException(e);
+			}			
+		}
 	}
 	
 	// 맛집 기본 & 추가 입력사항 삭제
