@@ -11,6 +11,7 @@ import com.hanbit.cock.api.detail.dao.DetailDAO;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
+import com.hanbit.cock.api.vo.LikeVO;
 import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
@@ -102,9 +103,19 @@ public class DetailService {
 	}
 
 	public void increaseLikes(ArticleVO article) {
+		LikeVO like = new LikeVO();
+		like.setRid(article.getRid());
+		like.setArticleId(article.getArticleId());
+		like.setUid(article.getUid());
+		
+		detailDAO.insertLike(like);
 		detailDAO.updateLikesIncrease(article);
 	}
-
+	
+	public int getLikeCount(ArticleVO article) {
+		return detailDAO.selectLikeCount(article);
+	}
+	
 	public void decreaseLikes(ArticleVO article) {
 		detailDAO.updateLikesDecrease(article);
 	}

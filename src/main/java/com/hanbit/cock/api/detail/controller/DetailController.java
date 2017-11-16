@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hanbit.cock.api.detail.service.DetailService;
@@ -49,17 +50,21 @@ public class DetailController {
 	}
 	
 	@RequestMapping("/inc/{rid}/{articleId}")
-	public Map<String, Boolean> increaseLikes(@PathVariable("rid") int rid,
-											  @PathVariable("articleId") int articleId) {
+	public Map<String, Integer> increaseLikes(@PathVariable("rid") int rid,
+											  @PathVariable("articleId") int articleId,
+											  @RequestParam("uid") String uid) {
+		
 		
 		ArticleVO article = new ArticleVO();
 		article.setRid(rid);
 		article.setArticleId(articleId);
+		article.setUid(uid);
 		
+		int likeCount = detailService.getLikeCount(article);
 		detailService.increaseLikes(article);
 		
-		Map<String, Boolean> result = new HashMap<>();
-		result.put("ok", true);
+		Map<String, Integer> result = new HashMap<>();
+		result.put("ok", likeCount);
 		
 		return result;
 	}
