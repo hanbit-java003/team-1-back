@@ -65,4 +65,11 @@ public class MemberDAO {
 		return sqlSession.update("member.updatePassword", memberVO);
 	}
 	
+	// 회원탈퇴
+	public int deleteMember(MemberVO memberVO) {
+		
+		return sqlSession.update("member.deleteMember", memberVO);
+	}
+	
+	
 }

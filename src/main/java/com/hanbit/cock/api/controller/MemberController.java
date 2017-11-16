@@ -108,6 +108,7 @@ public class MemberController {
 		session.setAttribute("email", memberVO.getEmail());
 		session.setAttribute("nick", memberVO.getNick());
 		session.setAttribute("master", memberVO.getMaster());
+		session.setAttribute("bann", memberVO.getBann());
 		
 		if(memberVO.getDetail() != null) {// detail이 null이 아닐 경우에만 실행.
 		session.setAttribute("avatar", memberVO.getDetail().getAvatar());
@@ -137,6 +138,7 @@ public class MemberController {
 			member.put("avatar", session.getAttribute("avatar"));
 			member.put("uid", session.getAttribute("uid"));
 			member.put("master", session.getAttribute("master"));
+			member.put("bann", session.getAttribute("bann"));
 		}
 
 		return member;
@@ -197,6 +199,47 @@ public class MemberController {
 
 		return result;
 	}
+	
+	// 회원탈퇴시 비밀번호 확인.
+	@SignInRequired
+	@PostMapping("/bann/pw")
+	public Map bannPasswordVall(@RequestParam("currentPw") String currentPw,
+			HttpSession session){
+		
+		String uid = (String) session.getAttribute("uid");
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUid(uid);
+		memberVO.setCurrentPw(currentPw);
+		
+		memberService.bannPasswordVall(memberVO);
+		
+		
+		Map result = new HashMap();
+		result.put("status", "ok");
+
+		return result;
+	}
+	
+	// 회원탈퇴단
+	@SignInRequired
+	@RequestMapping("/bann")
+	public Map bannMember(@RequestParam("bann") String bann,
+			HttpSession session){
+		String uid = (String) session.getAttribute("uid");
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUid(uid);
+		memberVO.setBann(bann);
+		
+		memberService.bannMember(memberVO);
+		
+		Map result = new HashMap();
+		result.put("status", "ok");
+
+		return result;
+	}
+	
 
 
 
