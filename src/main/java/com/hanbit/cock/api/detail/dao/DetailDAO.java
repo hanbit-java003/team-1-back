@@ -10,6 +10,7 @@ import com.hanbit.cock.api.emblem.vo.EmblemVO;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
 import com.hanbit.cock.api.vo.ImgVO;
+import com.hanbit.cock.api.vo.LikeVO;
 import com.hanbit.cock.api.vo.MenuVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 import com.hanbit.cock.api.vo.TagVO;
@@ -23,7 +24,7 @@ public class DetailDAO {
 	public DetailVO selectRest(Integer rid) {
 		return sqlSession.selectOne("cockDetail.selectRest", rid);
 	}
-	
+
 	public RestDetailVO selectRestDetail(Integer rid) {
 		return sqlSession.selectOne("cockDetail.selectRestDetail", rid);
 	}
@@ -31,7 +32,7 @@ public class DetailDAO {
 	public List<ArticleVO> selectArticles(Integer rid) {
 		return sqlSession.selectList("cockDetail.selectArticles", rid);
 	}
-	
+
 	public List<ArticleVO> selectArticlesByLikes(Integer rid) {
 		return sqlSession.selectList("cockDetail.selectArticlesByLikes", rid);
 	}
@@ -67,7 +68,7 @@ public class DetailDAO {
 	public int deleteImgs(ArticleVO article) {
 		return sqlSession.delete("cockDetail.deleteImgs", article);
 	}
-	
+
 	public int deleteRest(int rid) {
 		return sqlSession.delete("cockDetail.deleteRest", rid);
 	}
@@ -75,13 +76,29 @@ public class DetailDAO {
 	public int deleteRestDetail(int rid) {
 		return sqlSession.delete("cockDetail.deleteRestDetail", rid);
 	}
+	
+	public List<LikeVO> selectLikes(int rid) {
+		return sqlSession.selectList("cockDetail.selectLikes", rid);
+	}
 
 	public int updateLikesIncrease(ArticleVO article) {
 		return sqlSession.update("cockDetail.increaseLikes", article);
 	}
 
+	public int insertLike(LikeVO like) {
+		return sqlSession.insert("cockDetail.insertLike", like);
+	}
+	
+	public int selectLikeCount(ArticleVO article) {
+		return sqlSession.selectOne("cockDetail.selectLikeCount", article);
+	}
+
 	public int updateLikesDecrease(ArticleVO article) {
 		return sqlSession.update("cockDetail.decreaseLikes", article);
+	}
+	
+	public int deleteLike(LikeVO like) {
+		return sqlSession.delete("cockDetail.deleteLike", like);
 	}
 
 }

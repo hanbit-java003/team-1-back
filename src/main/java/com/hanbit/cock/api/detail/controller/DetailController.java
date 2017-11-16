@@ -1,17 +1,20 @@
 package com.hanbit.cock.api.detail.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hanbit.cock.api.detail.service.DetailService;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
+import com.hanbit.cock.api.vo.LikeVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
 @RestController
@@ -48,34 +51,45 @@ public class DetailController {
 		return result;
 	}
 	
+	@RequestMapping("/likes/{rid}")
+	public List<LikeVO> getLikes(@PathVariable("rid") int rid) {
+		return detailService.getLikes(rid);
+	}
+	
 	@RequestMapping("/inc/{rid}/{articleId}")
-	public Map<String, Boolean> increaseLikes(@PathVariable("rid") int rid,
-											  @PathVariable("articleId") int articleId) {
+	public Map<String, Integer> increaseLikes(@PathVariable("rid") int rid,
+											  @PathVariable("articleId") int articleId,
+											  @RequestParam("uid") String uid) {
 		
 		ArticleVO article = new ArticleVO();
 		article.setRid(rid);
 		article.setArticleId(articleId);
+		article.setUid(uid);
 		
+		int likeCount = detailService.getLikeCount(article);
 		detailService.increaseLikes(article);
 		
-		Map<String, Boolean> result = new HashMap<>();
-		result.put("ok", true);
+		Map<String, Integer> result = new HashMap<>();
+		result.put("like", likeCount);
 		
 		return result;
 	}
 	
 	@RequestMapping("/dec/{rid}/{articleId}")
-	public Map<String, Boolean> decreaseLikes(@PathVariable("rid") int rid,
-											  @PathVariable("articleId") int articleId) {
+	public Map<String, Integer> decreaseLikes(@PathVariable("rid") int rid,
+											  @PathVariable("articleId") int articleId,
+											  @RequestParam("uid") String uid) {
 		
 		ArticleVO article = new ArticleVO();
 		article.setRid(rid);
 		article.setArticleId(articleId);
-		
+		article.setUid(uid);
+
+		int likeCount = detailService.getLikeCount(article);
 		detailService.decreaseLikes(article);
 		
-		Map<String, Boolean> result = new HashMap<>();
-		result.put("ok", true);
+		Map<String, Integer> result = new HashMap<>();
+		result.put("like", likeCount);
 		
 		return result;
 	}

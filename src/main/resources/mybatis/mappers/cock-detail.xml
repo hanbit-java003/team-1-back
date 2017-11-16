@@ -99,11 +99,30 @@
 		 WHERE rid=#{rid} and article_id=#{articleId}
 	</delete>
 	
-	<!-- 좋아요, 싫어요 증감 -->
+	<select id="selectLikes" parameterType="int" resultType="likeVO">
+		SELECT *
+		  FROM cc_like
+		 WHERE rid=#{rid}
+	</select>
+	
+	<!-- 좋아요 증감 -->
 	<select id="increaseLikes" parameterType="articleVO">
 		UPDATE cc_article 
 		   SET likes = likes + 1 
-		 WHERE rid = #{rid} and article_id = #{articleId};
+		 WHERE rid = #{rid} and article_id = #{articleId}
+	</select>
+	
+	<insert id="insertLike" parameterType="likeVO">
+		INSERT INTO cc_like
+		  (rid, article_id, uid)
+		VALUES
+		  (#{rid}, #{articleId}, #{uid})
+	</insert>
+	
+	<select id="selectLikeCount" parameterType="articleVO" resultType="int">
+		SELECT likes
+		  FROM cc_article
+		 WHERE rid=#{rid} and article_id=#{articleId}
 	</select>
 	
 	<select id="decreaseLikes" parameterType="articleVO">
@@ -111,5 +130,11 @@
 		   SET likes = likes - 1 
 		 WHERE rid = #{rid} and article_id = #{articleId};
 	</select>
+	
+	<delete id="deleteLike" parameterType="likeVO">
+		DELETE
+		  FROM cc_like
+		 WHERE rid=#{rid} and article_id=#{articleId} and uid=#{uid}
+	</delete>
 	
 </mapper>
