@@ -101,6 +101,10 @@ public class DetailService {
 
 		System.out.println("삭제");
 	}
+	
+	public List<LikeVO> getLikes(int rid) {
+		return detailDAO.selectLikes(rid);
+	}
 
 	public void increaseLikes(ArticleVO article) {
 		LikeVO like = new LikeVO();
@@ -117,6 +121,12 @@ public class DetailService {
 	}
 	
 	public void decreaseLikes(ArticleVO article) {
+		LikeVO like = new LikeVO();
+		like.setRid(article.getRid());
+		like.setArticleId(article.getArticleId());
+		like.setUid(article.getUid());
+		
+		detailDAO.deleteLike(like);
 		detailDAO.updateLikesDecrease(article);
 	}
 
