@@ -24,11 +24,19 @@
 	</insert>
 	
 	<select id="selectMember" parameterType="string" resultMap="memberDetail">
-		SELECT m.uid, nick, email, password, d.avatar, m.master
+		SELECT m.uid, nick, email, password, d.avatar, m.master, m.bann
 			FROM cc_member m LEFT JOIN cc_member_detail d
 				ON m.uid = d.uid
 			WHERE email = #{email}
 	</select>
+	
+	<!-- 회원탈퇴 -->
+	<update id="deleteMember" parameterType="memberVO">
+		UPDATE cc_member
+			SET bann = #{bann}
+		WHERE uid = #{uid}
+	</update>
+		
 	
 	<resultMap id="memberDetail" type="memberVO">
 		<result property="uid" column="uid"/>
@@ -36,6 +44,7 @@
 		<result property="email" column="email"/>
 		<result property="nick" column="nick"/>
 		<result property="master" column="master"/>
+		<result property="bann" column="bann"/>
 		<association property="detail" javaType="memberDetailVO">
 			<result property="phone" column="phone"/>
 			<result property="info" column="info"/>
@@ -44,7 +53,7 @@
 	</resultMap>
 	
 	<select id="selectMemberDetail" parameterType="String" resultMap="memberDetail">
-		SELECT m.uid, email, nick, phone, IFNULL (info, 'N') info , avatar, m.master
+		SELECT m.uid, email, nick, phone, IFNULL (info, 'N') info , avatar, m.master, m.bann
 			FROM cc_member m LEFT JOIN cc_member_detail d
  				ON m.uid = d.uid
 			WHERE m.uid = #{uid}

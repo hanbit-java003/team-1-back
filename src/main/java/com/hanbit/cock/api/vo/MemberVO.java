@@ -12,6 +12,7 @@ public class MemberVO {
 	private String createDt;
 	private String createdBy;
 	private String master;
+	private String bann;
 	private MemberDetailVO detail; 
 	
 	public String getUid() {
@@ -67,6 +68,12 @@ public class MemberVO {
 	}
 	public void setMaster(String master) {
 		this.master = master;
+	}
+	public String getBann() {
+		return bann;
+	}
+	public void setBann(String bann) {
+		this.bann = bann;
 	}
 	
 }

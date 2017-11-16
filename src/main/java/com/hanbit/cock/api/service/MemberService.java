@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,10 @@ public class MemberService {
 
 	@Autowired
 	private FileService fileService;
-	
+
 	@Autowired
 	private CockEmblemDAO cockEmblemDAO;
-	
+
 	// E-mail 중복확인
 	public void emailCheck(MemberVO memberVO) {
 		// countMember가 0보다 크면 있는거다. 중복확인..
@@ -45,7 +46,7 @@ public class MemberService {
 			throw new CockException("이미 가입된 이메일 입니다.");
 		}
 	}
-	
+
 	// 별명 중복확인 버튼.
 	public void nickCheck(MemberVO memberVO) { 
 		// countNick 이 0보다 크면 있는거.
@@ -77,7 +78,7 @@ public class MemberService {
 		memberVO.setPassword(encodedPassword);
 
 		memberDAO.insertMember(memberVO);
-		
+
 		// 엠블럼 릴레이션 생성
 		cockEmblemDAO.signUpEmblemId(memberVO.getUid());
 
@@ -169,6 +170,30 @@ public class MemberService {
 
 		memberDAO.updatePassword(memberVO);
 
+	}
+	
+	private void bannPassword(String uid, String currentPw){
+		String encodedPw = memberDAO.selectPassword(uid);// 암호화된 패스워드
+
+		if (!passwordEncoder.matches(currentPw, encodedPw)) {
+			throw new CockException("비밀번호가 일치하지 않습니다. 확인해주세요!");
+		}
+	}
+	
+	public void bannPasswordVall(MemberVO memberVO){
+		
+		// 패스워드.
+		if(StringUtils.isNotBlank(memberVO.getCurrentPw())) {
+			bannPassword(memberVO.getUid(), 
+					memberVO.getCurrentPw());
+			
+		}
+	}
+	
+	//회원탈퇴단.
+	public int bannMember(MemberVO memberVO) {
+
+		return memberDAO.deleteMember(memberVO);
 	}
 
 }
