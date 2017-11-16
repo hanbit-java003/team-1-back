@@ -7,14 +7,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hanbit.cock.api.admin.service.AdminCockService;
 import com.hanbit.cock.api.admin.vo.AdminArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
 @RestController
@@ -22,7 +27,12 @@ import com.hanbit.cock.api.vo.RestDetailVO;
 public class AdminCockController {
 	
 	@Autowired
-	private AdminCockService adminCockService;	
+	private AdminCockService adminCockService;
+	
+	@Autowired
+	private FileService fileService;
+	
+	private ObjectMapper mapper = new ObjectMapper();
 	
 	// 맛집 관리 리스트
 	@RequestMapping("/rest")
@@ -37,43 +47,33 @@ public class AdminCockController {
 	}
 	
 	// 맛집 추가 입력사항 저장
-	@RequestMapping("/rest/save")
-	public Map saveAdminRestDetail(@RequestParam("rid") int rid, @RequestParam("address") String address, @RequestParam("phone") String phone,
-			@RequestParam("operating") String operating, @RequestParam("signature") String signature, @RequestParam("status") String status) {
+	@PostMapping("/rest/save")
+	public Map saveAdminRestDetail(@RequestParam("json") String json, @RequestParam("photo") MultipartFile photo) throws Exception {		
+		RestDetailVO restDetailVO = mapper.readValue(json, RestDetailVO.class);
 		
-		RestDetailVO restDetailVO = new RestDetailVO();
-		restDetailVO.setRid(rid);
-		restDetailVO.setAddress(address);
-		restDetailVO.setPhone(phone);
-		restDetailVO.setOperating(operating);
-		restDetailVO.setSignature(signature);
-		restDetailVO.setStatus(status);
-		
-		adminCockService.saveAdminRestDetail(restDetailVO);		
+		adminCockService.saveAdminRestDetail(restDetailVO, photo);		
 		
 		Map result = new HashMap();
 		result.put("status", "ok");
+		
 		return result;	
 				
 	}
 	
 	// 맛집 추가 입력사항 수정
-	@RequestMapping("/rest/edit")
-	public Map modifyAdminRestDetail(@RequestParam("rid") int rid, @RequestParam("address") String address, @RequestParam("phone") String phone,
-			@RequestParam("operating") String operating, @RequestParam("signature") String signature, @RequestParam("status") String status) {
+	@PostMapping("/rest/edit/{rid}")
+	public Map modifyAdminRestDetail(@PathVariable("rid") int rid, MultipartHttpServletRequest request) throws Exception {		
+		String json = request.getParameter("json");
 		
-		RestDetailVO restDetailVO = new RestDetailVO();
-		restDetailVO.setRid(rid);
-		restDetailVO.setAddress(address);
-		restDetailVO.setPhone(phone);
-		restDetailVO.setOperating(operating);
-		restDetailVO.setSignature(signature);
-		restDetailVO.setStatus(status);
+		RestDetailVO restDetailVO = mapper.readValue(json, RestDetailVO.class);
 		
-		adminCockService.modifyAdminRestDetail(restDetailVO);
+		MultipartFile photo = request.getFile("photo");
+		
+		adminCockService.modifyAdminRestDetail(restDetailVO, photo);
 		
 		Map result = new HashMap();
 		result.put("status", "ok");
+		
 		return result;	
 				
 	}

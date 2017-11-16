@@ -9,6 +9,7 @@ public class AdminMemberVO {
 	private String phone;
 	private int count;
 	private String info;
+	private String bann;
 	
 	public String getUid() {
 		return uid;
@@ -52,5 +53,11 @@ public class AdminMemberVO {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+	public String getBann() {
+		return bann;
+	}
+	public void setBann(String bann) {
+		this.bann = bann;
+	}	
 
 }
