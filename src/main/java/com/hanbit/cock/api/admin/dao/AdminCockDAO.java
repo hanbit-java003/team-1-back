@@ -11,6 +11,7 @@ import com.hanbit.cock.api.admin.vo.AdminArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminPageVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
 @Repository
@@ -104,6 +105,24 @@ public class AdminCockDAO {
 	
 	public int insertAdminAlertArticle(AdminAlertArticleVO aaa) {
 		return sqlSession.insert("cockAdmin.insertAdminAlertArticle", aaa);
+	}
+
+	public AdminAlertArticleVO selectAdminAlertArticleDetail(AdminAlertArticleVO aaa) {
+		return sqlSession.selectOne("cockAdmin.selectAdminAlertArticleDetail", aaa);
+	}
+
+	public int updateAlertArticle(AdminAlertArticleVO data) {
+		return sqlSession.update("cockAdmin.updateAlertArticle", data);
+	}
+
+	// 기사 존재 유무
+	public int getArticle(AdminAlertArticleVO data) {
+		return sqlSession.selectOne("cockAdmin.existArticle", data);
+	}
+
+	// 신고 게시글 제거
+	public int removeAlertArticle(AdminAlertArticleVO data) {
+		return sqlSession.delete("cockAdmin.removeAlertArticle", data);
 	}
 
 }

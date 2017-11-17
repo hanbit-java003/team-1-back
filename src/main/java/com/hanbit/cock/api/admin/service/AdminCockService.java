@@ -2,6 +2,7 @@ package com.hanbit.cock.api.admin.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.hanbit.cock.api.admin.vo.AdminAlertArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.insert.dao.CockInsertDAO;
+import com.hanbit.cock.api.insert.service.CockInsertService;
 import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.FileVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
@@ -26,6 +29,9 @@ public class AdminCockService {
 	
 	@Autowired
 	private FileService fileService;
+	
+	@Autowired
+	private CockInsertService cockInsertService;
 	
 	// 맛집 관리 리스트
 	public List<AdminRestVO> listAdminRest() {
@@ -127,7 +133,7 @@ public class AdminCockService {
 		return adminCockDAO.selectAdminMember();
 	}
 
-	// 신고 계시글 관련 리스트
+	// 신고 게시글 관련 리스트
 	public List<AdminAlertArticleVO> listAdminAlertArticle(int page) {
 		return adminCockDAO.selectAdminAlertArticle(page);
 	}
@@ -136,5 +142,33 @@ public class AdminCockService {
 		aaa.setAaid(adminCockDAO.selectMaxAAID(aaa));
 		return adminCockDAO.insertAdminAlertArticle(aaa);
 	}
+
+	// 신고 게시글 상세
+	public AdminAlertArticleVO adminAlertArticle(AdminAlertArticleVO aaa) {
+		return adminCockDAO.selectAdminAlertArticleDetail(aaa);
+	}
+
+	// 신고 게시글 처리, 삭제 및 UPDATE
+	@Transactional
+	public String applyAlertArticle(AdminAlertArticleVO data) {
+		if (adminCockDAO.getArticle(data) == 0 && "삭제".equals(data.getStatus())) {
+			return "No article!";
+		}
+		
+		if ("삭제".equals(data.getStatus())) {
+			cockInsertService.removeArticle(data.getRid(), data.getArticleId(), data.getUid());
+		}
+		adminCockDAO.updateAlertArticle(data);
+		
+		return "Success";
+	}
+
+	// 신고 게시글 제거
+	public String removeAlertArticle(AdminAlertArticleVO data) {
+		adminCockDAO.removeAlertArticle(data);
+		return "remove";
+	}
+	
+	
 
 }

@@ -164,4 +164,32 @@
 			(#{aaid}, #{rid}, #{articleId}, #{uid}, #{report}, #{status})
 	</insert>
 	
+	<!-- 신고 기사 게시글 상세페이지 -->
+	<select id="selectAdminAlertArticleDetail" resultType="adminAlertArticleVO" parameterType="adminAlertArticleVO" >
+		SELECT *
+		  FROM cc_alert_article
+		 WHERE rid=#{rid} AND article_id=#{articleId} AND aaid=#{aaid}
+	</select>
+	
+	<!-- 신고 기사 게시글 정보 수정 -->
+	<update id="updateAlertArticle" parameterType="restDetailVO">
+		UPDATE cc_alert_article
+		   SET report = #{report},
+		   	   status = #{status}
+		 WHERE rid = #{rid} AND article_id=#{articleId} AND aaid=#{aaid}
+	</update>
+	
+	<!-- 기사가 존재하는지 확인 -->
+	<select id="existArticle" resultType="int" parameterType="adminAlertArticleVO" >
+		SELECT EXISTS
+				(SELECT * FROM cc_article WHERE rid=#{rid} AND article_id=#{articleId}) AS success
+	</select>
+	
+	<!-- 신고 게시글 삭제 -->
+	<delete id="removeAlertArticle" parameterType="adminAlertArticleVO">
+		DELETE
+		  FROM cc_alert_article   
+		 WHERE rid = #{rid} AND article_id=#{articleId} AND aaid=#{aaid}
+	</delete>
+	
 </mapper>

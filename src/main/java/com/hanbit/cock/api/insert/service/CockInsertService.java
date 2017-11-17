@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hanbit.cock.api.admin.vo.AdminAlertArticleVO;
 import com.hanbit.cock.api.annotation.EmblemUpdate;
 import com.hanbit.cock.api.insert.dao.CockInsertDAO;
 import com.hanbit.cock.api.service.FileService;
@@ -162,7 +163,7 @@ public class CockInsertService {
 			String fileExt = FilenameUtils.getExtension(imgFile.getOriginalFilename());
 			String fileId = "art-" + fileName + "-" + fileIndex;
 			String filePath = "/hanbit2/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
-			// String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
+			//String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
 			
 			FileVO fileVO = new FileVO();
 			fileVO.setFileId(fileId);
@@ -244,12 +245,19 @@ public class CockInsertService {
 		art.setUid(uid);
 				
 		art = cockInsertDAO.selectArticle(art);
-
+		art.setImgs(cockInsertDAO.selectImgs(art));
+		
 		cockInsertDAO.removeMenus(art);
 		cockInsertDAO.removeTags(art);
+		for (ImgVO img : art.getImgs()) {
+			String oldFileId = img.getPath().replace("/api/file/", "");
+			System.out.println("delete file: " + oldFileId);
+			fileService.removeFile(oldFileId);
+		}
 		cockInsertDAO.removeImgs(art);
 		cockInsertDAO.removeArticle(art);
 		
 		return true;
 	}
+
 }

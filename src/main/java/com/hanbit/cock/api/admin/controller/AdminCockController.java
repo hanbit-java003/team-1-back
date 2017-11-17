@@ -126,11 +126,42 @@ public class AdminCockController {
 		return adminCockService.listAdminAlertArticle(page);
 	}
 	
-	// 게시글 신고 접수 페이지
+	// 게시글 신고 접수 리스트 페이지
 	@SignInRequired
 	@PostMapping("/alert/article/insert")
-	public int saveAlertArticle(@RequestBody AdminAlertArticleVO data) throws Exception {
+	public int saveAlertArticle(@RequestBody AdminAlertArticleVO data) {
 		return adminCockService.saveAlertArticle(data);
 	}
 	
+	// 게시글 신고 접수 세부정보 페이지
+	@RequestMapping("/alert/article/detail/{rid}/{articleId}/{aaid}")
+	public AdminAlertArticleVO getAlertArticle(@PathVariable("rid") int rid, @PathVariable("articleId") int articleId, @PathVariable("aaid") int aaid) {
+		AdminAlertArticleVO aaa = new AdminAlertArticleVO();
+		aaa.setRid(rid);
+		aaa.setArticleId(articleId);
+		aaa.setAaid(aaid);
+		return adminCockService.adminAlertArticle(aaa);
+	}
+	
+	// 게시글 신고 접수 처리 페이지
+	@PostMapping("/alert/article/apply")
+	public Map applyAlertArticle(@RequestBody AdminAlertArticleVO data) {
+		String msg = adminCockService.applyAlertArticle(data);
+		
+		Map result = new HashMap();
+		result.put("msg", msg);
+		
+		return result;
+	}
+	
+	// 게시글 신고 접수 처리 페이지
+	@PostMapping("/alert/article/remove")
+	public Map removeAlertArticle(@RequestBody AdminAlertArticleVO data) {
+		String msg = adminCockService.removeAlertArticle(data);
+		
+		Map result = new HashMap();
+		result.put("msg", msg);
+		
+		return result;
+	}
 }
