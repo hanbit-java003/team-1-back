@@ -118,6 +118,8 @@ public class MemberController {
 		Map result = new HashMap();
 		result.put("email", memberVO.getEmail());
 		result.put("nick", memberVO.getNick());
+		result.put("bann", memberVO.getBann());
+		result.put("master", memberVO.getMaster());
 		
 		return result;
 
