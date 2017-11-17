@@ -4,14 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 
 	<typeAliases>
 		<typeAlias alias="restVO" type="com.hanbit.cock.api.vo.RestVO"/>
+		<typeAlias alias="restDetailVO" type="com.hanbit.cock.api.vo.RestDetailVO"/>
 		<typeAlias alias="detailVO" type="com.hanbit.cock.api.vo.DetailVO"/>
+		<typeAlias alias="likeVO" type="com.hanbit.cock.api.vo.LikeVO"/>
 		<typeAlias alias="articleVO" type="com.hanbit.cock.api.vo.ArticleVO"/>
 		<typeAlias alias="menuVO" type="com.hanbit.cock.api.vo.MenuVO"/>
 		<typeAlias alias="tagVO" type="com.hanbit.cock.api.vo.TagVO"/>
@@ -30,10 +31,22 @@
 		<typeAlias alias="fileVO" type="com.hanbit.cock.api.vo.FileVO" />
 		
 		<typeAlias alias="mainVO" type="com.hanbit.cock.api.vo.MainVO"/>
-		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>
+		<typeAlias alias="topFourVO" type="com.hanbit.cock.api.vo.TopFourVO"/>		
 		
 		<typeAlias alias="memberVO" type="com.hanbit.cock.api.vo.MemberVO" />
 		<typeAlias alias="memberDetailVO" type="com.hanbit.cock.api.vo.MemberDetailVO" />
+		
+		<typeAlias alias="adminRestVO" type="com.hanbit.cock.api.admin.vo.AdminRestVO"/>
+		<typeAlias alias="adminArticleVO" type="com.hanbit.cock.api.admin.vo.AdminArticleVO"/>
+		<typeAlias alias="adminMemberVO" type="com.hanbit.cock.api.admin.vo.AdminMemberVO"/>
+		<typeAlias alias="adminPageVO" type="com.hanbit.cock.api.admin.vo.AdminPageVO"/>
+		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
+		<typeAlias alias="adminAlertArticleVO" type="com.hanbit.cock.api.admin.vo.AdminAlertArticleVO"/>
+		
+		<typeAlias alias="cockMemberWroteVO" type="com.hanbit.cock.api.member.vo.CockMemberWroteVO"/>
+		<typeAlias alias="cockMemberBookmarkVO" type="com.hanbit.cock.api.member.vo.CockMemberBookmarkVO"/>
+		<typeAlias alias="cockBookmarkVO" type="com.hanbit.cock.api.member.vo.CockBookmarkVO"/>
+		<typeAlias alias="pageVO" type="com.hanbit.cock.api.member.vo.PageVO"/>
 	</typeAliases>
 
 </configuration>
