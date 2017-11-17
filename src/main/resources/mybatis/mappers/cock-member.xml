@@ -27,7 +27,7 @@
 		 on r.rid = a.rid
 		LIMIT #{firstIndex}, #{rowsPerPage} -->
 		SELECT t.*, @rowNum := @rownum + 1 as no from
-        (SELECT name, comment, r.rid
+        (SELECT name, comment, r.rid, article_id
 		 FROM cc_rest r LEFT JOIN cc_article a
 		 on r.rid = a.rid
 		 WHERE uid = #{uid}
