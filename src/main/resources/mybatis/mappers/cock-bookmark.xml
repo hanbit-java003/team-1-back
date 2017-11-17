@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cockBookmark">
+	<select id="selectBookmarkReview" resultType="BookmarkReviewVO">
+		SELECT w.rid, address, review
+		  FROM cc_bookmark_review w
+		  LEFT JOIN cc_rest r
+		    ON r.rid = w.rid
+		 GROUP BY b.rid
+	</select>
+
+	<select id="selectBookmark" resultType="BookmarkVO">
+		SELECT b.rid, lat, lng, name, address, path, GROUP_CONCAT(distinct tag) AS tag
+		  FROM cc_bookmark b
+		  LEFT JOIN cc_tag t
+		    ON b.rid = t.rid
+		  LEFT JOIN cc_rest r
+		    ON b.rid = r.rid
+		  LEFT JOIN cc_rest_detail d
+		    ON b.rid = d.rid
+		  LEFT JOIN cc_img i
+		    ON b.rid = i.rid
+		 WHERE uid = #{uid}
+		 GROUP BY rid;
+	</select>
+
+	<select id="selectBookmarkTags" resultType="bookmarkTagsVO">
+		SELECT rid, GROUP_CONCAT(distinct tag) AS tag
+		  FROM cc_tag
+		 GROUP BY rid
+	</select>
+</mapper>

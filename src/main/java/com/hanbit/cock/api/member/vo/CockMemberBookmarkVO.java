@@ -5,7 +5,7 @@ public class CockMemberBookmarkVO {
 	private String name;
 	private String address;
 	private String phone;
-	private String rid;
+	private int rid;
 	private int no;
 	
 	public String getName() {
@@ -32,10 +32,10 @@ public class CockMemberBookmarkVO {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public String getRid() {
+	public int getRid() {
 		return rid;
 	}
-	public void setRid(String rid) {
+	public void setRid(int rid) {
 		this.rid = rid;
 	}
 

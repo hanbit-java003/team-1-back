@@ -4,7 +4,8 @@ public class CockMemberWroteVO {
 	
 	private String name;
 	private String comment;
-	private String rid;
+	private int articleId;
+	private int rid;
 	private int no;
 	  
 	
@@ -26,10 +27,16 @@ public class CockMemberWroteVO {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public String getRid() {
+	public int getRid() {
 		return rid;
 	}
-	public void setRid(String rid) {
+	public void setRid(int rid) {
 		this.rid = rid;
+	}
+	public int getArticleId() {
+		return articleId;
+	}
+	public void setArticleId(int articleId) {
+		this.articleId = articleId;
 	}
 }
