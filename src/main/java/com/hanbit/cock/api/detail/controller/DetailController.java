@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hanbit.cock.api.detail.service.DetailService;
 import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.DetailVO;
+import com.hanbit.cock.api.vo.ImgVO;
 import com.hanbit.cock.api.vo.LikeVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
@@ -92,5 +93,15 @@ public class DetailController {
 		result.put("like", likeCount);
 		
 		return result;
+	}
+	
+	@RequestMapping("/img/{rid}/{articleId}")
+	public List<ImgVO> getImg(@PathVariable("rid") int rid,
+			  			@PathVariable("articleId") int articleId) {
+		ArticleVO article = new ArticleVO();
+		article.setRid(rid);
+		article.setArticleId(articleId);
+
+		return detailService.getImgs(article);
 	}
 }
