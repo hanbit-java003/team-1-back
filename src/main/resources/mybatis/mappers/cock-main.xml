@@ -4,36 +4,41 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cockMain">
 	
-	<select id="selectLatestRest" resultType="mainVO">
-		SELECT r.rid, lat, lng, name, i.path AS img, GROUP_CONCAT(distinct t.tag) AS tags, COUNT(distinct a.article_id) AS count, a.write_dt	
+	<select id="selectLatestRest" parameterType="locationVO" resultType="mainVO">
+		SELECT r.rid, lat, lng, name, i.path AS img, COUNT(distinct a.article_id) AS count, max(a.write_dt) AS write_dt
 		  FROM cc_rest r
 		  LEFT JOIN cc_article a
-			ON r.rid = a.rid 
+			ON r.rid = a.rid
 		  LEFT JOIN cc_img i
 			ON a.rid = i.rid
-		  LEFT JOIN cc_tag t
-		    ON r.rid = t.rid		  
+		 WHERE lat >= #{lat} - 0.003 AND lat &lt;= #{lat} + 0.003 AND lng >= #{lng} - 0.009 AND lng &lt;= #{lng} + 0.009
 		 GROUP BY rid
-		 ORDER BY a.write_dt DESC
+		 ORDER BY write_dt DESC
 	</select>
 	
-	<select id="selectArticleRest" resultType="mainVO">
-		SELECT r.rid, lat, lng, name, i.path AS img, GROUP_CONCAT(distinct t.tag) AS tags, COUNT(distinct a.article_id) AS count, a.write_dt	
+	<select id="selectArticleRest" parameterType="locationVO" resultType="mainVO">
+		SELECT r.rid, lat, lng, name, i.path AS img, COUNT(distinct a.article_id) AS count, max(a.write_dt) AS write_dt
 		  FROM cc_rest r
 		  LEFT JOIN cc_article a
 			ON r.rid = a.rid 
 		  LEFT JOIN cc_img i
 			ON a.rid = i.rid
-		  LEFT JOIN cc_tag t
-		    ON r.rid = t.rid		  
+		 WHERE lat >= #{lat} - 0.003 AND lat &lt;= #{lat} + 0.003 AND lng >= #{lng} - 0.009 AND lng &lt;= #{lng} + 0.009		  		  
 		 GROUP BY rid
 		 ORDER BY count DESC
 	</select>
 	
 	<select id="selectTags" resultType="tagVO">
-		SELECT rid, GROUP_CONCAT(distinct tag) AS tag
-		  FROM cc_tag
-		 GROUP BY rid
+		SELECT t.rid, GROUP_CONCAT(distinct s.tag ORDER BY s.count DESC) AS tag
+  		  FROM cc_tag t
+  		  LEFT JOIN (
+			SELECT rid, tag, COUNT(tag) AS count
+      		  FROM cc_tag
+			 GROUP BY rid, tag
+			 ORDER BY count DESC
+			) s
+			ON t.rid = s.rid
+ 		 GROUP BY rid
 	</select>
 	
 	<select id="selectTopFour" resultType="topFourVO">
