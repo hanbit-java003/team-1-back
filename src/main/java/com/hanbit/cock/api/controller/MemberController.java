@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hanbit.cock.api.CockConstants;
 import com.hanbit.cock.api.annotation.SignInRequired;
 import com.hanbit.cock.api.service.MemberService;
+import com.hanbit.cock.api.vo.MemberDetailVO;
 import com.hanbit.cock.api.vo.MemberVO;
 
 @RestController
@@ -239,6 +240,30 @@ public class MemberController {
 		Map result = new HashMap();
 		result.put("status", "ok");
 
+		return result;
+	}
+	
+	// sns로그인
+	@PostMapping("/snsSignin")
+	public Map snsSignin(@RequestParam("nick") String nick,
+			@RequestParam("avatar") String avatar,
+			HttpSession session) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setNick(nick);
+		memberVO.setDetail(new MemberDetailVO());
+		memberVO.getDetail().setAvatar(avatar);
+		
+		session.setAttribute(CockConstants.SIGNIN_KEY, true);
+		session.setAttribute("nick", memberVO.getNick());
+		session.setAttribute("avatar", memberVO.getDetail().getAvatar());
+		
+		System.out.println(nick + avatar);
+		
+		Map result = new HashMap<>();
+		result.put("nick", memberVO.getNick());
+		result.put("avatar", memberVO.getDetail().getAvatar());
+		
+		
 		return result;
 	}
 	
