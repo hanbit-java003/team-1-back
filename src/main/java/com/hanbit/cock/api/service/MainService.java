@@ -25,6 +25,10 @@ public class MainService {
 		return mainDAO.selectArticleCockRest(locationVO);
 	}
 	
+	public List<MainVO> recommendCockRest() {
+		return mainDAO.selectRecommendCockRest();
+	}
+	
 	public List<TagVO> listRestTags() {
 		return mainDAO.selectRestTags();
 	}

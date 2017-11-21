@@ -40,6 +40,11 @@ public class MainController {
 		return mainService.articleCockRest(locationVO);
 	}
 	
+	@RequestMapping("/recommend")
+	public List<MainVO> recommendCockRest() {
+		return mainService.recommendCockRest();
+	}
+	
 	@RequestMapping("/tags")
 	public List<TagVO> listRestTags() {
 		return mainService.listRestTags();

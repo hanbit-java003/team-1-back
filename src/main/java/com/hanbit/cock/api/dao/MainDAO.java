@@ -25,6 +25,10 @@ public class MainDAO {
 		return sqlSession.selectList("cockMain.selectArticleRest", locationVO);
 	}
 	
+	public List<MainVO> selectRecommendCockRest() {
+		return sqlSession.selectList("cockMain.selectRecommendRest");
+	}
+	
 	public List<TagVO> selectRestTags() {
 		return sqlSession.selectList("cockMain.selectTags");
 	}

@@ -11,7 +11,7 @@
 			ON r.rid = a.rid
 		  LEFT JOIN cc_img i
 			ON a.rid = i.rid
-		 WHERE lat >= #{lat} - 0.003 AND lat &lt;= #{lat} + 0.003 AND lng >= #{lng} - 0.009 AND lng &lt;= #{lng} + 0.009
+		 WHERE lat >= #{lat} - 0.004 AND lat &lt;= #{lat} + 0.004 AND lng >= #{lng} - 0.0095 AND lng &lt;= #{lng} + 0.0095
 		 GROUP BY rid
 		 ORDER BY write_dt DESC
 	</select>
@@ -23,9 +23,21 @@
 			ON r.rid = a.rid 
 		  LEFT JOIN cc_img i
 			ON a.rid = i.rid
-		 WHERE lat >= #{lat} - 0.003 AND lat &lt;= #{lat} + 0.003 AND lng >= #{lng} - 0.009 AND lng &lt;= #{lng} + 0.009		  		  
+		 WHERE lat >= #{lat} - 0.004 AND lat &lt;= #{lat} + 0.004 AND lng >= #{lng} - 0.0095 AND lng &lt;= #{lng} + 0.0095		  		  
 		 GROUP BY rid
 		 ORDER BY count DESC
+	</select>
+	
+	<select id="selectRecommendRest" resultType="mainVO">
+		SELECT r.rid, lat, lng, name, i.path AS img, COUNT(distinct a.article_id) AS count, max(a.write_dt) AS write_dt
+		  FROM cc_rest r
+		  LEFT JOIN cc_article a
+			ON r.rid = a.rid 
+		  LEFT JOIN cc_img i
+			ON a.rid = i.rid		 
+		 GROUP BY rid
+		 ORDER BY count DESC
+		 LIMIT 10
 	</select>
 	
 	<select id="selectTags" resultType="tagVO">
