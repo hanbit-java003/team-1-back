@@ -247,21 +247,25 @@ public class MemberController {
 	@PostMapping("/snsSignin")
 	public Map snsSignin(@RequestParam("nick") String nick,
 			@RequestParam("avatar") String avatar,
+			@RequestParam("uid") String uid,
 			HttpSession session) {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setNick(nick);
 		memberVO.setDetail(new MemberDetailVO());
 		memberVO.getDetail().setAvatar(avatar);
+		memberVO.setUid(uid);
 		
 		session.setAttribute(CockConstants.SIGNIN_KEY, true);
 		session.setAttribute("nick", memberVO.getNick());
 		session.setAttribute("avatar", memberVO.getDetail().getAvatar());
+		session.setAttribute("uid", memberVO.getUid());
 		
 		System.out.println(nick + avatar);
 		
 		Map result = new HashMap<>();
 		result.put("nick", memberVO.getNick());
 		result.put("avatar", memberVO.getDetail().getAvatar());
+		result.put("uid", memberVO.getUid());
 		
 		
 		return result;
