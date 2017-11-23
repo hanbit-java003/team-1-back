@@ -28,4 +28,16 @@ public class BookmarkDAO {
 		return sqlSession.selectList("cockBookmark.selectBookmarkReview");
 	}
 
+	public List<BookmarkVO> selectBookmarkList(String uid) {
+		return sqlSession.selectList("cockBookmark.selectBookmarkList", uid);
+	}
+
+	public int insertBookmarkList(BookmarkVO bookmarkVO) {
+		return sqlSession.insert("cockBookmark.insertBookmarkList", bookmarkVO);
+	}
+
+	public int deleteBookmarkList(BookmarkVO bookmarkVO) {
+		return sqlSession.delete("cockBookmark.deleteBookmarkList", bookmarkVO);
+	}
+
 }

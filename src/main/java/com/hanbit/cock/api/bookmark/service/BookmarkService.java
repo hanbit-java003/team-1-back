@@ -27,4 +27,16 @@ public class BookmarkService {
 	public List<BookmarkReviewVO> pageBookmarkReview() {
 		return bookmarkDAO.selectBookmarkReview();
 	}
+
+	public List<BookmarkVO> bookmarkList(String uid) {
+		return bookmarkDAO.selectBookmarkList(uid);
+	}
+
+	public int saveBookmarkList(BookmarkVO bookmarkVO) {
+		return bookmarkDAO.insertBookmarkList(bookmarkVO);
+	}
+
+	public int deleteBookmarkList(BookmarkVO bookmarkVO) {
+		return bookmarkDAO.deleteBookmarkList(bookmarkVO);
+	}
 }

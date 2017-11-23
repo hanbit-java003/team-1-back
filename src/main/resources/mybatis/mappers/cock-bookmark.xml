@@ -4,11 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cockBookmark">
 	<select id="selectBookmarkReview" resultType="BookmarkReviewVO">
-		SELECT w.rid, address, review
+		SELECT w.rid, name , address, review
 		  FROM cc_bookmark_review w
+		  LEFT JOIN cc_bookmark b
+		    ON w.rid = b.rid
 		  LEFT JOIN cc_rest r
-		    ON r.rid = w.rid
-		 GROUP BY b.rid
+		    ON w.rid = r.rid
+		  LEFT JOIN cc_rest_detail d
+		    ON w.rid = d.rid
+		 GROUP BY rid
 	</select>
 
 	<select id="selectBookmark" resultType="BookmarkVO">
@@ -31,4 +35,26 @@
 		  FROM cc_tag
 		 GROUP BY rid
 	</select>
+
+	<select id="selectBookmarkList" resultType="BookmarkVO">
+		SELECT rid,uid
+			FROM cc_bookmark
+		WHERE uid = #{uid}
+	</select>
+
+	<!-- 맛집 즐겨찾기 추가. -->
+	<insert id="insertBookmarkList" parameterType="BookmarkVO">
+		INSERT cc_bookmark
+			(uid,rid)
+		VALUES
+			(#{uid},#{rid});
+	</insert>
+
+	<!-- 맛집 즐겨찾기 삭제 -->
+	<delete id="deleteBookmarkList" parameterType="BookmarkVO">
+		DELETE
+			FROM cc_bookmark
+		WHERE rid = #{rid} and uid = #{uid}
+	</delete>
+
 </mapper>
