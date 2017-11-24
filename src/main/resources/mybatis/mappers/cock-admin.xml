@@ -89,7 +89,7 @@
 	  		  FROM cc_article  		 
 			 ORDER BY write_dt DESC
 	 		 LIMIT #{firstIndex}, #{rowsPerPage}
-			) t, (SELECT @rownum := #{firstIndex}) r;
+			) t, (SELECT @rownum := #{firstIndex}) r
 	</select>
 	
 	<!-- 메뉴 삭제 -->
