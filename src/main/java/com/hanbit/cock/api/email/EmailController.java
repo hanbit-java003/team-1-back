@@ -124,7 +124,7 @@ public class EmailController {
 			/*javax.mail.Session  mailSession = (javax.mail.Session) session.getInstance(props,
 					new javax.mail.Authenticator() {
 				protected javax.mail.PasswordAuthentication getpasswordAutentication(){
-					return new javax.mail.PasswordAuthentication("jmkjmk7410@gmail.com", "ansrl1042");
+					return new javax.mail.PasswordAuthentication("구글계정", "구글 비밀번호");
 				}
 			});*/
 			
