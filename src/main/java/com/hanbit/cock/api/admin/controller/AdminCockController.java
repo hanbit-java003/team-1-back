@@ -30,10 +30,7 @@ import com.hanbit.cock.api.vo.RestDetailVO;
 public class AdminCockController {
 	
 	@Autowired
-	private AdminCockService adminCockService;
-	
-	@Autowired
-	private FileService fileService;
+	private AdminCockService adminCockService;	
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
