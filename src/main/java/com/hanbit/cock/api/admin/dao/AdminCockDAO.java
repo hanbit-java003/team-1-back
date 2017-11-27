@@ -6,10 +6,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hanbit.cock.api.admin.vo.AdminAlertArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminPageVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.vo.ArticleVO;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
 @Repository
@@ -83,6 +85,44 @@ public class AdminCockDAO {
 	// 회원 관리 리스트
 	public List<AdminMemberVO> selectAdminMember() {
 		return sqlSession.selectList("cockAdmin.selectAdminMember");
+	}
+
+	// 신고 기사 게시물 접수 리스트
+	public List<AdminAlertArticleVO> selectAdminAlertArticle(int page) {
+		int rowsPerPage = 20;
+		int firstIndex = (page - 1) * rowsPerPage;
+		
+		AdminPageVO adminPageVO = new AdminPageVO();
+		adminPageVO.setFirstIndex(firstIndex);
+		adminPageVO.setRowsPerPage(rowsPerPage);
+		
+		return sqlSession.selectList("cockAdmin.selectAdminAlertArticle", adminPageVO);
+	}
+
+	public int selectMaxAAID(AdminAlertArticleVO aaa) {
+		return sqlSession.selectOne("cockAdmin.getMaxAAID", aaa);
+	}
+	
+	public int insertAdminAlertArticle(AdminAlertArticleVO aaa) {
+		return sqlSession.insert("cockAdmin.insertAdminAlertArticle", aaa);
+	}
+
+	public AdminAlertArticleVO selectAdminAlertArticleDetail(AdminAlertArticleVO aaa) {
+		return sqlSession.selectOne("cockAdmin.selectAdminAlertArticleDetail", aaa);
+	}
+
+	public int updateAlertArticle(AdminAlertArticleVO data) {
+		return sqlSession.update("cockAdmin.updateAlertArticle", data);
+	}
+
+	// 기사 존재 유무
+	public int getArticle(AdminAlertArticleVO data) {
+		return sqlSession.selectOne("cockAdmin.existArticle", data);
+	}
+
+	// 신고 게시글 제거
+	public int removeAlertArticle(AdminAlertArticleVO data) {
+		return sqlSession.delete("cockAdmin.removeAlertArticle", data);
 	}
 
 }
