@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hanbit.cock.api.dao.MemberDAO;
 import com.hanbit.cock.api.emblem.dao.CockEmblemDAO;
 import com.hanbit.cock.api.vo.MemberVO;
+import com.mysql.fabric.xmlrpc.base.Member;
 import com.hanbit.cock.api.exception.CockException;
 import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.FileVO;
@@ -171,6 +172,7 @@ public class MemberService {
 		memberDAO.updatePassword(memberVO);
 
 	}
+
 	
 	private void bannPassword(String uid, String currentPw){
 		String encodedPw = memberDAO.selectPassword(uid);// 암호화된 패스워드
@@ -179,6 +181,7 @@ public class MemberService {
 			throw new CockException("비밀번호가 일치하지 않습니다. 확인해주세요!");
 		}
 	}
+	 
 	
 	public void bannPasswordVall(MemberVO memberVO){
 		
@@ -190,6 +193,28 @@ public class MemberService {
 		}
 	}
 	
+	private void changePasswordEmail(String email, String newPw){
+
+		// 패스워드를 암호화 하기 위해서 만들어줌.		
+		String password = passwordEncoder.encode(newPw);
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setEmail(email);
+		memberVO.setPassword(password); // 이녀석은 암호화 해줘야한다.
+
+		memberDAO.updatePasswordEmail(memberVO);
+
+	}
+	
+	public void changePasswordEmailVall(MemberVO memberVO){
+		// 패스워드.
+				if(StringUtils.isNotBlank(memberVO.getPassword())) {
+					changePasswordEmail(memberVO.getEmail(), 
+							memberVO.getPassword());
+					
+				}
+	}
+	
 	//회원탈퇴단.
 	public int bannMember(MemberVO memberVO) {
 
@@ -197,3 +222,4 @@ public class MemberService {
 	}
 
 }
+ 

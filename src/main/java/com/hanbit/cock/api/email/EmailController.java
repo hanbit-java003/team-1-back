@@ -18,11 +18,13 @@ import javax.mail.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hanbit.cock.api.dao.MemberDAO;
 import com.hanbit.cock.api.exception.CockException;
 import com.hanbit.cock.api.service.MemberService;
 import com.hanbit.cock.api.vo.MemberVO;
@@ -36,12 +38,61 @@ public class EmailController {
 	@Autowired
 	private MemberService memberService;
 	
-	String authNum;
-	String authNumvall;
+	@Autowired
+	private MemberDAO memberDAO;
+	
+	private String authNum;
+	private String authNumvall;
 	
 	
 	public void setAuthNumvall(String authNumvall) {
 		this.authNumvall = authNumvall;
+	}
+	
+	// 비밀번호 찾기 이메일 인증 후 비밀번호 체인지.
+	@PostMapping("/change/password")
+	public Map changePassword(@RequestParam("email") String email,
+			@RequestParam("password") String password) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setEmail(email);
+		memberVO.setPassword(password);
+		
+		memberService.changePasswordEmailVall(memberVO);
+		
+		Map result = new HashMap();
+		result.put("status", "ok");
+
+		return result;
+	}
+	
+	// 비밀번호 찾기 이메일 인증
+	@RequestMapping("/find/email")
+	public Map findEmail(@RequestParam("email") String email,
+			HttpServletResponse response, HttpServletRequest request)throws Exception {
+		MemberVO memberVO = memberDAO.selectMember(email);
+		
+		if (memberVO == null) {
+			throw new CockException("가입되지 않은 이메일입니다.");
+		}
+		
+		email = request.getParameter("email");
+		
+		memberVO.setEmail(email);
+			
+		authNum  = RandomNum();
+
+		sendEmail(email.toString(), authNum);
+		
+		
+
+		Map map = new HashMap();
+		map.put("status", "ok");
+		map.put("email",email);
+		map.put("authNum",authNum);
+		
+		System.out.println(email + authNum);
+
+		return map;
 	}
 	
 	// 인증번호 검증.
