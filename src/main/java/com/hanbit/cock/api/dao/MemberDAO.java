@@ -65,6 +65,14 @@ public class MemberDAO {
 		return sqlSession.update("member.updatePassword", memberVO);
 	}
 	
+		
+	// 비밀번호 찾아와서 수정 , email로
+		public int updatePasswordEmail(MemberVO memberVO) {
+			
+			return sqlSession.update("member.updatePasswordEmail", memberVO);	
+		}
+		
+	
 	// 회원탈퇴
 	public int deleteMember(MemberVO memberVO) {
 		
