@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="emblem">
 	
+	<select id="selectEmblem" parameterType="emblemAchiveVO" resultType="emblemAchiveVO">
+		SELECT *
+		  FROM emblem_member
+		 WHERE uid=#{uid}
+	</select>
+	
 	<select id="selectUidEmblem" parameterType="string" resultType="emblemVO">
 		SELECT e.name, e.img, e.how_achieve
 		  FROM emblem_achive a, emblem e 

@@ -162,8 +162,8 @@ public class CockInsertService {
 			String fileName = FilenameUtils.removeExtension(imgFile.getOriginalFilename());
 			String fileExt = FilenameUtils.getExtension(imgFile.getOriginalFilename());
 			String fileId = "art-" + fileName + "-" + fileIndex;
-			//String filePath = "/hanbit2/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
-			String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
+			String filePath = "/hanbit2/webpack/team-1-front/src/img/insert/" + fileId + "." + fileExt;
+			//String filePath = "/hanbit/webpack/cock-front/src/img/insert/" + fileId + "." + fileExt;
 			
 			FileVO fileVO = new FileVO();
 			fileVO.setFileId(fileId);

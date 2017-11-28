@@ -19,5 +19,4 @@ public class CockEmblemController {
 	public EmblemAchiveVO getEmblem(@PathVariable(value="uid") String uid) {
 		return cockEmblemService.getEmblem(uid);
 	}
-	
 }

@@ -15,6 +15,7 @@ public class CockEmblemService {
 	public EmblemAchiveVO getEmblem(String uid) {
 		EmblemAchiveVO emblemAchive = new EmblemAchiveVO();
 		emblemAchive.setUid(uid);
+		emblemAchive = cockEmblemDAO.selectEmblem(emblemAchive); 
 		emblemAchive.setEmblems(cockEmblemDAO.selectUidEmblem(uid));
 		
 		return emblemAchive;

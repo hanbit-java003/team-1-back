@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hanbit.cock.api.data.DataCollection;
+import com.hanbit.cock.api.emblem.vo.EmblemAchiveVO;
 import com.hanbit.cock.api.emblem.vo.EmblemVO;
 
 @Repository
@@ -14,6 +15,10 @@ public class CockEmblemDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+
+	public EmblemAchiveVO selectEmblem(EmblemAchiveVO emblemAchive) {
+		return sqlSession.selectOne("emblem.selectEmblem", emblemAchive);
+	}
 	
 	public List<EmblemVO> selectUidEmblem(String uid) {
 		return sqlSession.selectList("emblem.selectUidEmblem", uid);
