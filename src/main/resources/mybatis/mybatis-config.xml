@@ -45,6 +45,7 @@
 		<typeAlias alias="adminMemberVO" type="com.hanbit.cock.api.admin.vo.AdminMemberVO"/>
 		<typeAlias alias="adminPageVO" type="com.hanbit.cock.api.admin.vo.AdminPageVO"/>
 		<typeAlias alias="countVO" type="com.hanbit.cock.api.admin.vo.CountVO"/>
+		<typeAlias alias="adminAlertArticleVO" type="com.hanbit.cock.api.admin.vo.AdminAlertArticleVO"/>
 
 		<typeAlias alias="cockMemberWroteVO" type="com.hanbit.cock.api.member.vo.CockMemberWroteVO"/>
 		<typeAlias alias="cockMemberBookmarkVO" type="com.hanbit.cock.api.member.vo.CockMemberBookmarkVO"/>

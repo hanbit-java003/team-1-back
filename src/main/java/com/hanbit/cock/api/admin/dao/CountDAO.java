@@ -22,4 +22,8 @@ public class CountDAO {
 		return sqlSession.selectOne("cockAdmin.selectCountMember");
 	}
 
+	public int selectCountAlertArticle() {
+		return sqlSession.selectOne("cockAdmin.selectCountAlertArticle");
+	}
+
 }

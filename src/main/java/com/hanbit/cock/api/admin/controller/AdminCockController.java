@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +17,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hanbit.cock.api.admin.service.AdminCockService;
+import com.hanbit.cock.api.admin.vo.AdminAlertArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminArticleVO;
 import com.hanbit.cock.api.admin.vo.AdminMemberVO;
 import com.hanbit.cock.api.admin.vo.AdminRestVO;
+import com.hanbit.cock.api.annotation.SignInRequired;
 import com.hanbit.cock.api.service.FileService;
 import com.hanbit.cock.api.vo.RestDetailVO;
 
@@ -27,10 +30,7 @@ import com.hanbit.cock.api.vo.RestDetailVO;
 public class AdminCockController {
 	
 	@Autowired
-	private AdminCockService adminCockService;
-	
-	@Autowired
-	private FileService fileService;
+	private AdminCockService adminCockService;	
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
@@ -111,11 +111,54 @@ public class AdminCockController {
 		return result;
 	}
 	
-	
 	// 회원 관리 리스트
 	@RequestMapping("/member")
 	public List<AdminMemberVO> listAdminMember() {
 		return adminCockService.listAdminMember();
 	}
 	
+	// 게시글 신고 페이지
+	@RequestMapping("/alert/articles")
+	public List<AdminAlertArticleVO> getListAlertArticles(@RequestParam(value="page", defaultValue="1") int page) {
+		return adminCockService.listAdminAlertArticle(page);
+	}
+	
+	// 게시글 신고 접수 리스트 페이지
+	@SignInRequired
+	@PostMapping("/alert/article/insert")
+	public int saveAlertArticle(@RequestBody AdminAlertArticleVO data) {
+		return adminCockService.saveAlertArticle(data);
+	}
+	
+	// 게시글 신고 접수 세부정보 페이지
+	@RequestMapping("/alert/article/detail/{rid}/{articleId}/{aaid}")
+	public AdminAlertArticleVO getAlertArticle(@PathVariable("rid") int rid, @PathVariable("articleId") int articleId, @PathVariable("aaid") int aaid) {
+		AdminAlertArticleVO aaa = new AdminAlertArticleVO();
+		aaa.setRid(rid);
+		aaa.setArticleId(articleId);
+		aaa.setAaid(aaid);
+		return adminCockService.adminAlertArticle(aaa);
+	}
+	
+	// 게시글 신고 접수 처리 페이지
+	@PostMapping("/alert/article/apply")
+	public Map applyAlertArticle(@RequestBody AdminAlertArticleVO data) {
+		String msg = adminCockService.applyAlertArticle(data);
+		
+		Map result = new HashMap();
+		result.put("msg", msg);
+		
+		return result;
+	}
+	
+	// 게시글 신고 접수 처리 페이지
+	@PostMapping("/alert/article/remove")
+	public Map removeAlertArticle(@RequestBody AdminAlertArticleVO data) {
+		String msg = adminCockService.removeAlertArticle(data);
+		
+		Map result = new HashMap();
+		result.put("msg", msg);
+		
+		return result;
+	}
 }

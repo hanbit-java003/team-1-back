@@ -22,6 +22,12 @@
   		  FROM cc_member
 	</select>
 	
+	<!-- 신고 게시글 수 -->
+	<select id="selectCountAlertArticle" resultType="int">
+		SELECT COUNT(*) AS count
+  		  FROM cc_alert_article
+	</select>
+	
 	<!-- 맛집 관리 -->
 	<select id="selectAdminRest" resultType="adminRestVO">
 		SELECT r.rid, name, lat, lng, count(article_id) AS count, address, phone, operating, signature, d.status
@@ -89,7 +95,7 @@
 	  		  FROM cc_article  		 
 			 ORDER BY write_dt DESC
 	 		 LIMIT #{firstIndex}, #{rowsPerPage}
-			) t, (SELECT @rownum := #{firstIndex}) r
+			) t, (SELECT @rownum := #{firstIndex}) r;
 	</select>
 	
 	<!-- 메뉴 삭제 -->
@@ -131,5 +137,59 @@
 		 GROUP BY uid
 		 ORDER BY m.create_dt DESC
 	</select>
+	
+	<!-- 신고 기사 게시글 관리 -->
+	<select id="selectAdminAlertArticle" resultType="adminAlertArticleVO">
+		SELECT t.*, @rowNum := @rownum + 1 as no
+  		  FROM (
+			SELECT *
+	  		  FROM cc_alert_article  		 
+			 ORDER BY rid DESC, article_id DESC, aaid DESC
+	 		 LIMIT #{firstIndex}, #{rowsPerPage}
+			) t, (SELECT @rownum := #{firstIndex}) r;
+	</select>
+	
+	<!-- 신고 기사 게시글 다음 번호 가져오기 -->
+	<select id="getMaxAAID" resultType="int" parameterType="adminAlertArticleVO" >
+		SELECT IFNULL(MAX(aaid)+1, 0) n
+		  FROM cc_alert_article
+		 WHERE rid=${rid} AND article_id=${articleId}
+	</select>
+	
+	<!-- 신고 기사 게시글 정보 접수 -->
+	<insert id="insertAdminAlertArticle" parameterType="adminAlertArticleVO">
+		INSERT INTO cc_alert_article
+			(aaid, rid, article_id, uid, report, status)
+		VALUES
+			(#{aaid}, #{rid}, #{articleId}, #{uid}, #{report}, #{status})
+	</insert>
+	
+	<!-- 신고 기사 게시글 상세페이지 -->
+	<select id="selectAdminAlertArticleDetail" resultType="adminAlertArticleVO" parameterType="adminAlertArticleVO" >
+		SELECT *
+		  FROM cc_alert_article
+		 WHERE rid=#{rid} AND article_id=#{articleId} AND aaid=#{aaid}
+	</select>
+	
+	<!-- 신고 기사 게시글 정보 수정 -->
+	<update id="updateAlertArticle" parameterType="restDetailVO">
+		UPDATE cc_alert_article
+		   SET report = #{report},
+		   	   status = #{status}
+		 WHERE rid = #{rid} AND article_id=#{articleId} AND aaid=#{aaid}
+	</update>
+	
+	<!-- 기사가 존재하는지 확인 -->
+	<select id="existArticle" resultType="int" parameterType="adminAlertArticleVO" >
+		SELECT EXISTS
+				(SELECT * FROM cc_article WHERE rid=#{rid} AND article_id=#{articleId}) AS success
+	</select>
+	
+	<!-- 신고 게시글 삭제 -->
+	<delete id="removeAlertArticle" parameterType="adminAlertArticleVO">
+		DELETE
+		  FROM cc_alert_article   
+		 WHERE rid = #{rid} AND article_id=#{articleId} AND aaid=#{aaid}
+	</delete>
 	
 </mapper>

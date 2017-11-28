@@ -5,8 +5,7 @@ public class MainVO {
 	private Integer rid;
 	private String name;
 	private double lat;
-	private double lng;
-	private String tags;
+	private double lng;	
 	private String img;
 	private Integer count;
 	private String writeDt;
@@ -34,13 +33,7 @@ public class MainVO {
 	}
 	public void setLng(double lng) {
 		this.lng = lng;
-	}
-	public String getTags() {
-		return tags;
-	}
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
+	}	
 	public String getImg() {
 		return img;
 	}

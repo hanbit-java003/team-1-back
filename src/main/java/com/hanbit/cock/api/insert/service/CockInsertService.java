@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hanbit.cock.api.admin.vo.AdminAlertArticleVO;
 import com.hanbit.cock.api.annotation.EmblemUpdate;
 import com.hanbit.cock.api.insert.dao.CockInsertDAO;
 import com.hanbit.cock.api.service.FileService;
@@ -244,12 +245,19 @@ public class CockInsertService {
 		art.setUid(uid);
 				
 		art = cockInsertDAO.selectArticle(art);
-
+		art.setImgs(cockInsertDAO.selectImgs(art));
+		
 		cockInsertDAO.removeMenus(art);
 		cockInsertDAO.removeTags(art);
+		for (ImgVO img : art.getImgs()) {
+			String oldFileId = img.getPath().replace("/api/file/", "");
+			System.out.println("delete file: " + oldFileId);
+			fileService.removeFile(oldFileId);
+		}
 		cockInsertDAO.removeImgs(art);
 		cockInsertDAO.removeArticle(art);
 		
 		return true;
 	}
+
 }

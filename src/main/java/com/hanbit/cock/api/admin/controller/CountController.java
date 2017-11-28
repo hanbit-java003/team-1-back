@@ -28,4 +28,9 @@ public class CountController {
 		return countService.adminCountMember();
 	}
 
+	@RequestMapping("/alert/article")
+	public int adminCountAlertArticle() {
+		return countService.adminCountAlertArticle();
+	}
+	
 }

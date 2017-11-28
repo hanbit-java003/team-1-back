@@ -23,4 +23,8 @@ public class CountService {
 		return countDAO.selectCountMember();
 	}
 
+	public int adminCountAlertArticle() {
+		return countDAO.selectCountAlertArticle();
+	}
+
 }

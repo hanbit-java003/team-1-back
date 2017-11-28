@@ -5,6 +5,7 @@ public class TopFourVO {
 	private Integer rid;
 	private String name;
 	private String img;
+	private Integer articleId;
 	private Integer count;
 	private Integer rank;
 	
@@ -25,6 +26,12 @@ public class TopFourVO {
 	}
 	public void setImg(String img) {
 		this.img = img;
+	}
+	public Integer getArticleId() {
+		return articleId;
+	}
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
 	}
 	public Integer getCount() {
 		return count;
