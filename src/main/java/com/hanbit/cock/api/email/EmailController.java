@@ -43,6 +43,7 @@ public class EmailController {
 	
 	private String authNum;
 	private String authNumvall;
+	private String subject;
 	
 	
 	public void setAuthNumvall(String authNumvall) {
@@ -80,8 +81,10 @@ public class EmailController {
 		memberVO.setEmail(email);
 			
 		authNum  = RandomNum();
+		
+		subject = "CockCock 비밀번호 찾기 인증번호 전달";
 
-		sendEmail(email.toString(), authNum);
+		sendEmail(email.toString(), authNum, subject);
 		
 		
 
@@ -132,8 +135,10 @@ public class EmailController {
 		memberService.emailCheck(memberVO);
 		
 		authNum  = RandomNum();
+		
+		subject = "CockCock 회원가입 인증번호 전달";
 
-		sendEmail(email.toString(), authNum);
+		sendEmail(email.toString(), authNum, subject);
 		
 		
 
@@ -149,9 +154,9 @@ public class EmailController {
 
 
 	// sendEmail 메소드
-	private void sendEmail(String email, String authNum) {
+	private void sendEmail(String email, String authNum, String subject) {
 		String host = "smtp.gmail.com"; // smtp 서버
-		String subject = "CockCock 인증번호 전달";
+		/*String subject = "CockCock 인증번호 전달";*/
 		String fromName= "CockCock 관리자";
 		String from = "cockcock@cockcock.com"; // 보내는 메일
 		String to1 = email;
